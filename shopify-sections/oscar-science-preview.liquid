@@ -1,0 +1,155 @@
+{% comment %}
+  ============================================
+  SHOPIFY SECTION: SCIENCE PREVIEW
+  Paste into: Sections > Add new section > "oscar-science-preview"
+  ============================================
+{% endcomment %}
+
+<section class="oscar-sci" id="oscar-sci-{{ section.id }}">
+  <div class="oscar-sci__inner">
+    <div class="oscar-sci__head">
+      <div>
+        <p class="oscar-sci__eyebrow oscar-reveal">{{ section.settings.eyebrow }}</p>
+        <h2 class="oscar-sci__heading oscar-reveal">{{ section.settings.heading }}</h2>
+        <p class="oscar-sci__sub oscar-reveal">{{ section.settings.subheading }}</p>
+      </div>
+      {%- if section.settings.cta_link != blank -%}
+        <a href="{{ section.settings.cta_link }}" class="oscar-sci__more oscar-reveal">
+          <span>{{ section.settings.cta_text }}</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="oscar-sci__grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link | default: '#' }}" class="oscar-sci__card oscar-reveal" {{ block.shopify_attributes }}>
+          <div class="oscar-sci__thumb">
+            {%- if block.settings.image -%}
+              <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+            {%- endif -%}
+            <span class="oscar-sci__tag">{{ block.settings.tag }}</span>
+          </div>
+          <div class="oscar-sci__body">
+            <h3 class="oscar-sci__title">{{ block.settings.title }}</h3>
+            <p class="oscar-sci__excerpt">{{ block.settings.excerpt }}</p>
+            <div class="oscar-sci__meta">
+              <span class="oscar-sci__time">{{ block.settings.read_time }}</span>
+              <span class="oscar-sci__read">READ →</span>
+            </div>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #oscar-sci-{{ section.id }} { background: #FFFFFF; padding: 4rem 0; font-family: 'Montserrat', sans-serif; }
+  @media (min-width: 768px) { #oscar-sci-{{ section.id }} { padding: 6rem 0; } }
+  @media (min-width: 1024px) { #oscar-sci-{{ section.id }} { padding: 7rem 0; } }
+  #oscar-sci-{{ section.id }} .oscar-sci__inner { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; }
+
+  .oscar-sci__head { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3.5rem; }
+  @media (min-width: 1024px) { .oscar-sci__head { flex-direction: row; align-items: end; justify-content: space-between; gap: 1.5rem; } }
+
+  .oscar-sci__eyebrow { font-weight: 700; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: #C8812E; margin: 0 0 0.75rem; }
+  .oscar-sci__heading { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 36px; color: #1C2B4A; margin: 0 0 0.75rem; line-height: 1.1; }
+  @media (min-width: 1024px) { .oscar-sci__heading { font-size: 48px; } }
+  .oscar-sci__sub { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 18px; color: #6B6258; max-width: 32rem; margin: 0; }
+
+  .oscar-sci__more {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-weight: 700; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #1C2B4A; text-decoration: none; padding-bottom: 2px; border-bottom: 2px solid #C8812E;
+    transition: transform 0.2s;
+  }
+  .oscar-sci__more:hover { transform: translateX(4px); }
+
+  .oscar-sci__grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  @media (min-width: 768px) { .oscar-sci__grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .oscar-sci__card {
+    background: #F9F4EC; border: 1px solid #EFE0C0; border-radius: 1.5rem; overflow: hidden;
+    text-decoration: none; color: inherit; display: block; height: 100%;
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s cubic-bezier(0.22,1,0.36,1);
+  }
+  .oscar-sci__card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(28,43,74,0.10); }
+
+  .oscar-sci__thumb { position: relative; height: 176px; background: #1C2B4A; overflow: hidden; }
+  .oscar-sci__thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+  .oscar-sci__thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, #1C2B4A, transparent); }
+  .oscar-sci__tag {
+    position: absolute; bottom: 1rem; left: 1.25rem; z-index: 2;
+    color: rgba(255,255,255,0.6); font-weight: 600; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
+  }
+
+  .oscar-sci__body { padding: 1.5rem; }
+  .oscar-sci__title { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 18px; color: #1A1610; margin: 0 0 0.75rem; line-height: 1.3; }
+  .oscar-sci__excerpt {
+    font-weight: 300; font-size: 14px; color: #6B6258; margin: 0; line-height: 1.6;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .oscar-sci__meta { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; }
+  .oscar-sci__time { font-weight: 300; font-size: 12px; color: #6B6258; }
+  .oscar-sci__read { font-weight: 700; font-size: 11px; letter-spacing: 0.15em; color: #C8812E; }
+
+  .oscar-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1); }
+  .oscar-reveal.is-visible { opacity: 1; transform: translateY(0); }
+</style>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('#oscar-sci-{{ section.id }} .oscar-reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-visible'); }); return; }
+    var i = 0;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          setTimeout(function(){ en.target.classList.add('is-visible'); }, i * 130);
+          i++;
+          io.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: '-80px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Oscar Science Preview",
+  "settings": [
+    { "type": "text", "id": "eyebrow",    "label": "Eyebrow",         "default": "Evidence-Based" },
+    { "type": "text", "id": "heading",    "label": "Heading",         "default": "Science-backed formulas" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading (italic)", "default": "We develop our brand and products based on research done on articles and peer-reviewed research." },
+    { "type": "text", "id": "cta_text",   "label": "CTA text",        "default": "View All Research" },
+    { "type": "url",  "id": "cta_link",   "label": "CTA link" }
+  ],
+  "blocks": [
+    {
+      "type": "article",
+      "name": "Article",
+      "settings": [
+        { "type": "image_picker", "id": "image",     "label": "Thumbnail" },
+        { "type": "text", "id": "tag",       "label": "Tag",       "default": "Probiotics" },
+        { "type": "text", "id": "title",     "label": "Title" },
+        { "type": "textarea", "id": "excerpt", "label": "Excerpt" },
+        { "type": "text", "id": "read_time", "label": "Read time", "default": "5 min read" },
+        { "type": "url",  "id": "link",      "label": "Article link" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Oscar Science Preview",
+      "blocks": [
+        { "type": "article", "settings": { "tag": "Probiotics", "title": "B. Coagulans effectiveness tested in dogs",      "excerpt": "A clinical study evaluating the survival and colonisation rate of Bacillus coagulans in canine gastrointestinal tracts across multiple breed sizes.", "read_time": "5 min read" } },
+        { "type": "article", "settings": { "tag": "Gut Health", "title": "Rising gut health problems in various dog breeds", "excerpt": "An analysis of increasing gastrointestinal disorders in companion dogs correlated with ultra-processed commercial diets and reduced microbiome diversity.", "read_time": "7 min read" } },
+        { "type": "article", "settings": { "tag": "Research",   "title": "Probiotics effect on dogs",                     "excerpt": "Meta-analysis of 18 controlled studies examining probiotic supplementation outcomes in dogs — stool quality, immune response, and coat condition.",   "read_time": "6 min read" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

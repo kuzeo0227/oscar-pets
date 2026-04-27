@@ -1,0 +1,188 @@
+{% comment %}
+  ============================================
+  SHOPIFY SECTION: INGREDIENTS SHOWCASE
+  Paste into: Sections > Add new section > "oscar-ingredients-showcase"
+  ============================================
+{% endcomment %}
+
+<section class="oscar-ing" id="oscar-ing-{{ section.id }}">
+  <div class="oscar-ing__inner">
+    <p class="oscar-ing__eyebrow oscar-reveal">{{ section.settings.eyebrow }}</p>
+    <h2 class="oscar-ing__heading oscar-reveal">{{ section.settings.heading }}</h2>
+    <p class="oscar-ing__sub oscar-reveal">{{ section.settings.subheading }}</p>
+
+    <div class="oscar-ing__filters oscar-reveal">
+      <button class="oscar-ing__pill is-active" data-filter="ALL">ALL</button>
+      <button class="oscar-ing__pill" data-filter="Science-backed">Science-backed</button>
+      <button class="oscar-ing__pill" data-filter="Premium Sourced">Premium Sourced</button>
+      <button class="oscar-ing__pill" data-filter="Probiotics">Probiotics</button>
+      <button class="oscar-ing__pill" data-filter="Others">Others</button>
+    </div>
+
+    <div class="oscar-ing__grid" data-grid>
+      {%- for block in section.blocks -%}
+        {%- assign cat = block.settings.category -%}
+        {%- assign cat_class = 'cat-others' -%}
+        {%- if cat == 'Probiotics'      -%}{%- assign cat_class = 'cat-probiotics'  -%}{%- endif -%}
+        {%- if cat == 'Science-backed'  -%}{%- assign cat_class = 'cat-science'     -%}{%- endif -%}
+        {%- if cat == 'Premium Sourced' -%}{%- assign cat_class = 'cat-premium'     -%}{%- endif -%}
+
+        <article class="oscar-ing__card oscar-reveal" data-category="{{ cat }}" {{ block.shopify_attributes }}>
+          <div class="oscar-ing__media">
+            {%- if block.settings.image -%}
+              <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.name | escape }}" loading="lazy">
+            {%- else -%}
+              <div class="oscar-ing__placeholder"></div>
+            {%- endif -%}
+          </div>
+          <div class="oscar-ing__body">
+            <h3 class="oscar-ing__name">{{ block.settings.name }}</h3>
+            <p class="oscar-ing__desc">{{ block.settings.description }}</p>
+            <span class="oscar-ing__pill-cat {{ cat_class }}">{{ cat | upcase }}</span>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #oscar-ing-{{ section.id }} { background: #FFFFFF; padding: 4rem 0; font-family: 'Montserrat', sans-serif; }
+  @media (min-width: 768px) { #oscar-ing-{{ section.id }} { padding: 6rem 0; } }
+  @media (min-width: 1024px) { #oscar-ing-{{ section.id }} { padding: 7rem 0; } }
+  #oscar-ing-{{ section.id }} .oscar-ing__inner { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; }
+
+  .oscar-ing__eyebrow { text-align: center; font-weight: 700; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: #C8812E; margin: 0 0 1rem; }
+  .oscar-ing__heading { text-align: center; font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 36px; color: #1C2B4A; margin: 0 0 1rem; line-height: 1.1; }
+  @media (min-width: 1024px) { .oscar-ing__heading { font-size: 48px; } }
+  .oscar-ing__sub { text-align: center; max-width: 36rem; margin: 0 auto 3rem; font-weight: 400; font-size: 16px; color: #6B6258; }
+
+  .oscar-ing__filters { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 2.5rem; }
+  .oscar-ing__pill {
+    background: #FFFFFF; color: #1C2B4A; border: 1px solid #1C2B4A;
+    font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.625rem 1.25rem; border-radius: 999px; cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+  }
+  .oscar-ing__pill:hover { transform: scale(1.04); }
+  .oscar-ing__pill.is-active { background: #1C2B4A; color: #FFFFFF; }
+
+  .oscar-ing__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  @media (min-width: 768px) { .oscar-ing__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1024px) { .oscar-ing__grid { grid-template-columns: repeat(5, 1fr); } }
+
+  .oscar-ing__card {
+    background: #FFFFFF; border-radius: 1rem; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08); display: flex; flex-direction: column;
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s cubic-bezier(0.22,1,0.36,1);
+  }
+  .oscar-ing__card[hidden] { display: none; }
+  .oscar-ing__card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+
+  .oscar-ing__media { position: relative; height: 200px; overflow: hidden; background: #F9F4EC; }
+  .oscar-ing__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .oscar-ing__card:hover .oscar-ing__media img { transform: scale(1.05); }
+  .oscar-ing__placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #F9F4EC, #EFE0C0); }
+
+  .oscar-ing__body { padding: 1rem; display: flex; flex-direction: column; flex: 1; }
+  .oscar-ing__name { font-weight: 700; font-size: 15px; color: #1A1610; margin: 0; line-height: 1.3; }
+  .oscar-ing__desc {
+    font-weight: 300; font-size: 13px; color: #6B6258; margin: 0.375rem 0 0;
+    line-height: 1.5; flex: 1;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .oscar-ing__pill-cat {
+    align-self: flex-start; margin-top: 1rem;
+    font-weight: 700; font-size: 10px; letter-spacing: 0.1em;
+    padding: 0.25rem 0.625rem; border-radius: 999px;
+  }
+  .cat-probiotics { background: #1C2B4A; color: #FFFFFF; }
+  .cat-science    { background: #C8812E; color: #FFFFFF; }
+  .cat-premium    { background: #D4A843; color: #1A1610; }
+  .cat-others     { background: #E5E5E5; color: #6B6258; }
+
+  .oscar-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+  .oscar-reveal.is-visible { opacity: 1; transform: translateY(0); }
+</style>
+
+<script>
+  (function () {
+    var root = document.querySelector('#oscar-ing-{{ section.id }}');
+    var pills = root.querySelectorAll('.oscar-ing__pill');
+    var cards = root.querySelectorAll('.oscar-ing__card');
+
+    pills.forEach(function (p) {
+      p.addEventListener('click', function () {
+        pills.forEach(function (x) { x.classList.remove('is-active'); });
+        p.classList.add('is-active');
+        var f = p.getAttribute('data-filter');
+        cards.forEach(function (c) {
+          var match = (f === 'ALL') || (c.getAttribute('data-category') === f);
+          c.hidden = !match;
+        });
+      });
+    });
+
+    var els = root.querySelectorAll('.oscar-reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-visible'); }); return; }
+    var i = 0;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          setTimeout(function(){ en.target.classList.add('is-visible'); }, (i % 5) * 80);
+          i++;
+          io.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: '-80px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Oscar Ingredients",
+  "settings": [
+    { "type": "text", "id": "eyebrow",    "label": "Eyebrow",    "default": "What Goes Inside" },
+    { "type": "text", "id": "heading",    "label": "Heading",    "default": "Premium-sourced ingredients" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Every ingredient selected for purpose and purity — no fluff, no fillers." }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "text",         "id": "name",        "label": "Name" },
+        { "type": "text",         "id": "description", "label": "Description (1 line)" },
+        {
+          "type": "select", "id": "category", "label": "Category", "default": "Others",
+          "options": [
+            { "value": "Probiotics",      "label": "Probiotics" },
+            { "value": "Science-backed",  "label": "Science-backed" },
+            { "value": "Premium Sourced", "label": "Premium Sourced" },
+            { "value": "Others",          "label": "Others" }
+          ]
+        },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Oscar Ingredients",
+      "blocks": [
+        { "type": "ingredient", "settings": { "name": "Probiotic Blend",        "description": "Multi-strain live cultures for gut health",     "category": "Probiotics" } },
+        { "type": "ingredient", "settings": { "name": "GOS",                    "description": "Galactooligosaccharide — prebiotic fiber",     "category": "Science-backed" } },
+        { "type": "ingredient", "settings": { "name": "FOS",                    "description": "Fructooligosaccharides — prebiotic support",   "category": "Science-backed" } },
+        { "type": "ingredient", "settings": { "name": "Postbiotic Yeast Blend", "description": "Immune-modulating yeast cell wall fractions",  "category": "Science-backed" } },
+        { "type": "ingredient", "settings": { "name": "Lamb Liver",             "description": "High-palatability protein & nutrient source",  "category": "Premium Sourced" } },
+        { "type": "ingredient", "settings": { "name": "Pumpkin",                "description": "Digestive fiber & natural beta-carotene",      "category": "Premium Sourced" } },
+        { "type": "ingredient", "settings": { "name": "Coconut Oil",            "description": "MCT fats for coat health & energy",            "category": "Premium Sourced" } },
+        { "type": "ingredient", "settings": { "name": "Apple Cider Vinegar",    "description": "pH-balancing gut support",                     "category": "Others" } },
+        { "type": "ingredient", "settings": { "name": "Sunflower Lecithin",     "description": "Emulsifier & choline source for cognition",    "category": "Others" } },
+        { "type": "ingredient", "settings": { "name": "Rosemary Extract",       "description": "Natural antioxidant & preservative",           "category": "Others" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

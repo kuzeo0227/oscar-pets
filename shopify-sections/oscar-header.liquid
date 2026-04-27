@@ -1,0 +1,238 @@
+{% comment %}
+  ============================================
+  SHOPIFY SECTION: HEADER (NAV)
+  Paste into: Online Store > Themes > Edit Code
+              > Sections > Add new section > "oscar-header"
+  Then add to layout/theme.liquid where the header should render:
+              {% section 'oscar-header' %}
+  ============================================
+{% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<header class="oscar-header" id="oscar-header-{{ section.id }}">
+  <div class="oscar-header__inner">
+    <a href="{{ routes.root_url }}" class="oscar-header__logo">
+      <span class="oscar-header__logo-mark">
+        <svg viewBox="0 0 32 32" fill="none" width="20" height="20">
+          <polygon points="16,4 28,12 28,24 16,28 4,24 4,12" fill="#C8812E"/>
+          <polygon points="16,9 22,15 16,22 10,15" fill="white"/>
+        </svg>
+      </span>
+      <span class="oscar-header__logo-text">{{ section.settings.brand_name | default: 'oscar pets' }}</span>
+    </a>
+
+    <nav class="oscar-header__nav" aria-label="Main">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link' -%}
+          <a href="{{ block.settings.link }}" class="oscar-header__link" {{ block.shopify_attributes }}>
+            {{ block.settings.label }}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+
+    <div class="oscar-header__icons">
+      <a href="{{ routes.search_url }}" class="oscar-header__icon" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </a>
+      <a href="{{ routes.account_url }}" class="oscar-header__icon" aria-label="Account">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="oscar-header__icon oscar-header__cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="oscar-header__badge">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+      <button class="oscar-header__menu-toggle" aria-label="Menu" data-oscar-menu-open>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="oscar-mobile-drawer" data-oscar-drawer hidden>
+  <div class="oscar-mobile-drawer__overlay" data-oscar-menu-close></div>
+  <aside class="oscar-mobile-drawer__panel">
+    <div class="oscar-mobile-drawer__head">
+      <span class="oscar-header__logo-text">{{ section.settings.brand_name | default: 'oscar pets' }}</span>
+      <button class="oscar-mobile-drawer__close" aria-label="Close" data-oscar-menu-close>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="oscar-mobile-drawer__nav">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link' -%}
+          <a href="{{ block.settings.link }}" class="oscar-mobile-drawer__link">{{ block.settings.label }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+  </aside>
+</div>
+
+<style>
+  .oscar-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+    height: 72px; display: flex; align-items: center;
+    background: #FFFFFF; border-bottom: 1px solid #EFE0C0;
+    transition: backdrop-filter 0.3s, background 0.3s, box-shadow 0.3s;
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+  .oscar-header.is-scrolled {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 20px rgba(28,43,74,0.06);
+  }
+  .oscar-header__inner {
+    max-width: 80rem; margin: 0 auto; padding: 0 1.5rem;
+    width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  }
+  .oscar-header__logo { display: flex; align-items: center; gap: 0.625rem; text-decoration: none; flex-shrink: 0; }
+  .oscar-header__logo-mark { width: 36px; height: 36px; background: #1C2B4A; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .oscar-header__logo-text { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: -0.5px; color: #1C2B4A; }
+
+  .oscar-header__nav { display: none; align-items: center; gap: 2.25rem; margin: 0 auto; }
+  @media (min-width: 768px) { .oscar-header__nav { display: flex; } }
+  .oscar-header__link {
+    position: relative; font-weight: 500; font-size: 14px; color: #6B6258;
+    text-decoration: none; padding: 0.5rem 0; transition: color 0.2s;
+  }
+  .oscar-header__link::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -2px;
+    height: 3px; background: #C8812E; border-radius: 999px;
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .oscar-header__link:hover { color: #1C2B4A; }
+  .oscar-header__link:hover::after { transform: scaleX(1); }
+
+  .oscar-header__icons { display: flex; align-items: center; gap: 1.25rem; flex-shrink: 0; }
+  .oscar-header__icon {
+    color: #1C2B4A; transition: color 0.2s; position: relative;
+    background: none; border: 0; cursor: pointer; padding: 0; display: inline-flex;
+  }
+  .oscar-header__icon:hover { color: #C8812E; }
+  .oscar-header__icons .oscar-header__icon:nth-child(1),
+  .oscar-header__icons .oscar-header__icon:nth-child(2) { display: none; }
+  @media (min-width: 768px) {
+    .oscar-header__icons .oscar-header__icon:nth-child(1),
+    .oscar-header__icons .oscar-header__icon:nth-child(2) { display: inline-flex; }
+  }
+  .oscar-header__menu-toggle { color: #1C2B4A; background: none; border: 0; cursor: pointer; padding: 0; display: inline-flex; }
+  @media (min-width: 768px) { .oscar-header__menu-toggle { display: none; } }
+
+  .oscar-header__badge {
+    position: absolute; top: -8px; right: -8px;
+    min-width: 16px; height: 16px; padding: 0 4px;
+    background: #C8812E; color: #FFFFFF; font-size: 10px; font-weight: 900;
+    border-radius: 999px; display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  .oscar-mobile-drawer[hidden] { display: none; }
+  .oscar-mobile-drawer { position: fixed; inset: 0; z-index: 50; }
+  .oscar-mobile-drawer__overlay { position: absolute; inset: 0; background: rgba(28,43,74,0.4); animation: oscar-fade .3s ease; }
+  .oscar-mobile-drawer__panel {
+    position: absolute; top: 0; left: 0; bottom: 0; width: 80%; max-width: 320px;
+    background: #FFFFFF; box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    display: flex; flex-direction: column;
+    animation: oscar-slide-in .35s cubic-bezier(0.22,1,0.36,1);
+  }
+  .oscar-mobile-drawer__head { display: flex; justify-content: space-between; align-items: center; padding: 0 1.5rem; height: 72px; border-bottom: 1px solid #EFE0C0; }
+  .oscar-mobile-drawer__close { background: none; border: 0; color: #1C2B4A; cursor: pointer; padding: 0; display: inline-flex; }
+  .oscar-mobile-drawer__nav { display: flex; flex-direction: column; padding: 1.5rem; gap: 0.25rem; }
+  .oscar-mobile-drawer__link {
+    font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 24px;
+    color: #1A1610; text-decoration: none; padding: 1rem 0;
+    border-bottom: 1px solid #EFE0C0; transition: color 0.2s;
+  }
+  .oscar-mobile-drawer__link:hover { color: #C8812E; }
+
+  @keyframes oscar-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes oscar-slide-in { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+
+  /* Body offset so content doesn't slide under the fixed nav */
+  body.oscar-has-header { padding-top: 72px; }
+</style>
+
+<script>
+  (function () {
+    var header = document.querySelector('#oscar-header-{{ section.id }}');
+    var drawer = document.querySelector('.oscar-mobile-drawer');
+    document.body.classList.add('oscar-has-header');
+
+    function onScroll() {
+      if (window.scrollY > 16) header.classList.add('is-scrolled');
+      else header.classList.remove('is-scrolled');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    document.querySelectorAll('[data-oscar-menu-open]').forEach(function (b) {
+      b.addEventListener('click', function () { drawer.hidden = false; });
+    });
+    document.querySelectorAll('[data-oscar-menu-close]').forEach(function (b) {
+      b.addEventListener('click', function () { drawer.hidden = true; });
+    });
+
+    /* Mark the active link */
+    var here = window.location.pathname;
+    document.querySelectorAll('.oscar-header__link, .oscar-mobile-drawer__link').forEach(function (a) {
+      try {
+        var u = new URL(a.href, window.location.origin);
+        if ((u.pathname === '/' && here === '/') || (u.pathname !== '/' && here.indexOf(u.pathname) === 0)) {
+          a.style.color = '#1C2B4A';
+          var bar = document.createElement('span');
+          if (a.classList.contains('oscar-header__link')) {
+            a.style.fontWeight = '500';
+            a.style.setProperty('--active', '1');
+            a.classList.add('is-active');
+          }
+        }
+      } catch (e) {}
+    });
+  })();
+</script>
+
+<style>
+  .oscar-header__link.is-active { color: #1C2B4A; }
+  .oscar-header__link.is-active::after { transform: scaleX(1); }
+</style>
+
+{% schema %}
+{
+  "name": "Oscar Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand wordmark",
+      "default": "oscar pets"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Nav link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Home" },
+        { "type": "url",  "id": "link",  "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Oscar Header",
+      "blocks": [
+        { "type": "link", "settings": { "label": "Home",    "link": "/" } },
+        { "type": "link", "settings": { "label": "Shop",    "link": "/collections/all" } },
+        { "type": "link", "settings": { "label": "About",   "link": "/pages/about" } },
+        { "type": "link", "settings": { "label": "Science", "link": "/pages/science" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

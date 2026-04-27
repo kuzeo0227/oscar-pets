@@ -1,0 +1,194 @@
+{% comment %}
+  ============================================
+  SHOPIFY SECTION: PRODUCT FEATURE
+  Paste into: Sections > Add new section > "oscar-product-feature"
+  ============================================
+{% endcomment %}
+
+<section class="oscar-pf" id="oscar-pf-{{ section.id }}">
+  <div class="oscar-pf__inner">
+    <div class="oscar-pf__grid">
+
+      <div class="oscar-pf__media oscar-reveal">
+        {%- if section.settings.image -%}
+          <img src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ section.settings.image.alt | default: 'Product' | escape }}" loading="lazy">
+        {%- else -%}
+          <div class="oscar-pf__placeholder"><span>oscar pets</span></div>
+        {%- endif -%}
+
+        {%- if section.settings.tag1 != blank or section.settings.tag2 != blank -%}
+          <div class="oscar-pf__tags">
+            {%- if section.settings.tag1 != blank -%}<span>{{ section.settings.tag1 }}</span>{%- endif -%}
+            {%- if section.settings.tag2 != blank -%}<span>{{ section.settings.tag2 }}</span>{%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="oscar-pf__content">
+        <p class="oscar-pf__eyebrow oscar-reveal">{{ section.settings.eyebrow }}</p>
+        <h2 class="oscar-pf__heading oscar-reveal">{{ section.settings.heading }}</h2>
+        <p class="oscar-pf__sub oscar-reveal">{{ section.settings.subheading }}</p>
+
+        <div class="oscar-pf__benefits">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'benefit' -%}
+              <div class="oscar-pf__benefit oscar-reveal" {{ block.shopify_attributes }}>
+                <div class="oscar-pf__benefit-icon">
+                  {%- if block.settings.icon != blank -%}{{ block.settings.icon }}{%- else -%}✦{%- endif -%}
+                </div>
+                <div>
+                  <p class="oscar-pf__benefit-title">{{ block.settings.title }}</p>
+                  <p class="oscar-pf__benefit-desc">{{ block.settings.description }}</p>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <div class="oscar-pf__stats oscar-reveal">
+          <div class="oscar-pf__stat"><p class="v">{{ section.settings.stat1_value }}</p><p class="s">{{ section.settings.stat1_label }}</p></div>
+          <div class="oscar-pf__stat"><p class="v">{{ section.settings.stat2_value }}</p><p class="s">{{ section.settings.stat2_label }}</p></div>
+          <div class="oscar-pf__stat"><p class="v">{{ section.settings.stat3_value }}</p><p class="s">{{ section.settings.stat3_label }}</p></div>
+        </div>
+
+        <a href="{{ section.settings.cta_link }}" class="oscar-btn oscar-btn--primary oscar-reveal" style="margin-top: 1rem;">{{ section.settings.cta_text }}</a>
+      </div>
+    </div>
+
+    <div class="oscar-pf__badges oscar-reveal">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'badge' -%}
+          <span class="oscar-pf__badge" {{ block.shopify_attributes }}>{{ block.settings.label }}</span>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #oscar-pf-{{ section.id }} { background: #F9F4EC; padding: 4rem 0; font-family: 'Montserrat', sans-serif; }
+  @media (min-width: 768px) { #oscar-pf-{{ section.id }} { padding: 6rem 0; } }
+  @media (min-width: 1024px) { #oscar-pf-{{ section.id }} { padding: 7rem 0; } }
+  #oscar-pf-{{ section.id }} .oscar-pf__inner { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; }
+
+  .oscar-pf__grid { display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: center; }
+  @media (min-width: 1024px) { .oscar-pf__grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+
+  .oscar-pf__media { position: relative; }
+  .oscar-pf__media img,
+  .oscar-pf__placeholder {
+    width: 100%; max-width: 28rem; aspect-ratio: 1/1; object-fit: cover;
+    background: #FFFFFF; border: 1px solid #EFE0C0; border-radius: 1.5rem;
+    box-shadow: 0 8px 30px rgba(28,43,74,0.08); display: flex; align-items: center; justify-content: center;
+    margin: 0 auto;
+  }
+  .oscar-pf__placeholder span { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 24px; color: #1C2B4A; letter-spacing: -0.5px; }
+
+  .oscar-pf__tags { position: absolute; top: -1rem; right: -1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .oscar-pf__tags span { background: #1C2B4A; color: #FFFFFF; font-weight: 600; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.375rem 0.75rem; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
+
+  .oscar-pf__eyebrow { font-weight: 700; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: #C8812E; margin: 0 0 0.75rem; }
+  .oscar-pf__heading { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 36px; color: #1C2B4A; margin: 0; line-height: 1.1; }
+  @media (min-width: 1024px) { .oscar-pf__heading { font-size: 48px; } }
+  .oscar-pf__sub { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 20px; color: #6B6258; margin: 0.25rem 0 2rem; }
+
+  .oscar-pf__benefits { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem; }
+  .oscar-pf__benefit { display: flex; gap: 1rem; align-items: flex-start; }
+  .oscar-pf__benefit-icon {
+    width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; flex-shrink: 0;
+    background: rgba(200,129,46,0.1); color: #C8812E; font-size: 18px;
+    display: flex; align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .oscar-pf__benefit-title { font-weight: 700; font-size: 14px; color: #1A1610; margin: 0; }
+  .oscar-pf__benefit-desc { font-weight: 300; font-size: 14px; color: #6B6258; margin: 2px 0 0; line-height: 1.5; }
+
+  .oscar-pf__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 2rem; }
+  .oscar-pf__stat { background: #1A1610; border-radius: 0.75rem; padding: 1rem; text-align: center; }
+  .oscar-pf__stat .v { color: #FFFFFF; font-weight: 900; font-size: 14px; margin: 0; line-height: 1.1; }
+  .oscar-pf__stat .s { color: rgba(255,255,255,0.5); font-weight: 300; font-size: 10px; margin: 4px 0 0; line-height: 1.1; }
+
+  .oscar-pf__badges { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 4rem; }
+  .oscar-pf__badge { background: #FFFFFF; border: 1px solid #EFE0C0; color: #1C2B4A; font-weight: 600; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 1.25rem; border-radius: 999px; }
+
+  .oscar-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 900; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; padding: 1rem 2.5rem; border-radius: 0.75rem; text-decoration: none; transition: transform 0.2s, filter 0.2s; }
+  .oscar-btn--primary { background: #C8812E; color: #1C2B4A; }
+  .oscar-btn--primary:hover { transform: scale(1.02); filter: brightness(1.08); }
+
+  .oscar-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+  .oscar-reveal.is-visible { opacity: 1; transform: translateY(0); }
+</style>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('#oscar-pf-{{ section.id }} .oscar-reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-visible'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en, i) {
+        if (en.isIntersecting) {
+          setTimeout(function(){ en.target.classList.add('is-visible'); }, i * 80);
+          io.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: '-80px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Oscar Product Feature",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",    "label": "Eyebrow",    "default": "Product Spotlight" },
+    { "type": "text",     "id": "heading",    "label": "Heading",    "default": "Probiotic Blend Chewables" },
+    { "type": "text",     "id": "subheading", "label": "Subheading", "default": "Lamb Liver & Pumpkin Mix" },
+    { "type": "image_picker", "id": "image",  "label": "Product image" },
+    { "type": "text", "id": "tag1", "label": "Tag 1", "default": "Scientifically Formulated" },
+    { "type": "text", "id": "tag2", "label": "Tag 2", "default": "Premium Ingredients" },
+
+    { "type": "header", "content": "Stats" },
+    { "type": "text", "id": "stat1_value", "label": "Stat 1 value", "default": "3 Billion CFU" },
+    { "type": "text", "id": "stat1_label", "label": "Stat 1 label", "default": "per Chew" },
+    { "type": "text", "id": "stat2_value", "label": "Stat 2 value", "default": "Lamb & Pumpkin" },
+    { "type": "text", "id": "stat2_label", "label": "Stat 2 label", "default": "Premium Ingredients" },
+    { "type": "text", "id": "stat3_value", "label": "Stat 3 value", "default": "S/M Breeds" },
+    { "type": "text", "id": "stat3_label", "label": "Stat 3 label", "default": "Lab Formulated For" },
+
+    { "type": "header", "content": "CTA" },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "View Product" },
+    { "type": "url",  "id": "cta_link", "label": "CTA link" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text",     "id": "icon",        "label": "Icon (emoji or single char)", "default": "✦" },
+        { "type": "text",     "id": "title",       "label": "Title" },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    },
+    {
+      "type": "badge",
+      "name": "Trust badge",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Oscar Product Feature",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "🧪", "title": "Scientifically Formulated", "description": "Every strain and compound backed by peer-reviewed studies." } },
+        { "type": "benefit", "settings": { "icon": "🌿", "title": "Healthy Ingredients",      "description": "Real Lamb Liver & Pumpkin — no artificial fillers." } },
+        { "type": "benefit", "settings": { "icon": "🏅", "title": "Malaysia's 1st Premium Chew", "description": "First of its kind in the Malaysian pet supplement market." } },
+        { "type": "badge",   "settings": { "label": "1ST Malaysian Premium Chew" } },
+        { "type": "badge",   "settings": { "label": "94% Positive Customer Ratings" } },
+        { "type": "badge",   "settings": { "label": "HACCP Certified" } },
+        { "type": "badge",   "settings": { "label": "GMP Practice" } },
+        { "type": "badge",   "settings": { "label": "ISO Certified" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,231 @@
+{% comment %}
+  ============================================
+  SHOPIFY SECTION: HERO
+  Paste into: Online Store > Themes > Edit Code
+              > Sections > Add new section > "oscar-hero"
+  Add to a page template via the theme editor.
+  ============================================
+{% endcomment %}
+
+<section class="oscar-hero" id="oscar-hero-{{ section.id }}">
+  <div class="oscar-hero__grid">
+    <div class="oscar-hero__text">
+      <div class="oscar-hero__inner">
+        <p class="oscar-hero__eyebrow oscar-reveal">{{ section.settings.eyebrow }}</p>
+        <h1 class="oscar-hero__heading oscar-reveal">{{ section.settings.heading | newline_to_br }}</h1>
+        <p class="oscar-hero__sub oscar-reveal">{{ section.settings.subheading }}</p>
+
+        <div class="oscar-hero__ctas oscar-reveal">
+          <a href="{{ section.settings.cta1_link }}" class="oscar-btn oscar-btn--primary">
+            {{ section.settings.cta1_text }}
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="{{ section.settings.cta2_link }}" class="oscar-btn oscar-btn--ghost">
+            {{ section.settings.cta2_text }}
+          </a>
+        </div>
+
+        <div class="oscar-hero__stats oscar-reveal">
+          <div><p class="oscar-hero__stat-v">{{ section.settings.stat1_value }}</p><p class="oscar-hero__stat-s">{{ section.settings.stat1_label }}</p></div>
+          <div><p class="oscar-hero__stat-v">{{ section.settings.stat2_value }}</p><p class="oscar-hero__stat-s">{{ section.settings.stat2_label }}</p></div>
+          <div><p class="oscar-hero__stat-v">{{ section.settings.stat3_value }}</p><p class="oscar-hero__stat-s">{{ section.settings.stat3_label }}</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="oscar-hero__media">
+      {%- if section.settings.image -%}
+        <img src="{{ section.settings.image | image_url: width: 1400 }}"
+             srcset="{{ section.settings.image | image_url: width: 800 }} 800w,
+                     {{ section.settings.image | image_url: width: 1200 }} 1200w,
+                     {{ section.settings.image | image_url: width: 1600 }} 1600w"
+             sizes="(min-width: 1024px) 50vw, 100vw"
+             alt="{{ section.settings.image.alt | default: 'Oscar Pets' | escape }}"
+             loading="eager">
+      {%- else -%}
+        <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200&q=80" alt="Hero" loading="eager">
+      {%- endif -%}
+      <div class="oscar-hero__media-overlay"></div>
+
+      {%- if section.settings.badge1_title != blank -%}
+        <div class="oscar-hero__badge oscar-hero__badge--bottom">
+          <p class="oscar-hero__badge-eyebrow">{{ section.settings.badge1_eyebrow }}</p>
+          <p class="oscar-hero__badge-title">{{ section.settings.badge1_title }}</p>
+          <p class="oscar-hero__badge-sub">{{ section.settings.badge1_sub }}</p>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.badge2_text != blank -%}
+        <div class="oscar-hero__badge oscar-hero__badge--top">
+          <p class="oscar-hero__badge-pill">{{ section.settings.badge2_text }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.show_press -%}
+    <div class="oscar-hero__press">
+      <p class="oscar-hero__press-label">{{ section.settings.press_label }}</p>
+      <div class="oscar-hero__press-track">
+        <div class="oscar-hero__press-row">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'press' -%}
+              <span>{{ block.settings.name }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'press' -%}
+              <span>{{ block.settings.name }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'press' -%}
+              <span>{{ block.settings.name }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+<style>
+  #oscar-hero-{{ section.id }} { font-family: 'Montserrat', sans-serif; background: #FFFFFF; position: relative; }
+  #oscar-hero-{{ section.id }} .oscar-hero__grid { display: grid; grid-template-columns: 1fr; min-height: calc(100vh - 72px); }
+  @media (min-width: 1024px) { #oscar-hero-{{ section.id }} .oscar-hero__grid { grid-template-columns: 1fr 1fr; } }
+
+  .oscar-hero__text { display: flex; align-items: center; padding: 4rem 1.5rem; }
+  @media (min-width: 1024px) { .oscar-hero__text { padding: 0 4rem; } }
+  .oscar-hero__inner { max-width: 36rem; width: 100%; }
+
+  .oscar-hero__eyebrow { font-weight: 700; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: #C8812E; margin: 0 0 1.5rem; }
+  .oscar-hero__heading { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 48px; color: #1A1610; line-height: 1.05; margin: 0; }
+  @media (min-width: 1024px) { .oscar-hero__heading { font-size: 64px; } }
+  .oscar-hero__sub { font-weight: 400; font-size: 16px; color: #6B6258; margin: 1.75rem 0 0; max-width: 440px; line-height: 1.6; }
+  @media (min-width: 1024px) { .oscar-hero__sub { font-size: 18px; } }
+
+  .oscar-hero__ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.25rem; }
+
+  .oscar-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-weight: 900; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 1rem 2rem; border-radius: 999px; text-decoration: none;
+    transition: transform 0.2s, filter 0.2s, background 0.2s, color 0.2s; border: 0; cursor: pointer;
+  }
+  .oscar-btn--primary { background: #C8812E; color: #FFFFFF; }
+  .oscar-btn--primary:hover { transform: scale(1.03); filter: brightness(1.08); }
+  .oscar-btn--ghost { background: transparent; color: #1C2B4A; border: 2px solid #1C2B4A; }
+  .oscar-btn--ghost:hover { background: #1C2B4A; color: #FFFFFF; transform: scale(1.03); }
+
+  .oscar-hero__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #EFE0C0; }
+  .oscar-hero__stat-v { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 30px; color: #1C2B4A; margin: 0; }
+  .oscar-hero__stat-s { font-weight: 400; font-size: 12px; color: #6B6258; margin: 0.25rem 0 0; }
+
+  .oscar-hero__media { position: relative; min-height: 60vh; overflow: hidden; background: #F9F4EC; }
+  @media (min-width: 1024px) { .oscar-hero__media { min-height: 100%; } }
+  .oscar-hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .oscar-hero__media-overlay { position: absolute; inset: 0; background: linear-gradient(to top right, rgba(28,43,74,0.3), transparent 60%); }
+
+  .oscar-hero__badge--bottom {
+    position: absolute; bottom: 2rem; left: 2rem; max-width: 200px;
+    background: #FFFFFF; border-radius: 1rem; padding: 0.875rem 1.25rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+    animation: oscar-fade-up 0.6s 0.8s both;
+  }
+  .oscar-hero__badge-eyebrow { font-weight: 900; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #C8812E; margin: 0; }
+  .oscar-hero__badge-title { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 18px; color: #1C2B4A; margin: 0.125rem 0 0; line-height: 1.2; }
+  .oscar-hero__badge-sub { font-weight: 400; font-size: 12px; color: #6B6258; margin: 0.125rem 0 0; }
+
+  .oscar-hero__badge--top {
+    position: absolute; top: 2rem; right: 2rem;
+    background: #1C2B4A; border-radius: 999px; padding: 0.5rem 1rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    animation: oscar-fade-up 0.5s 1s both;
+  }
+  .oscar-hero__badge-pill { font-weight: 900; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #C8812E; margin: 0; }
+
+  .oscar-hero__press { border-top: 1px solid #EFE0C0; padding: 2rem 0; background: #FFFFFF; overflow: hidden; }
+  .oscar-hero__press-label { text-align: center; font-weight: 500; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #6B6258; margin: 0 0 1rem; }
+  .oscar-hero__press-track { overflow: hidden; }
+  .oscar-hero__press-row {
+    display: flex; gap: 4rem; padding: 0 2rem; width: max-content;
+    animation: oscar-marquee 28s linear infinite;
+  }
+  .oscar-hero__press-row:hover { animation-play-state: paused; }
+  .oscar-hero__press-row span { font-weight: 900; font-size: 14px; letter-spacing: 0.2em; color: rgba(28,43,74,0.4); white-space: nowrap; }
+
+  @keyframes oscar-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-33.333%); } }
+  @keyframes oscar-fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  .oscar-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+  .oscar-reveal.is-visible { opacity: 1; transform: translateY(0); }
+</style>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('#oscar-hero-{{ section.id }} .oscar-reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (e, i) { setTimeout(function(){ e.classList.add('is-visible'); }, i * 150); });
+      return;
+    }
+    /* Stagger on load */
+    els.forEach(function (e, i) { setTimeout(function(){ e.classList.add('is-visible'); }, 100 + i * 150); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Oscar Hero",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",       "label": "Eyebrow",            "default": "Malaysia's #1 Pet Supplement" },
+    { "type": "textarea", "id": "heading",       "label": "Heading (newlines = line breaks)", "default": "Premium Care\nYour Dog\nDeserves." },
+    { "type": "textarea", "id": "subheading",    "label": "Subheading",         "default": "Formulated by experts. Backed by science. Made for pets who deserve better." },
+    { "type": "text",     "id": "cta1_text",     "label": "Primary CTA text",   "default": "Shop Now" },
+    { "type": "url",      "id": "cta1_link",     "label": "Primary CTA link" },
+    { "type": "text",     "id": "cta2_text",     "label": "Secondary CTA text", "default": "Our Science" },
+    { "type": "url",      "id": "cta2_link",     "label": "Secondary CTA link" },
+
+    { "type": "header",   "content": "Stats" },
+    { "type": "text", "id": "stat1_value", "label": "Stat 1 value", "default": "3B" },
+    { "type": "text", "id": "stat1_label", "label": "Stat 1 label", "default": "CFU per chew" },
+    { "type": "text", "id": "stat2_value", "label": "Stat 2 value", "default": "94%" },
+    { "type": "text", "id": "stat2_label", "label": "Stat 2 label", "default": "Customer rating" },
+    { "type": "text", "id": "stat3_value", "label": "Stat 3 value", "default": "#1" },
+    { "type": "text", "id": "stat3_label", "label": "Stat 3 label", "default": "In Malaysia" },
+
+    { "type": "header", "content": "Hero image" },
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+
+    { "type": "header", "content": "Floating badges" },
+    { "type": "text", "id": "badge1_eyebrow", "label": "Bottom badge eyebrow", "default": "Vet-Approved" },
+    { "type": "text", "id": "badge1_title",   "label": "Bottom badge title",   "default": "Probiotic Blend" },
+    { "type": "text", "id": "badge1_sub",     "label": "Bottom badge sub",     "default": "Lamb Liver & Pumpkin" },
+    { "type": "text", "id": "badge2_text",    "label": "Top badge text",       "default": "DVS Registered" },
+
+    { "type": "header", "content": "Press bar" },
+    { "type": "checkbox", "id": "show_press",  "label": "Show press bar", "default": true },
+    { "type": "text",     "id": "press_label", "label": "Press label",    "default": "As Seen In" }
+  ],
+  "blocks": [
+    {
+      "type": "press",
+      "name": "Press logo",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Outlet name" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Oscar Hero",
+      "blocks": [
+        { "type": "press", "settings": { "name": "THE EDGE" } },
+        { "type": "press", "settings": { "name": "THE STAR" } },
+        { "type": "press", "settings": { "name": "BUSINESS TODAY" } },
+        { "type": "press", "settings": { "name": "FORBES" } },
+        { "type": "press", "settings": { "name": "FMT" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

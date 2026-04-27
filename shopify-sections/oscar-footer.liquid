@@ -1,0 +1,146 @@
+{% comment %}
+  ============================================
+  SHOPIFY SECTION: FOOTER
+  Paste into: Sections > Add new section > "oscar-footer"
+  Add to layout/theme.liquid above </body>:
+              {% section 'oscar-footer' %}
+  ============================================
+{% endcomment %}
+
+<footer class="oscar-footer" id="oscar-footer-{{ section.id }}">
+  <div class="oscar-footer__inner">
+    <div class="oscar-footer__grid">
+
+      <div class="oscar-footer__brand">
+        <a href="{{ routes.root_url }}" class="oscar-footer__logo">
+          <span class="oscar-footer__mark">
+            <svg viewBox="0 0 32 32" fill="none" width="20" height="20">
+              <polygon points="16,4 28,12 28,24 16,28 4,24 4,12" fill="white"/>
+              <polygon points="16,9 22,15 16,22 10,15" fill="#1C2B4A"/>
+            </svg>
+          </span>
+          <span class="oscar-footer__wordmark">{{ section.settings.brand_name }}</span>
+        </a>
+        <p class="oscar-footer__tagline">{{ section.settings.tagline }}</p>
+
+        <div class="oscar-footer__socials">
+          {%- if section.settings.instagram != blank -%}
+            <a href="{{ section.settings.instagram }}" aria-label="Instagram" class="oscar-footer__social">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.facebook != blank -%}
+            <a href="{{ section.settings.facebook }}" aria-label="Facebook" class="oscar-footer__social">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.youtube != blank -%}
+            <a href="{{ section.settings.youtube }}" aria-label="YouTube" class="oscar-footer__social">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'column' -%}
+          <div class="oscar-footer__col" {{ block.shopify_attributes }}>
+            <p class="oscar-footer__col-head">{{ block.settings.heading }}</p>
+            <ul>
+              {%- assign linkpairs = block.settings.links | newline_to_br | split: '<br />' -%}
+              {%- for line in linkpairs -%}
+                {%- assign parts = line | split: '|' -%}
+                {%- if parts.size == 2 -%}
+                  <li><a href="{{ parts[1] | strip }}">{{ parts[0] | strip }}</a></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="oscar-footer__bottom">
+      <p class="oscar-footer__legal">{{ section.settings.legal_text }}</p>
+      <div class="oscar-footer__certs">
+        <span>HACCP</span>
+        <span>GMP</span>
+        <span>ISO</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  #oscar-footer-{{ section.id }} { background: #1C2B4A; color: #FFFFFF; font-family: 'Montserrat', sans-serif; }
+  #oscar-footer-{{ section.id }} .oscar-footer__inner { max-width: 80rem; margin: 0 auto; padding: 4rem 1.5rem 2.5rem; }
+  .oscar-footer__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 3.5rem; }
+  @media (min-width: 768px) { .oscar-footer__grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .oscar-footer__brand { grid-column: span 2; }
+  @media (min-width: 768px) { .oscar-footer__brand { grid-column: span 1; } }
+
+  .oscar-footer__logo { display: inline-flex; align-items: center; gap: 0.625rem; text-decoration: none; margin-bottom: 1.25rem; }
+  .oscar-footer__mark { width: 32px; height: 32px; background: #C8812E; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .oscar-footer__wordmark { font-weight: 900; font-size: 20px; letter-spacing: -0.5px; color: #FFFFFF; }
+  .oscar-footer__tagline { font-weight: 300; font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 18rem; margin: 0 0 1.5rem; }
+
+  .oscar-footer__socials { display: flex; gap: 0.75rem; }
+  .oscar-footer__social {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+    display: inline-flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6);
+    text-decoration: none; transition: color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .oscar-footer__social:hover { color: #C8812E; border-color: #C8812E; transform: scale(1.1); }
+
+  .oscar-footer__col-head { font-weight: 900; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #C8812E; margin: 0 0 1.25rem; }
+  .oscar-footer__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+  .oscar-footer__col a { font-weight: 300; font-size: 14px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+  .oscar-footer__col a:hover { color: #FFFFFF; }
+
+  .oscar-footer__bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+  @media (min-width: 768px) { .oscar-footer__bottom { flex-direction: row; justify-content: space-between; } }
+  .oscar-footer__legal { font-weight: 300; font-size: 12px; color: rgba(255,255,255,0.4); text-align: center; margin: 0; }
+  @media (min-width: 768px) { .oscar-footer__legal { text-align: left; } }
+  .oscar-footer__certs { display: flex; gap: 0.75rem; }
+  .oscar-footer__certs span {
+    font-weight: 600; font-size: 12px; color: #C8812E;
+    border: 1px solid rgba(200,129,46,0.4); padding: 0.25rem 0.75rem; border-radius: 999px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Oscar Footer",
+  "settings": [
+    { "type": "text",     "id": "brand_name", "label": "Brand wordmark", "default": "oscar pets" },
+    { "type": "textarea", "id": "tagline",    "label": "Tagline",        "default": "Malaysia's 1st premium probiotic chewable for dogs. Science-backed. Halal compliant. Tropical-stable." },
+    { "type": "url", "id": "instagram", "label": "Instagram URL" },
+    { "type": "url", "id": "facebook",  "label": "Facebook URL" },
+    { "type": "url", "id": "youtube",   "label": "YouTube URL" },
+    { "type": "textarea", "id": "legal_text", "label": "Legal text", "default": "© 2025 Oscar Pets. All rights reserved. DVS Registered. Halal Compliant." }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Link column",
+      "settings": [
+        { "type": "text",     "id": "heading", "label": "Column heading", "default": "Shop" },
+        { "type": "textarea", "id": "links",   "label": "Links — one per line, format: Label | /url",
+          "default": "Probiotic Blend | /products/probiotic-blend\nAll Products | /collections/all" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Oscar Footer",
+      "blocks": [
+        { "type": "column", "settings": { "heading": "Shop",    "links": "Probiotic Blend | /products/probiotic-blend\nAll Products | /collections/all" } },
+        { "type": "column", "settings": { "heading": "Company", "links": "About Us | /pages/about\nOur Science | /pages/science\nBlog | /blogs/news" } },
+        { "type": "column", "settings": { "heading": "Legal",   "links": "Privacy Policy | /policies/privacy-policy\nTerms of Service | /policies/terms-of-service\nRefund Policy | /policies/refund-policy" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
