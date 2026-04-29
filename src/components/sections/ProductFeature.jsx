@@ -45,15 +45,15 @@ export default function ProductFeature() {
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
-            <div className="rounded-3xl overflow-hidden bg-white border border-[#EFE0C0] aspect-square max-w-md mx-auto shadow-lg">
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-[#EFE0C0]">
-                <div className="w-48 h-48 rounded-2xl bg-[#1C2B4A] flex items-center justify-center">
+            <div className="rounded-3xl overflow-hidden bg-white border border-[#EFEFED] aspect-square max-w-md mx-auto shadow-lg">
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-[#EFEFED]">
+                <div className="w-48 h-48 rounded-2xl bg-[#1A1A18] flex items-center justify-center">
                   <div className="text-center">
                     <p className="font-antapani text-white text-2xl">oscar</p>
-                    <p className="font-montserrat font-black text-[#C8812E] text-xs tracking-widest mt-1">PROBIOTIC BLEND</p>
+                    <p className="font-montserrat font-black text-[#06C265] text-xs tracking-widest mt-1">PROBIOTIC BLEND</p>
                   </div>
                 </div>
-                <p className="font-montserrat font-light text-xs tracking-widest mt-6 text-[#D4A843]">Product Image</p>
+                <p className="font-montserrat font-light text-xs tracking-widest mt-6 text-[#06C265]">Product Image</p>
               </div>
             </div>
 
@@ -65,7 +65,7 @@ export default function ProductFeature() {
                   initial={{ opacity: 0, x: 16 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
-                  className="bg-[#1C2B4A] text-white font-montserrat font-semibold text-[10px] tracking-widest uppercase px-3 py-1.5 rounded-full shadow"
+                  className="bg-[#1A1A18] text-white font-montserrat font-semibold text-[10px] tracking-widest uppercase px-3 py-1.5 rounded-full shadow"
                 >
                   {tag}
                 </motion.span>
@@ -81,19 +81,19 @@ export default function ProductFeature() {
           >
             <motion.p
               variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
-              className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#C8812E] uppercase mb-3"
+              className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3"
             >
               Product Spotlight
             </motion.p>
             <motion.h2
               variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
-              className="font-baskerville font-bold text-4xl lg:text-5xl text-[#1C2B4A] leading-tight mb-4"
+              className="font-baskerville font-bold text-4xl lg:text-5xl text-[#1A1A18] leading-tight mb-4"
             >
               Probiotic Blend Chewables
             </motion.h2>
             <motion.p
               variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
-              className="font-baskerville italic text-xl text-[#6B6258] mb-8"
+              className="font-baskerville italic text-xl text-[#6B6B6B] mb-8"
             >
               Lamb Liver & Pumpkin Mix
             </motion.p>
@@ -105,12 +105,12 @@ export default function ProductFeature() {
                   variants={{ hidden: { opacity: 0, x: 24 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5 } } }}
                   className="flex gap-4 items-start"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#C8812E]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Icon size={18} className="text-[#C8812E]" />
+                  <div className="w-10 h-10 rounded-xl bg-[#06C265]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Icon size={18} className="text-[#06C265]" />
                   </div>
                   <div>
-                    <p className="font-montserrat font-bold text-sm text-[#1A1610]">{label}</p>
-                    <p className="font-montserrat font-light text-sm text-[#6B6258] mt-0.5">{desc}</p>
+                    <p className="font-montserrat font-bold text-sm text-[#1A1A18]">{label}</p>
+                    <p className="font-montserrat font-light text-sm text-[#6B6B6B] mt-0.5">{desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -122,7 +122,7 @@ export default function ProductFeature() {
               className="grid grid-cols-3 gap-3 mb-8"
             >
               {stats.map(({ value, sub }) => (
-                <div key={value} className="bg-[#1A1610] rounded-xl px-4 py-4 text-center">
+                <div key={value} className="bg-[#1A1A18] rounded-xl px-4 py-4 text-center">
                   <p className="font-montserrat font-black text-sm text-white leading-tight">{value}</p>
                   <p className="font-montserrat font-light text-[10px] text-white/50 mt-1 leading-tight">{sub}</p>
                 </div>
@@ -136,7 +136,7 @@ export default function ProductFeature() {
                 <motion.button
                   whileHover={{ scale: 1.02, filter: 'brightness(1.08)' }}
                   whileTap={{ scale: 0.97 }}
-                  className="bg-[#C8812E] text-[#1C2B4A] font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-lg"
+                  className="bg-[#06C265] text-[#1A1A18] font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-lg"
                 >
                   View Product
                 </motion.button>
@@ -155,7 +155,7 @@ export default function ProductFeature() {
           {badges.map(badge => (
             <span
               key={badge}
-              className="border border-[#EFE0C0] bg-white font-montserrat font-semibold text-xs text-[#1C2B4A] tracking-wider px-5 py-2.5 rounded-full uppercase"
+              className="border border-[#EFEFED] bg-white font-montserrat font-semibold text-xs text-[#1A1A18] tracking-wider px-5 py-2.5 rounded-full uppercase"
             >
               {badge}
             </span>

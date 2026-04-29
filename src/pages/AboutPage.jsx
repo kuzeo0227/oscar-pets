@@ -56,10 +56,10 @@ export default function AboutPage() {
       <main className="pt-16">
 
         {/* Hero */}
-        <section className="min-h-[60vh] bg-[#1C2B4A] flex items-center justify-center px-6 py-24">
+        <section className="min-h-[60vh] bg-[#1A1A18] flex items-center justify-center px-6 py-24">
           <motion.div initial={{ opacity:0, y:32 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.8 }}
             className="text-center max-w-3xl">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#C8812E] uppercase mb-5">Our Story</p>
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-5">Our Story</p>
             <h1 className="font-baskerville italic font-bold text-5xl lg:text-7xl text-white leading-tight">
               Two brothers from Penang,<br />one mission.
             </h1>
@@ -72,10 +72,10 @@ export default function AboutPage() {
         {/* Timeline */}
         <Section ivory>
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#C8812E] uppercase mb-3 text-center">How We Got Here</p>
-            <h2 className="font-baskerville font-bold text-4xl text-[#1C2B4A] text-center mb-14">The Oscar Pets Journey</h2>
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3 text-center">How We Got Here</p>
+            <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18] text-center mb-14">The Oscar Pets Journey</h2>
             <div className="relative">
-              <div className="absolute left-[22px] top-0 bottom-0 w-px bg-[#EFE0C0]" />
+              <div className="absolute left-[22px] top-0 bottom-0 w-px bg-[#EFEFED]" />
               <div className="space-y-10">
                 {MILESTONES.map((m, i) => {
                   const ref = useRef(null)
@@ -85,12 +85,12 @@ export default function AboutPage() {
                       initial={{ opacity:0, x:-24 }} animate={inView ? { opacity:1, x:0 } : {}}
                       transition={{ delay: i*0.1, duration:0.55 }}
                       className="flex gap-8 items-start">
-                      <div className="w-11 h-11 rounded-full bg-[#1C2B4A] flex items-center justify-center flex-shrink-0 relative z-10">
-                        <span className="font-montserrat font-black text-[10px] text-[#C8812E]">{m.year}</span>
+                      <div className="w-11 h-11 rounded-full bg-[#1A1A18] flex items-center justify-center flex-shrink-0 relative z-10">
+                        <span className="font-montserrat font-black text-[10px] text-[#06C265]">{m.year}</span>
                       </div>
                       <div className="pt-2">
-                        <h3 className="font-montserrat font-black text-base text-[#1A1610] mb-1">{m.title}</h3>
-                        <p className="font-montserrat font-light text-sm text-[#6B6258] leading-relaxed">{m.body}</p>
+                        <h3 className="font-montserrat font-black text-base text-[#1A1A18] mb-1">{m.title}</h3>
+                        <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed">{m.body}</p>
                       </div>
                     </motion.div>
                   )
@@ -103,8 +103,8 @@ export default function AboutPage() {
         {/* Mission pillars */}
         <Section>
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#C8812E] uppercase mb-3 text-center">What Drives Us</p>
-            <h2 className="font-baskerville font-bold text-4xl text-[#1C2B4A] text-center mb-14">Our Three Pillars</h2>
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3 text-center">What Drives Us</p>
+            <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18] text-center mb-14">Our Three Pillars</h2>
             <div className="space-y-16">
               {MISSIONS.map((m, i) => {
                 const ref = useRef(null)
@@ -114,13 +114,13 @@ export default function AboutPage() {
                     initial={{ opacity:0, y:28 }} animate={inView ? { opacity:1, y:0 } : {}}
                     transition={{ duration:0.6 }}
                     className="grid md:grid-cols-[80px_1fr] gap-6 items-start">
-                    <div className="w-16 h-16 rounded-2xl bg-[#1C2B4A] flex items-center justify-center flex-shrink-0">
-                      <span className="font-montserrat font-black text-lg text-[#C8812E]">{m.num}</span>
+                    <div className="w-16 h-16 rounded-2xl bg-[#1A1A18] flex items-center justify-center flex-shrink-0">
+                      <span className="font-montserrat font-black text-lg text-[#06C265]">{m.num}</span>
                     </div>
                     <div>
-                      <h3 className="font-baskerville font-bold text-2xl text-[#1A1610] mb-4">{m.title}</h3>
+                      <h3 className="font-baskerville font-bold text-2xl text-[#1A1A18] mb-4">{m.title}</h3>
                       {m.body.split('\n\n').map((para, pi) => (
-                        <p key={pi} className="font-montserrat font-light text-sm text-[#6B6258] leading-relaxed mb-3">{para}</p>
+                        <p key={pi} className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed mb-3">{para}</p>
                       ))}
                     </div>
                   </motion.div>
@@ -133,8 +133,8 @@ export default function AboutPage() {
         {/* Why Oscar Pets */}
         <Section ivory>
           <div className="max-w-5xl mx-auto px-6 lg:px-8">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#C8812E] uppercase mb-3 text-center">The Difference</p>
-            <h2 className="font-baskerville font-bold text-4xl text-[#1C2B4A] text-center mb-14">Why Oscar Pets?</h2>
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3 text-center">The Difference</p>
+            <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18] text-center mb-14">Why Oscar Pets?</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {WHY_CARDS.map((card, i) => {
                 const ref = useRef(null)
@@ -143,10 +143,10 @@ export default function AboutPage() {
                   <motion.div key={card.title} ref={ref}
                     initial={{ opacity:0, y:24 }} animate={inView ? { opacity:1, y:0 } : {}}
                     transition={{ delay: i*0.12, duration:0.55 }}
-                    whileHover={{ y: -4, boxShadow: '0 16px 48px rgba(28,43,74,0.10)' }}
-                    className="bg-white rounded-3xl p-7 border border-[#EFE0C0]">
-                    <h3 className="font-montserrat font-black text-base text-[#1C2B4A] mb-3">{card.title}</h3>
-                    <p className="font-montserrat font-light text-sm text-[#6B6258] leading-relaxed">{card.body}</p>
+                    whileHover={{ y: -4, boxShadow: '0 16px 48px rgba(26,26,24,0.10)' }}
+                    className="bg-white rounded-3xl p-7 border border-[#EFEFED]">
+                    <h3 className="font-montserrat font-black text-base text-[#1A1A18] mb-3">{card.title}</h3>
+                    <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed">{card.body}</p>
                   </motion.div>
                 )
               })}
@@ -155,14 +155,14 @@ export default function AboutPage() {
         </Section>
 
         {/* CTA */}
-        <section className="bg-[#1C2B4A] py-20 px-6 text-center">
+        <section className="bg-[#1A1A18] py-20 px-6 text-center">
           <motion.div initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
             transition={{ duration:0.6 }}>
             <h2 className="font-baskerville font-bold text-4xl text-white mb-4">Ready to start?</h2>
             <p className="font-montserrat font-medium text-base text-white/60 mb-8">Give your dog the premium nutrition they deserve.</p>
             <Link to="/shop">
               <motion.button whileHover={{ scale:1.03, filter:'brightness(1.08)' }} whileTap={{ scale:0.97 }}
-                className="bg-[#C8812E] text-[#1C2B4A] font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-xl">
+                className="bg-[#06C265] text-[#1A1A18] font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-xl">
                 Shop Now
               </motion.button>
             </Link>

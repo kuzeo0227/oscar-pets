@@ -47,20 +47,20 @@ export default function SciencePreview() {
           className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-6"
         >
           <div>
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#C8812E] uppercase mb-3">
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3">
               Evidence-Based
             </p>
-            <h2 className="font-baskerville font-bold text-4xl lg:text-5xl text-[#1C2B4A] mb-3">
+            <h2 className="font-baskerville font-bold text-4xl lg:text-5xl text-[#1A1A18] mb-3">
               Science-backed formulas
             </h2>
-            <p className="font-baskerville italic text-lg text-[#6B6258] max-w-lg">
+            <p className="font-baskerville italic text-lg text-[#6B6B6B] max-w-lg">
               We develop our brand and products based on research done on articles and peer-reviewed research.
             </p>
           </div>
           <Link to="/science">
             <motion.span
               whileHover={{ x: 4 }}
-              className="inline-flex items-center gap-2 font-montserrat font-bold text-sm text-[#1C2B4A] uppercase tracking-widest border-b-2 border-[#C8812E] pb-0.5"
+              className="inline-flex items-center gap-2 font-montserrat font-bold text-sm text-[#1A1A18] uppercase tracking-widest border-b-2 border-[#06C265] pb-0.5"
             >
               View All Research <ArrowRight size={14} />
             </motion.span>
@@ -80,29 +80,29 @@ export default function SciencePreview() {
                   hidden: { opacity: 0, y: 32 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } }
                 }}
-                whileHover={{ y: -4, boxShadow: '0 20px 60px rgba(28,43,74,0.10)' }}
-                className="bg-[#F9F4EC] rounded-3xl overflow-hidden border border-[#EFE0C0] group h-full"
+                whileHover={{ y: -4, boxShadow: '0 20px 60px rgba(26,26,24,0.10)' }}
+                className="bg-[#FAFAF7] rounded-3xl overflow-hidden border border-[#EFEFED] group h-full"
               >
                 {/* Thumbnail */}
-                <div className="h-44 bg-[#1C2B4A] flex items-center justify-center relative overflow-hidden">
-                  <BookOpen size={48} className="text-[#C8812E] opacity-40" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1C2B4A] to-transparent" />
+                <div className="h-44 bg-[#1A1A18] flex items-center justify-center relative overflow-hidden">
+                  <BookOpen size={48} className="text-[#06C265] opacity-40" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18] to-transparent" />
                   <span className="absolute bottom-4 left-5 font-montserrat font-semibold text-xs text-white/60 uppercase tracking-widest">
                     {article.tag}
                   </span>
                 </div>
                 <div className="p-6">
-                  <h3 className="font-baskerville font-bold text-lg text-[#1A1610] leading-snug mb-3 group-hover:text-[#1C2B4A] transition-colors">
+                  <h3 className="font-baskerville font-bold text-lg text-[#1A1A18] leading-snug mb-3 group-hover:text-[#1A1A18] transition-colors">
                     {article.title}
                   </h3>
-                  <p className="font-montserrat font-light text-sm text-[#6B6258] leading-relaxed line-clamp-3">
+                  <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed line-clamp-3">
                     {article.excerpt}
                   </p>
                   <div className="flex items-center justify-between mt-5">
-                    <span className="font-montserrat font-light text-xs text-[#6B6258]">{article.readTime}</span>
+                    <span className="font-montserrat font-light text-xs text-[#6B6B6B]">{article.readTime}</span>
                     <motion.span
                       whileHover={{ x: 3 }}
-                      className="font-montserrat font-bold text-xs text-[#C8812E] uppercase tracking-widest"
+                      className="font-montserrat font-bold text-xs text-[#06C265] uppercase tracking-widest"
                     >
                       Read →
                     </motion.span>

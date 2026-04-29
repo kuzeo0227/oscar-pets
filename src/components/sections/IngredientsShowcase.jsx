@@ -22,10 +22,10 @@ const INGREDIENTS = [
 ]
 
 const CATEGORY_STYLES = {
-  'Probiotics':       { bg: '#1C2B4A', text: '#FFFFFF' },
-  'Science-backed':   { bg: '#C8812E', text: '#FFFFFF' },
-  'Premium Sourced':  { bg: '#D4A843', text: '#1A1610' },
-  'Others':           { bg: '#E5E5E5', text: '#6B6258' },
+  'Probiotics':       { bg: '#1A1A18', text: '#FFFFFF' },
+  'Science-backed':   { bg: '#06C265', text: '#FFFFFF' },
+  'Premium Sourced':  { bg: '#06C265', text: '#1A1A18' },
+  'Others':           { bg: '#E5E5E5', text: '#6B6B6B' },
 }
 
 const sectionVariants = {
@@ -57,7 +57,7 @@ function IngredientCard({ item }) {
       className="bg-white rounded-2xl overflow-hidden flex flex-col"
       style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}
     >
-      <div className="relative h-[200px] w-full overflow-hidden bg-[#F9F4EC]">
+      <div className="relative h-[200px] w-full overflow-hidden bg-[#FAFAF7]">
         <img
           src={item.image}
           alt={item.name}
@@ -66,8 +66,8 @@ function IngredientCard({ item }) {
         />
       </div>
       <div className="p-4 flex flex-col flex-1">
-        <h3 className="font-montserrat font-bold text-[15px] text-[#1A1610] leading-snug">{item.name}</h3>
-        <p className="font-montserrat font-light text-[13px] text-[#6B6258] mt-1.5 leading-relaxed line-clamp-2 flex-1">
+        <h3 className="font-montserrat font-bold text-[15px] text-[#1A1A18] leading-snug">{item.name}</h3>
+        <p className="font-montserrat font-light text-[13px] text-[#6B6B6B] mt-1.5 leading-relaxed line-clamp-2 flex-1">
           {item.desc}
         </p>
         <span
@@ -99,14 +99,14 @@ export default function IngredientsShowcase() {
       <div className="max-w-7xl mx-auto px-6">
 
         <div className="text-center mb-4">
-          <p className="font-montserrat font-bold text-[11px] tracking-[0.25em] uppercase text-[#C8812E]">
+          <p className="font-montserrat font-bold text-[11px] tracking-[0.25em] uppercase text-[#06C265]">
             What Goes Inside
           </p>
         </div>
-        <h2 className="font-baskerville font-bold text-4xl lg:text-5xl text-[#1C2B4A] text-center mb-4">
+        <h2 className="font-baskerville font-bold text-4xl lg:text-5xl text-[#1A1A18] text-center mb-4">
           Premium-sourced ingredients
         </h2>
-        <p className="font-montserrat font-normal text-base text-[#6B6258] max-w-xl mx-auto text-center mb-12">
+        <p className="font-montserrat font-normal text-base text-[#6B6B6B] max-w-xl mx-auto text-center mb-12">
           Every ingredient selected for purpose and purity — no fluff, no fillers.
         </p>
 
@@ -122,8 +122,8 @@ export default function IngredientsShowcase() {
                 whileTap={{ scale: 0.96 }}
                 className={`font-montserrat font-bold text-[11px] uppercase px-5 py-2.5 rounded-full border transition-colors duration-200 ${
                   isActive
-                    ? 'bg-[#1C2B4A] text-white border-[#1C2B4A]'
-                    : 'bg-white text-[#1C2B4A] border-[#1C2B4A]'
+                    ? 'bg-[#1A1A18] text-white border-[#1A1A18]'
+                    : 'bg-white text-[#1A1A18] border-[#1A1A18]'
                 }`}
                 style={{ letterSpacing: '0.15em' }}
               >

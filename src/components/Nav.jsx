@@ -35,21 +35,21 @@ export default function Nav() {
       <motion.nav
         initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-30 h-[72px] flex items-center transition-all duration-300 border-b border-[#EFE0C0] ${
-          scrolled ? 'bg-white/85 backdrop-blur-md shadow-[0_2px_20px_rgba(28,43,74,0.06)]' : 'bg-white'
+        className={`fixed top-0 left-0 right-0 z-30 h-[72px] flex items-center transition-all duration-300 border-b border-[#EFEFED] ${
+          scrolled ? 'bg-white/85 backdrop-blur-md shadow-[0_2px_20px_rgba(26,26,24,0.06)]' : 'bg-white'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full flex items-center justify-between gap-8">
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
-            <div className="w-9 h-9 bg-[#1C2B4A] rounded-md flex items-center justify-center">
+            <div className="w-9 h-9 bg-[#1A1A18] rounded-md flex items-center justify-center">
               <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
-                <polygon points="16,4 28,12 28,24 16,28 4,24 4,12" fill="#C8812E" />
+                <polygon points="16,4 28,12 28,24 16,28 4,24 4,12" fill="#06C265" />
                 <polygon points="16,9 22,15 16,22 10,15" fill="white" />
               </svg>
             </div>
-            <span className="font-logo text-xl text-[#1C2B4A]">oscar pets</span>
+            <span className="font-logo text-xl text-[#1A1A18]">oscar pets</span>
           </Link>
 
           {/* Centered links — desktop */}
@@ -61,12 +61,12 @@ export default function Nav() {
                   <Link
                     to={link.to}
                     className={`relative font-montserrat font-medium text-sm transition-colors ${
-                      active ? 'text-[#1C2B4A]' : 'text-[#6B6258] hover:text-[#1C2B4A]'
+                      active ? 'text-[#1A1A18]' : 'text-[#6B6B6B] hover:text-[#1A1A18]'
                     } group inline-block py-2`}
                   >
                     {link.label}
                     <span
-                      className={`absolute -bottom-0.5 left-0 right-0 h-[3px] rounded-full bg-[#C8812E] origin-left transition-transform duration-300 ${
+                      className={`absolute -bottom-0.5 left-0 right-0 h-[3px] rounded-full bg-[#06C265] origin-left transition-transform duration-300 ${
                         active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                       }`}
                     />
@@ -78,15 +78,15 @@ export default function Nav() {
 
           {/* Right icons */}
           <div className="flex items-center gap-5 flex-shrink-0">
-            <button className="hidden md:flex text-[#1C2B4A] hover:text-[#C8812E] transition-colors">
+            <button className="hidden md:flex text-[#1A1A18] hover:text-[#06C265] transition-colors">
               <Search size={20} strokeWidth={1.75} />
             </button>
-            <button className="hidden md:flex text-[#1C2B4A] hover:text-[#C8812E] transition-colors">
+            <button className="hidden md:flex text-[#1A1A18] hover:text-[#06C265] transition-colors">
               <User size={20} strokeWidth={1.75} />
             </button>
             <button
               onClick={() => setDrawer(true)}
-              className="relative text-[#1C2B4A] hover:text-[#C8812E] transition-colors"
+              className="relative text-[#1A1A18] hover:text-[#06C265] transition-colors"
               aria-label="Open cart"
             >
               <ShoppingCart size={20} strokeWidth={1.75} />
@@ -95,7 +95,7 @@ export default function Nav() {
                   key={count}
                   initial={{ scale: 0 }} animate={{ scale: 1 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 20 }}
-                  className="absolute -top-2 -right-2 min-w-[16px] h-4 px-1 bg-[#C8812E] text-white text-[10px] font-montserrat font-black rounded-full flex items-center justify-center"
+                  className="absolute -top-2 -right-2 min-w-[16px] h-4 px-1 bg-[#06C265] text-white text-[10px] font-montserrat font-black rounded-full flex items-center justify-center"
                 >
                   {count}
                 </motion.span>
@@ -103,7 +103,7 @@ export default function Nav() {
             </button>
             <button
               onClick={() => setMobileOpen(true)}
-              className="md:hidden text-[#1C2B4A] hover:text-[#C8812E] transition-colors"
+              className="md:hidden text-[#1A1A18] hover:text-[#06C265] transition-colors"
               aria-label="Open menu"
             >
               <Menu size={22} />
@@ -117,7 +117,7 @@ export default function Nav() {
         {mobileOpen && (
           <>
             <motion.div
-              className="fixed inset-0 bg-[#1C2B4A]/40 z-40"
+              className="fixed inset-0 bg-[#1A1A18]/40 z-40"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
             />
@@ -126,9 +126,9 @@ export default function Nav() {
               initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 280 }}
             >
-              <div className="flex items-center justify-between px-6 h-[72px] border-b border-[#EFE0C0]">
-                <span className="font-logo text-xl text-[#1C2B4A]">oscar pets</span>
-                <button onClick={() => setMobileOpen(false)} className="text-[#1C2B4A]">
+              <div className="flex items-center justify-between px-6 h-[72px] border-b border-[#EFEFED]">
+                <span className="font-logo text-xl text-[#1A1A18]">oscar pets</span>
+                <button onClick={() => setMobileOpen(false)} className="text-[#1A1A18]">
                   <X size={22} />
                 </button>
               </div>
@@ -142,7 +142,7 @@ export default function Nav() {
                   >
                     <Link
                       to={link.to}
-                      className="block font-baskerville font-bold text-2xl text-[#1A1610] py-4 border-b border-[#EFE0C0] hover:text-[#C8812E] transition-colors"
+                      className="block font-baskerville font-bold text-2xl text-[#1A1A18] py-4 border-b border-[#EFEFED] hover:text-[#06C265] transition-colors"
                     >
                       {link.label}
                     </Link>

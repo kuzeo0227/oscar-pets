@@ -61,19 +61,19 @@ function ArticleCard({ article, index }) {
     <motion.div ref={ref}
       initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.15, duration: 0.55 }}
-      className="bg-[#F9F4EC] rounded-3xl overflow-hidden border border-[#EFE0C0]">
-      <div className="h-40 bg-[#1C2B4A] relative flex items-center justify-center overflow-hidden">
-        <BookOpen size={40} className="text-[#C8812E] opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1C2B4A] to-transparent" />
+      className="bg-[#FAFAF7] rounded-3xl overflow-hidden border border-[#EFEFED]">
+      <div className="h-40 bg-[#1A1A18] relative flex items-center justify-center overflow-hidden">
+        <BookOpen size={40} className="text-[#06C265] opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18] to-transparent" />
         <span className="absolute bottom-4 left-5 font-montserrat font-semibold text-xs text-white/50 uppercase tracking-widest">
           {article.tag}
         </span>
       </div>
       <div className="p-7">
-        <h3 className="font-baskerville font-bold text-lg text-[#1A1610] mb-3 leading-snug">{article.title}</h3>
-        <p className="font-montserrat font-light text-sm text-[#6B6258] leading-relaxed mb-4">{article.summary}</p>
-        <p className="font-montserrat font-light text-sm text-[#6B6258] leading-relaxed mb-5">{article.body}</p>
-        <p className="font-montserrat font-medium text-xs text-[#C8812E] border-t border-[#EFE0C0] pt-4">{article.authors}</p>
+        <h3 className="font-baskerville font-bold text-lg text-[#1A1A18] mb-3 leading-snug">{article.title}</h3>
+        <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed mb-4">{article.summary}</p>
+        <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed mb-5">{article.body}</p>
+        <p className="font-montserrat font-medium text-xs text-[#06C265] border-t border-[#EFEFED] pt-4">{article.authors}</p>
       </div>
     </motion.div>
   )
@@ -87,25 +87,25 @@ function StrainPanel({ strain, index }) {
     <motion.div ref={ref}
       initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="border border-[#EFE0C0] rounded-2xl overflow-hidden bg-white">
+      className="border border-[#EFEFED] rounded-2xl overflow-hidden bg-white">
       <button
         onClick={() => setOpen(o => !o)}
         className="w-full flex items-center justify-between px-7 py-5 text-left">
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-[#1C2B4A] flex items-center justify-center flex-shrink-0">
-            <span className="font-montserrat font-black text-[10px] text-[#C8812E]">B</span>
+          <div className="w-10 h-10 rounded-xl bg-[#1A1A18] flex items-center justify-center flex-shrink-0">
+            <span className="font-montserrat font-black text-[10px] text-[#06C265]">B</span>
           </div>
           <div>
-            <p className="font-montserrat font-black text-sm text-[#1C2B4A] italic">{strain.name}</p>
-            <p className="font-montserrat font-medium text-xs text-[#6B6258]">{strain.headline}</p>
+            <p className="font-montserrat font-black text-sm text-[#1A1A18] italic">{strain.name}</p>
+            <p className="font-montserrat font-medium text-xs text-[#6B6B6B]">{strain.headline}</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <span className="hidden sm:inline font-montserrat font-semibold text-xs text-[#C8812E] border border-[#C8812E]/30 px-3 py-1 rounded-full">
+          <span className="hidden sm:inline font-montserrat font-semibold text-xs text-[#06C265] border border-[#06C265]/30 px-3 py-1 rounded-full">
             {strain.cfu}
           </span>
           <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.25 }}>
-            <ChevronDown size={18} className="text-[#6B6258]" />
+            <ChevronDown size={18} className="text-[#6B6B6B]" />
           </motion.div>
         </div>
       </button>
@@ -115,11 +115,11 @@ function StrainPanel({ strain, index }) {
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }}
             className="overflow-hidden">
-            <div className="px-7 pb-6 pt-0 border-t border-[#EFE0C0]">
-              <p className="font-montserrat font-light text-sm text-[#6B6258] leading-relaxed mt-4">{strain.detail}</p>
+            <div className="px-7 pb-6 pt-0 border-t border-[#EFEFED]">
+              <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed mt-4">{strain.detail}</p>
               <div className="flex gap-3 mt-4">
-                <span className="font-montserrat font-semibold text-xs text-[#1C2B4A] bg-[#F9F4EC] px-3 py-1.5 rounded-lg">{strain.cfu}</span>
-                <span className="font-montserrat font-semibold text-xs text-[#C8812E] bg-[#C8812E]/10 px-3 py-1.5 rounded-lg">{strain.stability}</span>
+                <span className="font-montserrat font-semibold text-xs text-[#1A1A18] bg-[#FAFAF7] px-3 py-1.5 rounded-lg">{strain.cfu}</span>
+                <span className="font-montserrat font-semibold text-xs text-[#06C265] bg-[#06C265]/10 px-3 py-1.5 rounded-lg">{strain.stability}</span>
               </div>
             </div>
           </motion.div>
@@ -139,10 +139,10 @@ export default function SciencePage() {
       <main className="pt-16">
 
         {/* Hero */}
-        <section className="min-h-[50vh] bg-[#1C2B4A] flex items-center px-6 py-24">
+        <section className="min-h-[50vh] bg-[#1A1A18] flex items-center px-6 py-24">
           <motion.div initial={{ opacity:0, y:24 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.7 }}
             className="max-w-3xl mx-auto text-center">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#C8812E] uppercase mb-4">Evidence-Based</p>
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-4">Evidence-Based</p>
             <h1 className="font-baskerville font-bold text-5xl lg:text-6xl text-white leading-tight mb-4">
               Science-backed formulas
             </h1>
@@ -157,8 +157,8 @@ export default function SciencePage() {
           <div className="max-w-5xl mx-auto px-6 lg:px-8">
             <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
               className="text-center mb-14">
-              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#C8812E] uppercase mb-3">Research Library</p>
-              <h2 className="font-baskerville font-bold text-4xl text-[#1C2B4A]">Key Studies</h2>
+              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3">Research Library</p>
+              <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18]">Key Studies</h2>
             </motion.div>
             <div className="grid md:grid-cols-3 gap-6">
               {ARTICLES.map((a, i) => <ArticleCard key={a.id} article={a} index={i} />)}
@@ -171,9 +171,9 @@ export default function SciencePage() {
           <div className="max-w-3xl mx-auto px-6 lg:px-8">
             <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
               className="text-center mb-14">
-              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#C8812E] uppercase mb-3">Ingredient Science</p>
-              <h2 className="font-baskerville font-bold text-4xl text-[#1C2B4A] mb-3">Probiotic Strain Breakdown</h2>
-              <p className="font-montserrat font-medium text-base text-[#6B6258] max-w-lg mx-auto">
+              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3">Ingredient Science</p>
+              <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18] mb-3">Probiotic Strain Breakdown</h2>
+              <p className="font-montserrat font-medium text-base text-[#6B6B6B] max-w-lg mx-auto">
                 Each strain selected for a specific function — not just as a marketing count.
               </p>
             </motion.div>
@@ -184,11 +184,11 @@ export default function SciencePage() {
         </section>
 
         {/* Malaysian climate section */}
-        <section ref={climateRef} className="bg-[#1C2B4A] py-20 lg:py-28 px-6">
+        <section ref={climateRef} className="bg-[#1A1A18] py-20 lg:py-28 px-6">
           <div className="max-w-4xl mx-auto">
             <motion.div initial={{ opacity:0, y:24 }} animate={climateInView ? { opacity:1, y:0 } : {}}
               transition={{ duration:0.7 }}>
-              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#C8812E] uppercase mb-4">Built For The Tropics</p>
+              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-4">Built For The Tropics</p>
               <h2 className="font-baskerville font-bold text-4xl lg:text-5xl text-white mb-6 leading-tight">
                 Why Bacillus strains<br />for the Malaysian climate?
               </h2>

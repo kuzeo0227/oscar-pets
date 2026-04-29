@@ -1,13 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #1C2B4A;
-  --color-copper: #C8812E;
-  --color-grain: #1A1610;
-  --color-ivory: #F9F4EC;
-  --color-champagne: #EFE0C0;
-  --color-warmgold: #D4A843;
-  --color-stone: #6B6258;
+  --color-black: #1A1A18;
+  --color-green: #06C265;
+  --color-green-dark: #04A455;
+  --color-offwhite: #FAFAF7;
+  --color-line: #EFEFED;
+  --color-stone: #6B6B6B;
 
   --font-display: 'Libre Baskerville', Georgia, serif;
   --font-sans: 'Montserrat', system-ui, sans-serif;
@@ -26,7 +25,7 @@ html, body {
 
 body {
   background-color: #FFFFFF;
-  color: #1A1610;
+  color: #1A1A18;
   font-family: 'Montserrat', system-ui, sans-serif;
   font-weight: 400;
 }
@@ -51,8 +50,8 @@ h1, h2, h3 {
   letter-spacing: -0.5px;
 }
 
-.section-ivory { background-color: #F9F4EC; }
-.section-navy  { background-color: #1C2B4A; }
+.section-ivory { background-color: #FAFAF7; }
+.section-navy  { background-color: #1A1A18; }
 
 html { scroll-behavior: smooth; }
 
@@ -68,10 +67,9 @@ html { scroll-behavior: smooth; }
 }
 .marquee-track:hover { animation-play-state: paused; }
 
-/* Subtle grain texture for ivory sections */
 .grain-bg {
-  background-color: #F9F4EC;
+  background-color: #FAFAF7;
   background-image:
-    radial-gradient(circle at 20% 30%, rgba(200,129,46,0.04), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(28,43,74,0.03), transparent 40%);
+    radial-gradient(circle at 20% 30%, rgba(6,194,101,0.04), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(26,26,24,0.025), transparent 40%);
 }

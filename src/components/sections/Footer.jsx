@@ -50,10 +50,10 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-5">
-              <div className="w-8 h-8 bg-[#C8812E] rounded-sm flex items-center justify-center">
+              <div className="w-8 h-8 bg-[#06C265] rounded-sm flex items-center justify-center">
                 <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
                   <polygon points="16,4 28,12 28,24 16,28 4,24 4,12" fill="white" />
-                  <polygon points="16,8 22,14 16,22 10,14" fill="#1C2B4A" />
+                  <polygon points="16,8 22,14 16,22 10,14" fill="#1A1A18" />
                 </svg>
               </div>
               <span className="font-antapani text-xl text-white tracking-tight">oscar pets</span>
@@ -65,8 +65,8 @@ export default function Footer() {
               {[Share2, Heart, Play].map((Icon, i) => (
                 <motion.a
                   key={i} href="#"
-                  whileHover={{ scale: 1.1, color: '#C8812E' }}
-                  className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-[#C8812E] hover:border-[#C8812E] transition-colors"
+                  whileHover={{ scale: 1.1, color: '#06C265' }}
+                  className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-[#06C265] hover:border-[#06C265] transition-colors"
                 >
                   <Icon size={16} />
                 </motion.a>
@@ -77,7 +77,7 @@ export default function Footer() {
           {/* Nav columns */}
           {cols.map(col => (
             <div key={col.heading}>
-              <p className="font-montserrat font-black text-xs uppercase tracking-[0.2em] text-[#C8812E] mb-5">
+              <p className="font-montserrat font-black text-xs uppercase tracking-[0.2em] text-[#06C265] mb-5">
                 {col.heading}
               </p>
               <ul className="space-y-3">
@@ -102,9 +102,9 @@ export default function Footer() {
             © 2025 Oscar Pets. All rights reserved. DVS Registered. Halal Compliant.
           </p>
           <div className="flex gap-4">
-            <span className="font-montserrat font-semibold text-xs text-[#C8812E] border border-[#C8812E]/40 px-3 py-1 rounded-full">HACCP</span>
-            <span className="font-montserrat font-semibold text-xs text-[#C8812E] border border-[#C8812E]/40 px-3 py-1 rounded-full">GMP</span>
-            <span className="font-montserrat font-semibold text-xs text-[#C8812E] border border-[#C8812E]/40 px-3 py-1 rounded-full">ISO</span>
+            <span className="font-montserrat font-semibold text-xs text-[#06C265] border border-[#06C265]/40 px-3 py-1 rounded-full">HACCP</span>
+            <span className="font-montserrat font-semibold text-xs text-[#06C265] border border-[#06C265]/40 px-3 py-1 rounded-full">GMP</span>
+            <span className="font-montserrat font-semibold text-xs text-[#06C265] border border-[#06C265]/40 px-3 py-1 rounded-full">ISO</span>
           </div>
         </div>
       </motion.div>
