@@ -45,16 +45,19 @@ export default function ProductFeature() {
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
-            <div className="rounded-3xl overflow-hidden bg-white border border-[#EFEFED] aspect-square max-w-md mx-auto shadow-lg">
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-[#EFEFED]">
-                <div className="w-48 h-48 rounded-2xl bg-[#1A1A18] flex items-center justify-center">
-                  <div className="text-center">
-                    <p className="font-antapani text-white text-2xl">oscar</p>
-                    <p className="font-montserrat font-black text-[#0a0a0a] text-xs tracking-widest mt-1">PROBIOTIC BLEND</p>
-                  </div>
-                </div>
-                <p className="font-montserrat font-light text-xs tracking-widest mt-6 text-[#0a0a0a]">Product Image</p>
-              </div>
+            <div className="relative rounded-3xl overflow-hidden border border-[#EFEFED] aspect-square max-w-md mx-auto shadow-lg" style={{ background: 'var(--color-paper-soft)' }}>
+              <img
+                src="/assets/jar-front.jpg"
+                alt="Oscar Probiotic Blend Chewables — 60 chews jar"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }}
+                draggable={false}
+              />
+              {/* mask the FRONT VIEW caption baked into the source image */}
+              <div
+                className="pointer-events-none absolute inset-x-0 top-0 h-[14%]"
+                style={{ background: 'var(--color-paper-soft)' }}
+              />
             </div>
 
             {/* Tags */}
@@ -136,7 +139,7 @@ export default function ProductFeature() {
                 <motion.button
                   whileHover={{ scale: 1.02, filter: 'brightness(1.08)' }}
                   whileTap={{ scale: 0.97 }}
-                  className="bg-[#0a0a0a] text-[#1A1A18] font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-lg"
+                  className="bg-[#0a0a0a] text-white font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-lg"
                 >
                   View Product
                 </motion.button>

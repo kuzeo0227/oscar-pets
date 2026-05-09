@@ -8,17 +8,20 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const FILTERS = ['ALL', 'Science-backed', 'Premium Sourced', 'Probiotics', 'Others']
 
+// Seeded picsum URLs always resolve. Same reliable source pattern used in src/data/ingredients.js.
+const img = (seed) => `https://picsum.photos/seed/${seed}/400/400`
+
 const INGREDIENTS = [
-  { id: 1,  name: 'Probiotic Blend',         desc: 'Multi-strain live cultures for gut health',     category: 'Probiotics',      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400' },
-  { id: 2,  name: 'GOS',                     desc: 'Galactooligosaccharide — prebiotic fiber',     category: 'Science-backed',  image: 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400' },
-  { id: 3,  name: 'FOS',                     desc: 'Fructooligosaccharides — prebiotic support',   category: 'Science-backed',  image: 'https://images.unsplash.com/photo-1559181567-c3190ca9d222?w=400' },
-  { id: 4,  name: 'Postbiotic Yeast Blend',  desc: 'Immune-modulating yeast cell wall fractions',  category: 'Science-backed',  image: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc7c?w=400' },
-  { id: 5,  name: 'Lamb Liver',              desc: 'High-palatability protein & nutrient source',  category: 'Premium Sourced', image: 'https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=400' },
-  { id: 6,  name: 'Pumpkin',                 desc: 'Digestive fiber & natural beta-carotene',      category: 'Premium Sourced', image: 'https://images.unsplash.com/photo-1570586437263-ab629fccc818?w=400' },
-  { id: 7,  name: 'Coconut Oil',             desc: 'MCT fats for coat health & energy',            category: 'Premium Sourced', image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400' },
-  { id: 8,  name: 'Apple Cider Vinegar',     desc: 'pH-balancing gut support',                     category: 'Others',          image: 'https://images.unsplash.com/photo-1576834872011-c7b0509b1cca?w=400' },
-  { id: 9,  name: 'Sunflower Lecithin',      desc: 'Emulsifier & choline source for cognition',    category: 'Others',          image: 'https://images.unsplash.com/photo-1490885578174-acda8905c2c6?w=400' },
-  { id: 10, name: 'Rosemary Extract',        desc: 'Natural antioxidant & preservative',           category: 'Others',          image: 'https://images.unsplash.com/photo-1515586838455-8b5ae2d9c0e6?w=400' },
+  { id: 1,  name: 'Probiotic Blend',         desc: 'Multi-strain live cultures for gut health',     category: 'Probiotics',      image: img('oscar-probiotic')  },
+  { id: 2,  name: 'GOS',                     desc: 'Galactooligosaccharide — prebiotic fiber',     category: 'Science-backed',  image: img('oscar-gos')        },
+  { id: 3,  name: 'FOS',                     desc: 'Fructooligosaccharides — prebiotic support',   category: 'Science-backed',  image: img('oscar-fos')        },
+  { id: 4,  name: 'Postbiotic Yeast Blend',  desc: 'Immune-modulating yeast cell wall fractions',  category: 'Science-backed',  image: img('oscar-postbiotic') },
+  { id: 5,  name: 'Lamb Liver',              desc: 'High-palatability protein & nutrient source',  category: 'Premium Sourced', image: img('oscar-lamb-liver') },
+  { id: 6,  name: 'Pumpkin',                 desc: 'Digestive fiber & natural beta-carotene',      category: 'Premium Sourced', image: img('oscar-pumpkin')    },
+  { id: 7,  name: 'Coconut Oil',             desc: 'MCT fats for coat health & energy',            category: 'Premium Sourced', image: img('oscar-coconut')    },
+  { id: 8,  name: 'Apple Cider Vinegar',     desc: 'pH-balancing gut support',                     category: 'Others',          image: img('oscar-acv')        },
+  { id: 9,  name: 'Sunflower Lecithin',      desc: 'Emulsifier & choline source for cognition',    category: 'Others',          image: img('oscar-sunflower')  },
+  { id: 10, name: 'Rosemary Extract',        desc: 'Natural antioxidant & preservative',           category: 'Others',          image: img('oscar-rosemary')   },
 ]
 
 const CATEGORY_STYLES = {
