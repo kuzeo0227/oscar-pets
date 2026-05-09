@@ -1,51 +1,49 @@
 // ============================================
 // SHOPIFY SECTION: PRODUCT FEATURE
-// Copy everything between these comments into
-// a new Shopify custom section
 // ============================================
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { CheckCircle2, FlaskConical, Leaf, Award } from 'lucide-react'
 
 const benefits = [
-  { icon: FlaskConical, label: 'Scientifically Formulated', desc: 'Every strain and compound backed by peer-reviewed studies.' },
-  { icon: Leaf,         label: 'Healthy Ingredients',       desc: 'Real Lamb Liver & Pumpkin — no artificial fillers.' },
-  { icon: Award,        label: "Malaysia's 1st Premium Chew", desc: 'First of its kind in the Malaysian pet supplement market.' },
+  { label: 'Scientifically Formulated', desc: 'Every strain and compound backed by peer-reviewed studies.' },
+  { label: 'Healthy Ingredients',       desc: 'Real Lamb Liver & Pumpkin — no artificial fillers.' },
+  { label: "Malaysia's 1st Premium Chew", desc: 'First of its kind in the Malaysian pet supplement market.' },
 ]
 
 const stats = [
-  { value: '3 Billion CFU', sub: 'per Chew' },
-  { value: 'Lamb & Pumpkin', sub: 'Premium Ingredients' },
-  { value: 'S/M Breeds', sub: 'Lab Formulated For' },
+  { value: '3 BILLION CFU',  sub: 'PER CHEW' },
+  { value: 'LAMB & PUMPKIN', sub: 'PREMIUM INGREDIENTS' },
+  { value: 'S/M BREEDS',     sub: 'LAB-FORMULATED' },
 ]
 
 const badges = [
-  '1ST Malaysian Premium Chew',
-  '94% Positive Customer Ratings',
-  'HACCP Certified',
-  'GMP Practice',
-  'ISO Certified',
+  '1ST MALAYSIAN PREMIUM CHEW',
+  '94% POSITIVE RATINGS',
+  'HACCP CERTIFIED',
+  'GMP PRACTICE',
+  'ISO CERTIFIED',
 ]
+
+const ease = [0.22, 1, 0.36, 1]
 
 export default function ProductFeature() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="oscar-section section-ivory py-24 lg:py-32">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section ref={ref} className="oscar-section py-24 lg:py-32" style={{ background: 'var(--color-paper-soft)' }}>
+      <div className="container-edge mx-auto">
+        <div className="grid lg:grid-cols-2 lg:gap-x-12 gap-y-14 items-center">
 
-          {/* Left — product image */}
+          {/* LEFT — product image */}
           <motion.div
             initial={{ opacity: 0, x: -48 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, ease }}
             className="relative"
           >
-            <div className="relative rounded-3xl overflow-hidden border border-[#EFEFED] aspect-square max-w-md mx-auto shadow-lg" style={{ background: 'var(--color-paper-soft)' }}>
+            <div className="relative overflow-hidden aspect-square max-w-md mx-auto" style={{ background: 'var(--color-paper-soft)' }}>
               <img
                 src="/assets/jar-front.jpg"
                 alt="Oscar Probiotic Blend Chewables — 60 chews jar"
@@ -53,93 +51,89 @@ export default function ProductFeature() {
                 style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }}
                 draggable={false}
               />
-              {/* mask the FRONT VIEW caption baked into the source image */}
-              <div
-                className="pointer-events-none absolute inset-x-0 top-0 h-[14%]"
-                style={{ background: 'var(--color-paper-soft)' }}
-              />
-            </div>
-
-            {/* Tags */}
-            <div className="absolute -top-4 -right-4 flex flex-col gap-2">
-              {['Scientifically Formulated', 'Premium Ingredients'].map((tag, i) => (
-                <motion.span
-                  key={tag}
-                  initial={{ opacity: 0, x: 16 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
-                  className="bg-[#1A1A18] text-white font-montserrat font-semibold text-[10px] tracking-widest uppercase px-3 py-1.5 rounded-full shadow"
-                >
-                  {tag}
-                </motion.span>
-              ))}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-[14%]" style={{ background: 'var(--color-paper-soft)' }} />
             </div>
           </motion.div>
 
-          {/* Right — benefits */}
+          {/* RIGHT — info column */}
           <motion.div
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
-            variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
+            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
           >
+            {/* Eyebrow */}
             <motion.p
-              variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
-              className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-3"
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+              className="eyebrow mb-6"
+              style={{ color: '#6b6b6b' }}
             >
-              Product Spotlight
+              01 — PRODUCT SPOTLIGHT
             </motion.p>
+
+            {/* H2 — Libre Baskerville with italic <em> */}
             <motion.h2
-              variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
-              className="font-baskerville font-bold text-4xl lg:text-5xl text-[#1A1A18] leading-tight mb-4"
+              variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } }}
+              className="font-serif text-[#0a0a0a]"
+              style={{ fontSize: 'clamp(36px, 4.4vw, 56px)', fontWeight: 700, lineHeight: 1.05 }}
             >
-              Probiotic Blend Chewables
+              Probiotic Blend Chewables, <em className="italic">made right</em>.
             </motion.h2>
+
+            {/* Sub-label */}
             <motion.p
               variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
-              className="font-baskerville italic text-xl text-[#6B6B6B] mb-8"
+              className="font-serif italic mt-3"
+              style={{ fontSize: 16, color: '#6b6b6b' }}
             >
               Lamb Liver & Pumpkin Mix
             </motion.p>
 
-            <div className="space-y-5 mb-10">
-              {benefits.map(({ icon: Icon, label, desc }) => (
+            {/* Feature rows */}
+            <div className="mt-10 flex flex-col" style={{ borderTop: '1px solid var(--color-rule)' }}>
+              {benefits.map(({ label, desc }) => (
                 <motion.div
                   key={label}
-                  variants={{ hidden: { opacity: 0, x: 24 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5 } } }}
-                  className="flex gap-4 items-start"
+                  variants={{ hidden: { opacity: 0, x: 16 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5 } } }}
+                  className="grid grid-cols-[3rem_1fr] gap-4 items-baseline py-5"
+                  style={{ borderBottom: '1px solid var(--color-rule)' }}
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#0a0a0a]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Icon size={18} className="text-[#0a0a0a]" />
-                  </div>
+                  <span className="font-mono num-mono text-[#0a0a0a]" style={{ fontSize: 13, fontWeight: 700 }}>·</span>
                   <div>
-                    <p className="font-montserrat font-bold text-sm text-[#1A1A18]">{label}</p>
-                    <p className="font-montserrat font-light text-sm text-[#6B6B6B] mt-0.5">{desc}</p>
+                    <p className="font-display text-[#0a0a0a]" style={{ fontSize: 14, fontWeight: 600 }}>{label}</p>
+                    <p className="font-display mt-1" style={{ fontSize: 13, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.65 }}>{desc}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            {/* Stats */}
+            {/* Metric pills — Space Mono, no rounded */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
-              className="grid grid-cols-3 gap-3 mb-8"
+              className="grid grid-cols-3 gap-2 mt-8"
             >
               {stats.map(({ value, sub }) => (
-                <div key={value} className="bg-[#1A1A18] rounded-xl px-4 py-4 text-center">
-                  <p className="font-montserrat font-black text-sm text-white leading-tight">{value}</p>
-                  <p className="font-montserrat font-light text-[10px] text-white/50 mt-1 leading-tight">{sub}</p>
+                <div key={value} className="px-4 py-3 text-center" style={{ background: '#0a0a0a' }}>
+                  <p className="font-mono text-white" style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.18em' }}>{value}</p>
+                  <p className="font-mono mt-1" style={{ fontSize: 9, fontWeight: 400, letterSpacing: '0.18em', color: 'rgba(255,255,255,0.55)' }}>{sub}</p>
                 </div>
               ))}
             </motion.div>
 
+            {/* CTA */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+              className="mt-8"
             >
               <Link to="/product/probiotic-blend">
                 <motion.button
-                  whileHover={{ scale: 1.02, filter: 'brightness(1.08)' }}
-                  whileTap={{ scale: 0.97 }}
-                  className="bg-[#0a0a0a] text-white font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-lg"
+                  whileHover={{ background: '#2a2a2a' }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center font-mono uppercase"
+                  style={{
+                    background: '#0a0a0a', color: '#ffffff',
+                    fontSize: 12, fontWeight: 700, letterSpacing: '0.22em',
+                    padding: '14px 32px', borderRadius: 0,
+                  }}
                 >
                   View Product
                 </motion.button>
@@ -153,12 +147,13 @@ export default function ProductFeature() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-16 flex flex-wrap justify-center gap-3"
+          className="mt-16 flex flex-wrap justify-center gap-x-8 gap-y-3"
         >
           {badges.map(badge => (
             <span
               key={badge}
-              className="border border-[#EFEFED] bg-white font-montserrat font-semibold text-xs text-[#1A1A18] tracking-wider px-5 py-2.5 rounded-full uppercase"
+              className="font-mono"
+              style={{ fontSize: 11, fontWeight: 400, letterSpacing: '0.18em', color: '#6b6b6b' }}
             >
               {badge}
             </span>

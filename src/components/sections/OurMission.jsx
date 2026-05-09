@@ -1,25 +1,22 @@
 // ============================================
 // SHOPIFY SECTION: OUR MISSION
-// Copy everything between these comments into
-// a new Shopify custom section
 // ============================================
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
+
+const ease = [0.22, 1, 0.36, 1]
 
 const sectionVariants = {
   hidden:  { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
 }
-
 const containerVariants = {
   hidden:  {},
   visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
 }
-
 const cardVariants = {
   hidden:  { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
 }
 
 const cards = [
@@ -50,24 +47,25 @@ export default function OurMission() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
-      className="oscar-section grain-bg py-16 md:py-24 lg:py-28"
+      className="oscar-section py-28 lg:py-36"
+      style={{ background: 'var(--color-paper-soft)' }}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="container-edge mx-auto">
 
-        <div className="grid lg:grid-cols-12 gap-10 mb-12 lg:mb-16 items-end">
-          <div className="lg:col-span-7">
-            <p className="font-montserrat font-bold text-[11px] tracking-[0.25em] uppercase text-[#0a0a0a] mb-4">
-              Who We Are
+        <div className="grid lg:grid-cols-12 lg:gap-x-12 gap-y-8 mb-14 items-end">
+          <div className="lg:col-span-8">
+            <p className="eyebrow mb-6" style={{ color: '#6b6b6b' }}>
+              05 — WHY OSCAR
             </p>
             <h2
-              className="font-montserrat font-black text-5xl md:text-7xl lg:text-[96px] text-[#1A1A18] uppercase leading-[0.95]"
-              style={{ letterSpacing: '-2px' }}
+              className="font-serif text-[#0a0a0a]"
+              style={{ fontSize: 'clamp(40px, 5.6vw, 80px)', fontWeight: 700, lineHeight: 1.04, letterSpacing: '-0.01em' }}
             >
-              Our<br />Mission
+              A laboratory you'd be <em className="italic">proud</em> to feed your dog from.
             </h2>
           </div>
-          <div className="lg:col-span-5 lg:pb-4">
-            <p className="font-baskerville italic text-lg lg:text-xl text-[#6B6B6B] leading-relaxed max-w-md">
+          <div className="lg:col-span-4 lg:pb-3">
+            <p className="font-display max-w-md" style={{ fontSize: 15.5, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.7 }}>
               Three commitments that guide every formulation, every sourcing decision, every chew.
             </p>
           </div>
@@ -78,35 +76,36 @@ export default function OurMission() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          className="grid md:grid-cols-3 gap-5 lg:gap-6"
+          className="grid md:grid-cols-3 gap-0"
+          style={{ borderTop: '1px solid var(--color-rule)', borderLeft: '1px solid var(--color-rule)' }}
         >
           {cards.map(card => (
             <motion.div
               key={card.num}
               variants={cardVariants}
-              whileHover={{ y: -6, boxShadow: '0 12px 32px rgba(0,0,0,0.10)' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className="bg-white rounded-2xl border border-[#EFEFED] p-8 flex flex-col h-full"
+              whileHover={{ background: '#ffffff' }}
+              className="bg-white p-8 lg:p-10 flex flex-col h-full"
+              style={{ borderRight: '1px solid var(--color-rule)', borderBottom: '1px solid var(--color-rule)' }}
             >
-              <div className="flex items-center justify-between mb-7">
-                <div className="w-12 h-12 rounded-full border-2 border-[#0a0a0a] flex items-center justify-center">
-                  <span className="font-montserrat font-black text-sm text-[#0a0a0a]">{card.num}</span>
-                </div>
-              </div>
-              <h3 className="font-baskerville font-bold text-xl text-[#1A1A18] mb-4 leading-snug">
+              <p
+                className="font-mono num-mono mb-6"
+                style={{ fontSize: 'clamp(48px, 5.4vw, 72px)', fontWeight: 700, color: '#0a0a0a', lineHeight: 1, letterSpacing: '-0.02em' }}
+              >
+                {card.num}
+              </p>
+              <h3
+                className="font-serif text-[#0a0a0a] mb-4"
+                style={{ fontSize: 'clamp(20px, 1.8vw, 26px)', fontWeight: 700, lineHeight: 1.15 }}
+              >
                 {card.title}
               </h3>
-              <p
-                className="font-montserrat font-normal text-sm text-[#6B6B6B] flex-1"
-                style={{ lineHeight: 1.7 }}
-              >
+              <p className="font-display flex-1" style={{ fontSize: 14.5, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.7 }}>
                 {card.body}
               </p>
-              <Link to={card.href} className="mt-7 inline-flex items-center gap-1.5 group/link">
-                <span className="font-montserrat font-bold text-[11px] uppercase text-[#0a0a0a] group-hover/link:underline" style={{ letterSpacing: '1.5px' }}>
-                  Read More
+              <Link to={card.href} className="mt-8 inline-flex items-center gap-1.5">
+                <span className="font-mono" style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#0a0a0a', borderBottom: '1px solid #0a0a0a', paddingBottom: 2 }}>
+                  Read More →
                 </span>
-                <ArrowUpRight size={14} className="text-[#0a0a0a] transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
               </Link>
             </motion.div>
           ))}
