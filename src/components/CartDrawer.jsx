@@ -21,9 +21,9 @@ export default function CartDrawer() {
           >
             <div className="flex items-center justify-between px-6 py-5 border-b border-[#EFEFED]">
               <span className="font-montserrat font-black text-lg text-[#1A1A18] uppercase tracking-widest">
-                Cart {count > 0 && <span className="text-[#06C265]">({count})</span>}
+                Cart {count > 0 && <span className="text-[#0a0a0a]">({count})</span>}
               </span>
-              <button onClick={() => setDrawer(false)} className="p-2 hover:text-[#06C265] transition-colors">
+              <button onClick={() => setDrawer(false)} className="p-2 hover:text-[#0a0a0a] transition-colors">
                 <X size={20} />
               </button>
             </div>
@@ -44,17 +44,17 @@ export default function CartDrawer() {
                     <p className="font-montserrat text-xs text-[#6B6B6B] mt-0.5">RM {item.price.toFixed(2)}</p>
                     <div className="flex items-center gap-2 mt-2">
                       <button onClick={() => updateQty(item.id, item.qty - 1)}
-                        className="w-6 h-6 flex items-center justify-center border border-[#EFEFED] rounded text-[#1A1A18] hover:border-[#06C265] transition-colors">
+                        className="w-6 h-6 flex items-center justify-center border border-[#EFEFED] rounded text-[#1A1A18] hover:border-[#0a0a0a] transition-colors">
                         <Minus size={12} />
                       </button>
                       <span className="font-montserrat font-medium text-sm w-6 text-center">{item.qty}</span>
                       <button onClick={() => updateQty(item.id, item.qty + 1)}
-                        className="w-6 h-6 flex items-center justify-center border border-[#EFEFED] rounded text-[#1A1A18] hover:border-[#06C265] transition-colors">
+                        className="w-6 h-6 flex items-center justify-center border border-[#EFEFED] rounded text-[#1A1A18] hover:border-[#0a0a0a] transition-colors">
                         <Plus size={12} />
                       </button>
                     </div>
                   </div>
-                  <button onClick={() => removeItem(item.id)} className="text-[#6B6B6B] hover:text-[#06C265] transition-colors mt-1">
+                  <button onClick={() => removeItem(item.id)} className="text-[#6B6B6B] hover:text-[#0a0a0a] transition-colors mt-1">
                     <X size={16} />
                   </button>
                 </div>
@@ -70,7 +70,7 @@ export default function CartDrawer() {
                 <motion.button
                   whileHover={{ scale: 1.02, brightness: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-[#06C265] text-[#1A1A18] font-montserrat font-black uppercase tracking-widest py-4 rounded-lg text-sm"
+                  className="w-full bg-[#0a0a0a] text-[#1A1A18] font-montserrat font-black uppercase tracking-widest py-4 rounded-lg text-sm"
                 >
                   Checkout
                 </motion.button>

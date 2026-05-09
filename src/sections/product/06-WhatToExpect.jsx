@@ -17,12 +17,12 @@ export default function WhatToExpect() {
       <section className="bg-[#FAFAF7] py-20 md:py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto">
-            <p className="font-montserrat font-bold text-[10px] tracking-[0.25em] uppercase text-[#06C265]">The Journey</p>
+            <p className="font-montserrat font-bold text-[10px] tracking-[0.25em] uppercase text-[#0a0a0a]">The Journey</p>
             <div className="w-9 h-0.5 bg-[#1A1A18] my-4 mx-auto" />
             <h2 className="font-baskerville font-bold text-3xl md:text-4xl lg:text-[42px] leading-[1.1] text-[#1A1A18] tracking-tight">
               What to expect
             </h2>
-            <p className="font-baskerville font-bold text-5xl md:text-6xl text-[#06C265] leading-none tracking-tight mt-6 mb-2">89%</p>
+            <p className="font-baskerville font-bold text-5xl md:text-6xl text-[#0a0a0a] leading-none tracking-tight mt-6 mb-2">89%</p>
             <p className="font-montserrat text-base text-[#6B6B6B]">of customers see real results within 90 days of consistent use.</p>
           </div>
 

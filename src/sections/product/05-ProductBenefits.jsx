@@ -64,7 +64,7 @@ export default function ProductBenefits() {
             {/* Brand mark */}
             <div className="absolute top-4 left-4 w-9 h-9 bg-[#1A1A18] rounded-md flex items-center justify-center">
               <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
-                <polygon points="16,4 28,12 28,24 16,28 4,24 4,12" fill="#06C265"/>
+                <polygon points="16,4 28,12 28,24 16,28 4,24 4,12" fill="#0a0a0a"/>
                 <polygon points="16,9 22,15 16,22 10,15" fill="white"/>
               </svg>
             </div>

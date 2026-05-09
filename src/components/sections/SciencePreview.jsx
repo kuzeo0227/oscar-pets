@@ -47,7 +47,7 @@ export default function SciencePreview() {
           className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 gap-6"
         >
           <div>
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3">
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-3">
               Evidence-Based
             </p>
             <h2 className="font-baskerville font-bold text-4xl lg:text-5xl text-[#1A1A18] mb-3">
@@ -60,7 +60,7 @@ export default function SciencePreview() {
           <Link to="/science">
             <motion.span
               whileHover={{ x: 4 }}
-              className="inline-flex items-center gap-2 font-montserrat font-bold text-sm text-[#1A1A18] uppercase tracking-widest border-b-2 border-[#06C265] pb-0.5"
+              className="inline-flex items-center gap-2 font-montserrat font-bold text-sm text-[#1A1A18] uppercase tracking-widest border-b-2 border-[#0a0a0a] pb-0.5"
             >
               View All Research <ArrowRight size={14} />
             </motion.span>
@@ -85,7 +85,7 @@ export default function SciencePreview() {
               >
                 {/* Thumbnail */}
                 <div className="h-44 bg-[#1A1A18] flex items-center justify-center relative overflow-hidden">
-                  <BookOpen size={48} className="text-[#06C265] opacity-40" />
+                  <BookOpen size={48} className="text-[#0a0a0a] opacity-40" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18] to-transparent" />
                   <span className="absolute bottom-4 left-5 font-montserrat font-semibold text-xs text-white/60 uppercase tracking-widest">
                     {article.tag}
@@ -102,7 +102,7 @@ export default function SciencePreview() {
                     <span className="font-montserrat font-light text-xs text-[#6B6B6B]">{article.readTime}</span>
                     <motion.span
                       whileHover={{ x: 3 }}
-                      className="font-montserrat font-bold text-xs text-[#06C265] uppercase tracking-widest"
+                      className="font-montserrat font-bold text-xs text-[#0a0a0a] uppercase tracking-widest"
                     >
                       Read →
                     </motion.span>

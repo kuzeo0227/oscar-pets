@@ -56,7 +56,7 @@ export default function OurMission() {
 
         <div className="grid lg:grid-cols-12 gap-10 mb-12 lg:mb-16 items-end">
           <div className="lg:col-span-7">
-            <p className="font-montserrat font-bold text-[11px] tracking-[0.25em] uppercase text-[#06C265] mb-4">
+            <p className="font-montserrat font-bold text-[11px] tracking-[0.25em] uppercase text-[#0a0a0a] mb-4">
               Who We Are
             </p>
             <h2
@@ -89,8 +89,8 @@ export default function OurMission() {
               className="bg-white rounded-2xl border border-[#EFEFED] p-8 flex flex-col h-full"
             >
               <div className="flex items-center justify-between mb-7">
-                <div className="w-12 h-12 rounded-full border-2 border-[#06C265] flex items-center justify-center">
-                  <span className="font-montserrat font-black text-sm text-[#06C265]">{card.num}</span>
+                <div className="w-12 h-12 rounded-full border-2 border-[#0a0a0a] flex items-center justify-center">
+                  <span className="font-montserrat font-black text-sm text-[#0a0a0a]">{card.num}</span>
                 </div>
               </div>
               <h3 className="font-baskerville font-bold text-xl text-[#1A1A18] mb-4 leading-snug">
@@ -103,10 +103,10 @@ export default function OurMission() {
                 {card.body}
               </p>
               <Link to={card.href} className="mt-7 inline-flex items-center gap-1.5 group/link">
-                <span className="font-montserrat font-bold text-[11px] uppercase text-[#06C265] group-hover/link:underline" style={{ letterSpacing: '1.5px' }}>
+                <span className="font-montserrat font-bold text-[11px] uppercase text-[#0a0a0a] group-hover/link:underline" style={{ letterSpacing: '1.5px' }}>
                   Read More
                 </span>
-                <ArrowUpRight size={14} className="text-[#06C265] transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                <ArrowUpRight size={14} className="text-[#0a0a0a] transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
               </Link>
             </motion.div>
           ))}

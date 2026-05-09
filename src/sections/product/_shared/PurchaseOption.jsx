@@ -18,7 +18,7 @@ export default function PurchaseOption({ selected, onClick, badge, title, sub, p
       }`}
     >
       {badge && (
-        <span className="absolute -top-2.5 right-4 bg-[#06C265] text-white font-montserrat font-bold text-[9px] tracking-[0.1em] uppercase px-2.5 py-0.5 rounded-full">
+        <span className="absolute -top-2.5 right-4 bg-[#0a0a0a] text-white font-montserrat font-bold text-[9px] tracking-[0.1em] uppercase px-2.5 py-0.5 rounded-full">
           {badge}
         </span>
       )}
@@ -34,7 +34,7 @@ export default function PurchaseOption({ selected, onClick, badge, title, sub, p
         </div>
       </div>
       <div className="text-right">
-        <p className={`font-baskerville font-bold text-base ${isDeal ? 'text-[#06C265]' : 'text-[#1A1A18]'}`}>RM {price}</p>
+        <p className={`font-baskerville font-bold text-base ${isDeal ? 'text-[#0a0a0a]' : 'text-[#1A1A18]'}`}>RM {price}</p>
         {oldPrice && <p className="font-montserrat text-[11px] text-[#C8C6C2] line-through">RM {oldPrice}</p>}
       </div>
     </button>

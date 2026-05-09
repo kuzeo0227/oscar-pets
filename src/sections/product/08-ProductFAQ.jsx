@@ -31,7 +31,7 @@ export default function ProductFAQ() {
                     onClick={() => setOpenFaq(open ? -1 : i)}
                     className="w-full flex items-center justify-between gap-4 py-5 text-left group"
                   >
-                    <span className="font-montserrat font-bold text-sm md:text-base text-[#1A1A18] group-hover:text-[#06C265] transition-colors">
+                    <span className="font-montserrat font-bold text-sm md:text-base text-[#1A1A18] group-hover:text-[#0a0a0a] transition-colors">
                       {f.q}
                     </span>
                     <motion.span

@@ -63,7 +63,7 @@ function ArticleCard({ article, index }) {
       transition={{ delay: index * 0.15, duration: 0.55 }}
       className="bg-[#FAFAF7] rounded-3xl overflow-hidden border border-[#EFEFED]">
       <div className="h-40 bg-[#1A1A18] relative flex items-center justify-center overflow-hidden">
-        <BookOpen size={40} className="text-[#06C265] opacity-30" />
+        <BookOpen size={40} className="text-[#0a0a0a] opacity-30" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18] to-transparent" />
         <span className="absolute bottom-4 left-5 font-montserrat font-semibold text-xs text-white/50 uppercase tracking-widest">
           {article.tag}
@@ -73,7 +73,7 @@ function ArticleCard({ article, index }) {
         <h3 className="font-baskerville font-bold text-lg text-[#1A1A18] mb-3 leading-snug">{article.title}</h3>
         <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed mb-4">{article.summary}</p>
         <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed mb-5">{article.body}</p>
-        <p className="font-montserrat font-medium text-xs text-[#06C265] border-t border-[#EFEFED] pt-4">{article.authors}</p>
+        <p className="font-montserrat font-medium text-xs text-[#0a0a0a] border-t border-[#EFEFED] pt-4">{article.authors}</p>
       </div>
     </motion.div>
   )
@@ -93,7 +93,7 @@ function StrainPanel({ strain, index }) {
         className="w-full flex items-center justify-between px-7 py-5 text-left">
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-xl bg-[#1A1A18] flex items-center justify-center flex-shrink-0">
-            <span className="font-montserrat font-black text-[10px] text-[#06C265]">B</span>
+            <span className="font-montserrat font-black text-[10px] text-[#0a0a0a]">B</span>
           </div>
           <div>
             <p className="font-montserrat font-black text-sm text-[#1A1A18] italic">{strain.name}</p>
@@ -101,7 +101,7 @@ function StrainPanel({ strain, index }) {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <span className="hidden sm:inline font-montserrat font-semibold text-xs text-[#06C265] border border-[#06C265]/30 px-3 py-1 rounded-full">
+          <span className="hidden sm:inline font-montserrat font-semibold text-xs text-[#0a0a0a] border border-[#0a0a0a]/30 px-3 py-1 rounded-full">
             {strain.cfu}
           </span>
           <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.25 }}>
@@ -119,7 +119,7 @@ function StrainPanel({ strain, index }) {
               <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed mt-4">{strain.detail}</p>
               <div className="flex gap-3 mt-4">
                 <span className="font-montserrat font-semibold text-xs text-[#1A1A18] bg-[#FAFAF7] px-3 py-1.5 rounded-lg">{strain.cfu}</span>
-                <span className="font-montserrat font-semibold text-xs text-[#06C265] bg-[#06C265]/10 px-3 py-1.5 rounded-lg">{strain.stability}</span>
+                <span className="font-montserrat font-semibold text-xs text-[#0a0a0a] bg-[#0a0a0a]/10 px-3 py-1.5 rounded-lg">{strain.stability}</span>
               </div>
             </div>
           </motion.div>
@@ -142,7 +142,7 @@ export default function SciencePage() {
         <section className="min-h-[50vh] bg-[#1A1A18] flex items-center px-6 py-24">
           <motion.div initial={{ opacity:0, y:24 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.7 }}
             className="max-w-3xl mx-auto text-center">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-4">Evidence-Based</p>
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-4">Evidence-Based</p>
             <h1 className="font-baskerville font-bold text-5xl lg:text-6xl text-white leading-tight mb-4">
               Science-backed formulas
             </h1>
@@ -157,7 +157,7 @@ export default function SciencePage() {
           <div className="max-w-5xl mx-auto px-6 lg:px-8">
             <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
               className="text-center mb-14">
-              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3">Research Library</p>
+              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-3">Research Library</p>
               <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18]">Key Studies</h2>
             </motion.div>
             <div className="grid md:grid-cols-3 gap-6">
@@ -171,7 +171,7 @@ export default function SciencePage() {
           <div className="max-w-3xl mx-auto px-6 lg:px-8">
             <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
               className="text-center mb-14">
-              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3">Ingredient Science</p>
+              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-3">Ingredient Science</p>
               <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18] mb-3">Probiotic Strain Breakdown</h2>
               <p className="font-montserrat font-medium text-base text-[#6B6B6B] max-w-lg mx-auto">
                 Each strain selected for a specific function — not just as a marketing count.
@@ -188,7 +188,7 @@ export default function SciencePage() {
           <div className="max-w-4xl mx-auto">
             <motion.div initial={{ opacity:0, y:24 }} animate={climateInView ? { opacity:1, y:0 } : {}}
               transition={{ duration:0.7 }}>
-              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-4">Built For The Tropics</p>
+              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-4">Built For The Tropics</p>
               <h2 className="font-baskerville font-bold text-4xl lg:text-5xl text-white mb-6 leading-tight">
                 Why Bacillus strains<br />for the Malaysian climate?
               </h2>

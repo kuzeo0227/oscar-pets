@@ -50,10 +50,10 @@ export default function ProductFeature() {
                 <div className="w-48 h-48 rounded-2xl bg-[#1A1A18] flex items-center justify-center">
                   <div className="text-center">
                     <p className="font-antapani text-white text-2xl">oscar</p>
-                    <p className="font-montserrat font-black text-[#06C265] text-xs tracking-widest mt-1">PROBIOTIC BLEND</p>
+                    <p className="font-montserrat font-black text-[#0a0a0a] text-xs tracking-widest mt-1">PROBIOTIC BLEND</p>
                   </div>
                 </div>
-                <p className="font-montserrat font-light text-xs tracking-widest mt-6 text-[#06C265]">Product Image</p>
+                <p className="font-montserrat font-light text-xs tracking-widest mt-6 text-[#0a0a0a]">Product Image</p>
               </div>
             </div>
 
@@ -81,7 +81,7 @@ export default function ProductFeature() {
           >
             <motion.p
               variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
-              className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3"
+              className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-3"
             >
               Product Spotlight
             </motion.p>
@@ -105,8 +105,8 @@ export default function ProductFeature() {
                   variants={{ hidden: { opacity: 0, x: 24 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5 } } }}
                   className="flex gap-4 items-start"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#06C265]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Icon size={18} className="text-[#06C265]" />
+                  <div className="w-10 h-10 rounded-xl bg-[#0a0a0a]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Icon size={18} className="text-[#0a0a0a]" />
                   </div>
                   <div>
                     <p className="font-montserrat font-bold text-sm text-[#1A1A18]">{label}</p>
@@ -136,7 +136,7 @@ export default function ProductFeature() {
                 <motion.button
                   whileHover={{ scale: 1.02, filter: 'brightness(1.08)' }}
                   whileTap={{ scale: 0.97 }}
-                  className="bg-[#06C265] text-[#1A1A18] font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-lg"
+                  className="bg-[#0a0a0a] text-[#1A1A18] font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-lg"
                 >
                   View Product
                 </motion.button>

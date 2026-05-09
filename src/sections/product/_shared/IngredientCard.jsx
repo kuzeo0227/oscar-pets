@@ -42,7 +42,7 @@ export default function IngredientCard({ ing, delay }) {
         <ul className="flex flex-col gap-2">
           {ing.benefits.map(b => (
             <li key={b} className="font-montserrat text-xs text-white/80 flex gap-2 leading-snug">
-              <span className="text-[#06C265]">→</span>
+              <span className="text-[#0a0a0a]">→</span>
               {b}
             </li>
           ))}

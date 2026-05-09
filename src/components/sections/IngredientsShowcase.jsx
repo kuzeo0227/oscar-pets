@@ -23,8 +23,8 @@ const INGREDIENTS = [
 
 const CATEGORY_STYLES = {
   'Probiotics':       { bg: '#1A1A18', text: '#FFFFFF' },
-  'Science-backed':   { bg: '#06C265', text: '#FFFFFF' },
-  'Premium Sourced':  { bg: '#06C265', text: '#1A1A18' },
+  'Science-backed':   { bg: '#0a0a0a', text: '#FFFFFF' },
+  'Premium Sourced':  { bg: '#0a0a0a', text: '#1A1A18' },
   'Others':           { bg: '#E5E5E5', text: '#6B6B6B' },
 }
 
@@ -99,7 +99,7 @@ export default function IngredientsShowcase() {
       <div className="max-w-7xl mx-auto px-6">
 
         <div className="text-center mb-4">
-          <p className="font-montserrat font-bold text-[11px] tracking-[0.25em] uppercase text-[#06C265]">
+          <p className="font-montserrat font-bold text-[11px] tracking-[0.25em] uppercase text-[#0a0a0a]">
             What Goes Inside
           </p>
         </div>

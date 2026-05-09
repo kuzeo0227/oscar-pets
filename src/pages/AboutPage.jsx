@@ -59,7 +59,7 @@ export default function AboutPage() {
         <section className="min-h-[60vh] bg-[#1A1A18] flex items-center justify-center px-6 py-24">
           <motion.div initial={{ opacity:0, y:32 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.8 }}
             className="text-center max-w-3xl">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-5">Our Story</p>
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-5">Our Story</p>
             <h1 className="font-baskerville italic font-bold text-5xl lg:text-7xl text-white leading-tight">
               Two brothers from Penang,<br />one mission.
             </h1>
@@ -72,7 +72,7 @@ export default function AboutPage() {
         {/* Timeline */}
         <Section ivory>
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3 text-center">How We Got Here</p>
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-3 text-center">How We Got Here</p>
             <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18] text-center mb-14">The Oscar Pets Journey</h2>
             <div className="relative">
               <div className="absolute left-[22px] top-0 bottom-0 w-px bg-[#EFEFED]" />
@@ -86,7 +86,7 @@ export default function AboutPage() {
                       transition={{ delay: i*0.1, duration:0.55 }}
                       className="flex gap-8 items-start">
                       <div className="w-11 h-11 rounded-full bg-[#1A1A18] flex items-center justify-center flex-shrink-0 relative z-10">
-                        <span className="font-montserrat font-black text-[10px] text-[#06C265]">{m.year}</span>
+                        <span className="font-montserrat font-black text-[10px] text-[#0a0a0a]">{m.year}</span>
                       </div>
                       <div className="pt-2">
                         <h3 className="font-montserrat font-black text-base text-[#1A1A18] mb-1">{m.title}</h3>
@@ -103,7 +103,7 @@ export default function AboutPage() {
         {/* Mission pillars */}
         <Section>
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3 text-center">What Drives Us</p>
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-3 text-center">What Drives Us</p>
             <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18] text-center mb-14">Our Three Pillars</h2>
             <div className="space-y-16">
               {MISSIONS.map((m, i) => {
@@ -115,7 +115,7 @@ export default function AboutPage() {
                     transition={{ duration:0.6 }}
                     className="grid md:grid-cols-[80px_1fr] gap-6 items-start">
                     <div className="w-16 h-16 rounded-2xl bg-[#1A1A18] flex items-center justify-center flex-shrink-0">
-                      <span className="font-montserrat font-black text-lg text-[#06C265]">{m.num}</span>
+                      <span className="font-montserrat font-black text-lg text-[#0a0a0a]">{m.num}</span>
                     </div>
                     <div>
                       <h3 className="font-baskerville font-bold text-2xl text-[#1A1A18] mb-4">{m.title}</h3>
@@ -133,7 +133,7 @@ export default function AboutPage() {
         {/* Why Oscar Pets */}
         <Section ivory>
           <div className="max-w-5xl mx-auto px-6 lg:px-8">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#06C265] uppercase mb-3 text-center">The Difference</p>
+            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-3 text-center">The Difference</p>
             <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18] text-center mb-14">Why Oscar Pets?</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {WHY_CARDS.map((card, i) => {
@@ -162,7 +162,7 @@ export default function AboutPage() {
             <p className="font-montserrat font-medium text-base text-white/60 mb-8">Give your dog the premium nutrition they deserve.</p>
             <Link to="/shop">
               <motion.button whileHover={{ scale:1.03, filter:'brightness(1.08)' }} whileTap={{ scale:0.97 }}
-                className="bg-[#06C265] text-[#1A1A18] font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-xl">
+                className="bg-[#0a0a0a] text-[#1A1A18] font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-xl">
                 Shop Now
               </motion.button>
             </Link>

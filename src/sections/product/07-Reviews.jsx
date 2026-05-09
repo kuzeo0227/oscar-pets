@@ -95,7 +95,7 @@ export default function Reviews() {
                 </div>
                 <p className="font-baskerville font-bold text-base text-[#1A1A18] leading-snug mb-2">{r.title}</p>
                 <p className="font-montserrat text-[13px] text-[#6B6B6B] leading-relaxed">{r.body}</p>
-                <p className="mt-3 inline-flex items-center gap-1 font-montserrat font-bold text-[10px] tracking-[0.08em] uppercase text-[#06C265]">
+                <p className="mt-3 inline-flex items-center gap-1 font-montserrat font-bold text-[10px] tracking-[0.08em] uppercase text-[#0a0a0a]">
                   <Check size={12} /> Verified Purchase
                 </p>
               </motion.div>

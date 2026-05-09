@@ -7,7 +7,7 @@ import { VET } from '../../data/product'
  * Dark off-black section with two columns:
  *  • LEFT  : large italic Baskerville quote + DR avatar + name + title
  *  • RIGHT : 2×2 stat grid (3B / 29 / 89% / 4.9★)
- * Decorative copper-green border rings in the corners.
+ * Decorative monochrome border rings in the corners.
  */
 export default function VetReviewed() {
   return (
@@ -16,7 +16,7 @@ export default function VetReviewed() {
       <section className="relative bg-[#1A1A18] text-white py-20 md:py-24 overflow-hidden">
         {/* Decorative rings */}
         <div className="absolute -top-16 -right-16 w-72 h-72 rounded-full border-[56px] border-white/[0.04] pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full border-[40px] border-[#06C265]/[0.06] pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full border-[40px] border-[#0a0a0a]/[0.06] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center relative">
           {/* Quote */}
@@ -29,7 +29,7 @@ export default function VetReviewed() {
               Vet Reviewed
             </p>
             <blockquote className="relative font-baskerville italic text-2xl md:text-3xl lg:text-[34px] font-normal leading-[1.4] text-white">
-              <span className="absolute -left-4 -top-2 text-[80px] leading-none text-[#06C265]/20 not-italic font-bold">"</span>
+              <span className="absolute -left-4 -top-2 text-[80px] leading-none text-[#0a0a0a]/20 not-italic font-bold">"</span>
               {VET.quote}
             </blockquote>
             <div className="mt-7 flex items-center gap-4">
@@ -53,7 +53,7 @@ export default function VetReviewed() {
             {VET.stats.map((s, i) => (
               <motion.div
                 key={s.n}
-                whileHover={{ backgroundColor: 'rgba(6,194,101,0.12)' }}
+                whileHover={{ backgroundColor: 'rgba(10,10,10,0.12)' }}
                 className={`bg-white/[0.05] p-7 ${
                   i === 0 ? 'rounded-tl-2xl' :
                   i === 1 ? 'rounded-tr-2xl' :

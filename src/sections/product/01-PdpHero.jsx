@@ -74,7 +74,7 @@ export default function PdpHero() {
                   key={i}
                   onClick={() => setMainIdx(i)}
                   className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-colors ${
-                    i === mainIdx ? 'border-[#1A1A18]' : 'border-[#EFEFED] hover:border-[#06C265]'
+                    i === mainIdx ? 'border-[#1A1A18]' : 'border-[#EFEFED] hover:border-[#0a0a0a]'
                   }`}
                 >
                   <img src={src} alt="" className="w-full h-full object-cover" />
@@ -113,7 +113,7 @@ export default function PdpHero() {
             >
               <span className="w-8 h-8 rounded-full bg-[#1A1A18] text-white font-montserrat font-bold text-[11px] flex items-center justify-center flex-shrink-0">DR</span>
               <span className="font-montserrat font-bold text-[11px] tracking-[0.1em] uppercase text-[#1A1A18]">Vet Reviewed &amp; Approved</span>
-              <span className="font-montserrat text-[11px] text-[#06C265] group-hover:translate-x-0.5 transition-transform">→</span>
+              <span className="font-montserrat text-[11px] text-[#0a0a0a] group-hover:translate-x-0.5 transition-transform">→</span>
             </motion.a>
 
             {/* PURCHASE BOX */}
@@ -167,7 +167,7 @@ export default function PdpHero() {
                   whileHover={{ scale: 1.02, filter: 'brightness(1.08)' }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 18 }}
-                  className="w-full bg-[#06C265] text-white font-montserrat font-black text-sm tracking-wider uppercase py-4 rounded-full"
+                  className="w-full bg-[#0a0a0a] text-white font-montserrat font-black text-sm tracking-wider uppercase py-4 rounded-full"
                 >
                   Add to Cart — RM {price}.00
                 </motion.button>

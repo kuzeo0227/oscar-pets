@@ -1,62 +1,112 @@
 @import "tailwindcss";
 
 @theme {
-  --color-black: #1A1A18;
-  --color-green: #06C265;
-  --color-green-dark: #04A455;
-  --color-offwhite: #FAFAF7;
-  --color-line: #EFEFED;
-  --color-stone: #6B6B6B;
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "Space Mono", ui-monospace, monospace;
+  --font-serif:   "Libre Baskerville", ui-serif, Georgia, serif;
 
-  --font-display: 'Libre Baskerville', Georgia, serif;
-  --font-sans: 'Montserrat', system-ui, sans-serif;
+  /* MONOCHROME PALETTE — black + white + beige + grays only */
+  --color-ink:        #0a0a0a;
+  --color-ink-soft:   #1a1a18;
+  --color-paper:      #ffffff;
+  --color-paper-soft: #f6f5f1;
+  --color-rule:       #e6e5e0;
+  --color-mute:       #6b6b6b;
+  --color-mute-soft:  #9a9a96;
+
+  /* CTA — black on white */
+  --color-go:      #0a0a0a;
+  --color-go-deep: #2a2a2a;
+
+  --ease-signature: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  box-sizing: border-box;
+@layer base {
+  :root { color-scheme: light; }
+
+  html, body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body { overflow-x: hidden; margin: 0; padding: 0; }
+
+  ::selection { background: var(--color-ink); color: var(--color-paper); }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  *  { box-sizing: border-box; }
+
+  h1, h2, h3 {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-}
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-body    { font-family: var(--font-body); }
+  .font-mono    { font-family: var(--font-mono); }
+  .font-serif   { font-family: var(--font-serif); }
 
-body {
-  background-color: #FFFFFF;
-  color: #1A1A18;
-  font-family: 'Montserrat', system-ui, sans-serif;
-  font-weight: 400;
-}
+  /* Compatibility aliases (old code referenced these) */
+  .font-baskerville { font-family: 'Libre Baskerville', Georgia, serif; }
+  .font-montserrat  { font-family: 'Montserrat', system-ui, sans-serif; }
+  .font-logo {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+  }
 
-h1, h2, h3 {
-  font-family: 'Libre Baskerville', Georgia, serif;
-  letter-spacing: -0.01em;
-}
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
 
-.font-display    { font-family: 'Libre Baskerville', Georgia, serif; }
-.font-sans       { font-family: 'Montserrat', system-ui, sans-serif; }
-.font-baskerville{ font-family: 'Libre Baskerville', Georgia, serif; }
-.font-montserrat { font-family: 'Montserrat', system-ui, sans-serif; }
-.font-logo {
-  font-family: 'Montserrat', system-ui, sans-serif;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-}
-.font-antapani {
-  font-family: 'Montserrat', system-ui, sans-serif;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-}
+  .num-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
 
-.section-ivory { background-color: #FAFAF7; }
-.section-navy  { background-color: #1A1A18; }
+  .container-edge {
+    padding-left:  clamp(24px, 7vw, 128px);
+    padding-right: clamp(24px, 7vw, 128px);
+  }
+  .container-edge-tight {
+    padding-left:  clamp(24px, 5vw, 80px);
+    padding-right: clamp(24px, 5vw, 80px);
+  }
+
+  .hairline-bottom { box-shadow: inset 0 -1px 0 0 var(--color-rule); }
+  .hairline-top    { box-shadow: inset  0  1px 0 0 var(--color-rule); }
+
+  /* Section-bg helpers (no color) */
+  .section-paper      { background-color: #ffffff; }
+  .section-paper-soft { background-color: #f6f5f1; }
+  .section-ink        { background-color: #0a0a0a; color: #ffffff; }
+
+  .text-ink           { color: #0a0a0a; }
+  .text-mute          { color: #6b6b6b; }
+}
 
 html { scroll-behavior: smooth; }
 
 .oscar-section { position: relative; overflow: hidden; }
 
+/* Marquee for press/trust strips */
 @keyframes marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -67,9 +117,11 @@ html { scroll-behavior: smooth; }
 }
 .marquee-track:hover { animation-play-state: paused; }
 
-.grain-bg {
-  background-color: #FAFAF7;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(6,194,101,0.04), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(26,26,24,0.025), transparent 40%);
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

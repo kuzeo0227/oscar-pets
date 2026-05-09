@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import Nav from './components/Nav'
+import NavHeader from './components/NavHeader'
 import CartDrawer from './components/CartDrawer'
 import PageTransition from './components/PageTransition'
 import HomePage from './pages/HomePage'
@@ -13,7 +13,7 @@ export default function App() {
   const location = useLocation()
   return (
     <>
-      <Nav />
+      <NavHeader />
       <CartDrawer />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
