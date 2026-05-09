@@ -48,11 +48,11 @@ export default function Hero() {
   const currentSet = sets[setIndex];
 
   return (
-    // Sticky hero — Journey (next section) scrolls OVER it.
+    // Flat-flow hero — sits naturally above TrustBar; no sticky/cover-stack.
     <section
       id="top"
-      className="sticky top-0 z-0 h-screen w-full overflow-hidden"
-      style={{ background: "var(--color-paper-soft)" }}
+      className="relative w-full overflow-hidden"
+      style={{ background: "var(--color-paper-soft)", minHeight: "calc(100vh - 96px)" }}
     >
       <div className="container-edge mx-auto grid h-full grid-cols-1 items-stretch gap-y-10 lg:grid-cols-12 lg:gap-x-10 pt-10 pb-12 lg:pt-14 lg:pb-16">
         {/* LEFT: copy column */}

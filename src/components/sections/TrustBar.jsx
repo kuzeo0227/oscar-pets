@@ -1,43 +1,43 @@
 /**
- * TRUST BAR — pure CSS marquee, no JS, no Framer Motion.
- * Sits as a 44px-tall black strip immediately under the Hero.
+ * TRUST BAR — fully static strip, no animation, no scrolling.
+ * 4 evenly-spaced trust signals on a single black row beneath the Hero.
  */
 export default function TrustBar() {
-  const text = "VET-FORMULATED · HALAL-COMPLIANT FORMULA · 3RD-PARTY TESTED · 30-DAY MONEY-BACK · ";
-  const repeated = text.repeat(6);
+  const items = [
+    "VET-FORMULATED",
+    "HALAL-COMPLIANT FORMULA",
+    "3RD-PARTY TESTED",
+    "30-DAY MONEY-BACK",
+  ];
 
   return (
-    <section
+    <div
       style={{
         background: "#0a0a0a",
-        height: 44,
-        overflow: "hidden",
-        position: "relative",
+        height: 48,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "clamp(24px, 5vw, 72px)",
         borderTop: "1px solid rgba(255,255,255,0.12)",
+        flexWrap: "nowrap",
+        overflow: "hidden",
       }}
     >
-      <style>{`
-        @keyframes oscar-trustbar-marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .oscar-trustbar-track {
-          display: flex;
-          width: max-content;
-          height: 100%;
-          align-items: center;
-          animation: oscar-trustbar-marquee 28s linear infinite;
-          white-space: nowrap;
-          font-family: 'Space Mono', ui-monospace, monospace;
-          font-size: 11px;
-          letter-spacing: 0.22em;
-          color: #ffffff;
-        }
-      `}</style>
-      <div className="oscar-trustbar-track">
-        <span>{repeated}</span>
-        <span aria-hidden="true">{repeated}</span>
-      </div>
-    </section>
+      {items.map((item, i) => (
+        <span
+          key={i}
+          style={{
+            fontFamily: "'Space Mono', ui-monospace, monospace",
+            fontSize: 11,
+            letterSpacing: "0.22em",
+            color: "#ffffff",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {item}
+        </span>
+      ))}
+    </div>
   );
 }
