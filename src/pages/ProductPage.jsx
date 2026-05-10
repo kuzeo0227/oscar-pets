@@ -13,7 +13,6 @@ import { ArrowRight } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 
 import PdpTopNav        from '../sections/product/PdpTopNav'
-import PdpHero          from '../sections/product/01-PdpHero'
 import VetReviewed      from '../sections/product/02-VetReviewed'
 import KeyIngredients   from '../sections/product/03-KeyIngredients'
 import DirectionsForUse from '../sections/product/04-DirectionsForUse'
@@ -53,6 +52,8 @@ function ShopIntro() {
 
   return (
     <div className="bg-white text-ink">
+      {/* Anchor for PdpTopNav 'Product Info' link */}
+      <span id="hero" className="block relative -top-32 invisible" aria-hidden="true" />
       {/* Page header */}
       <div className="container-edge mx-auto pt-14 pb-10 hairline-bottom">
         <p className="eyebrow text-ink">The Shop</p>
@@ -69,24 +70,28 @@ function ShopIntro() {
       <section className="container-edge mx-auto py-16 md:py-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-          {/* Image */}
+          {/* Image — constrained, with breathing room */}
           <motion.div
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease }}
-            className="relative aspect-[4/5] overflow-hidden"
-            style={{ background: 'var(--color-paper-soft)' }}
+            className="flex items-center justify-center"
           >
-            <img
-              src={PRODUCT.image}
-              alt={PRODUCT.name}
-              className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }}
-              draggable={false}
-            />
             <div
-              className="pointer-events-none absolute inset-x-0 top-0 h-[14%]"
+              className="relative aspect-[4/5] overflow-hidden w-full max-w-[340px] mx-auto"
               style={{ background: 'var(--color-paper-soft)' }}
-            />
+            >
+              <img
+                src={PRODUCT.image}
+                alt={PRODUCT.name}
+                className="absolute inset-0 h-full w-full object-contain"
+                style={{ objectPosition: 'center center' }}
+                draggable={false}
+              />
+              <div
+                className="pointer-events-none absolute inset-x-0 top-0 h-[8%]"
+                style={{ background: 'var(--color-paper-soft)' }}
+              />
+            </div>
           </motion.div>
 
           {/* Info column */}
@@ -190,7 +195,6 @@ export default function ProductPage() {
     <div className="bg-white text-[#0a0a0a]">
       <ShopIntro />
       <PdpTopNav />
-      <PdpHero />
       <VetReviewed />
       <KeyIngredients />
       <DirectionsForUse />
