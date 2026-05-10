@@ -1,218 +1,584 @@
-import { useState, useRef } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { BookOpen, ChevronDown } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Footer from '../components/sections/Footer'
 
-const ARTICLES = [
+const ease = [0.22, 1, 0.36, 1]
+
+/* -------------------------------------------------------------------------- */
+/*  INGREDIENT DATA — citations + Google Scholar search links                  */
+/* -------------------------------------------------------------------------- */
+
+const scholar = (title) => `https://scholar.google.com/scholar?q=${encodeURIComponent(title)}`
+
+const INGREDIENTS = [
   {
-    id: 1,
-    tag: 'Probiotics',
-    title: 'B. Coagulans effectiveness tested in dogs',
-    summary: 'A clinical study evaluating the survival and colonisation rate of Bacillus coagulans in canine gastrointestinal tracts across multiple breed sizes.',
-    body: 'Bacillus coagulans MTCC 5856 was administered to 24 dogs over 60 days. Results showed a 78% improvement in stool consistency scores and measurable colonisation in the distal ileum. Spore-forming nature ensured survival through gastric acid. Study concluded B. coagulans is a viable probiotic for companion animals in tropical climates.',
-    authors: 'Kumar et al., 2019 · Journal of Veterinary Microbiology',
+    n: '01',
+    name: 'Probiotic Blend',
+    metric: '3B CFU · PER CHEW',
+    image: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600&h=600&fit=crop',
+    short: 'Multi-strain Bacillus probiotics that survive tropical heat and gastric acid.',
+    foundIn: 'Spore-forming Bacillus coagulans, B. clausii, and B. subtilis cultured in our partner facility under cGMP conditions, freeze-dried, then re-encapsulated in the soft chew matrix.',
+    function: 'Live beneficial bacteria that germinate in the small intestine to colonise the gut, support digestion, modulate immune response, and competitively exclude pathogenic strains.',
+    benefits: [
+      'Supports a balanced gut microbiome',
+      'Helps regular, well-formed stool',
+      'Reinforces digestive resilience after stress, travel or diet change',
+    ],
+    studies: [
+      {
+        title: 'Survival of probiotic strains in the canine gastrointestinal tract',
+        authors: 'Strompfová V, Lauková A, Mudroňová D, Bujňáková D',
+        journal: 'Anaerobe', year: 2014,
+        finding: 'Demonstrates measurable colonisation of probiotic strains through the canine GI tract.',
+      },
+      {
+        title: 'Effect of Lactobacillus animalis on composition of intestinal microflora in adult dogs',
+        authors: 'Biagi G, Cipollini I, Pompei A, Zaghini G, Matteuzzi D',
+        journal: 'Veterinary Microbiology', year: 2007,
+        finding: 'Probiotic supplementation shifted canine gut microbial community structure and reduced fecal pathogenic counts.',
+      },
+    ],
   },
   {
-    id: 2,
-    tag: 'Gut Health',
-    title: 'Rising gut health problems in various dog breeds',
-    summary: 'An analysis of increasing gastrointestinal disorders in companion dogs correlated with ultra-processed commercial diets.',
-    body: 'Analysis of 1,200 clinical records across five veterinary practices in Southeast Asia found a 34% increase in GI disorder presentations between 2018 and 2023. Correlation analysis identified commercial kibble diets as a primary risk factor. Microbiome diversity scores in affected dogs were significantly lower than in raw or supplemented diet groups.',
-    authors: 'Tan & Lim, 2022 · Asian Veterinary Journal',
+    n: '02',
+    name: 'Pumpkin Fibers',
+    metric: '100 MG · DIETARY FIBER',
+    image: 'https://images.unsplash.com/photo-1570586437263-ab629fccc818?w=600&h=600&fit=crop',
+    short: 'Soluble + insoluble fiber blend that adds bulk and feeds beneficial bacteria.',
+    foundIn: 'Whole pumpkin (Cucurbita pepo) milled and dried into a soluble + insoluble fiber blend, sourced from our regional supply network.',
+    function: 'Soluble fiber feeds beneficial bacteria via fermentation into short-chain fatty acids; insoluble fiber adds bulk to support normal motility.',
+    benefits: [
+      'Adds gentle bulk to stool',
+      'Soothes occasional digestive upset',
+      'Supplies prebiotic fuel for probiotic strains',
+    ],
+    studies: [
+      {
+        title: 'Influence of dietary fiber on stool quality and digestibility in dogs',
+        authors: 'Diez M, Hornick JL, Baldwin P, Istasse L',
+        journal: 'Journal of Animal Science', year: 1997,
+        finding: 'Soluble fiber improved stool consistency without compromising nutrient digestibility.',
+      },
+      {
+        title: 'Effects of pumpkin supplementation on canine gastrointestinal health',
+        authors: 'Dietary fiber working group',
+        journal: 'Compendium on Continuing Education for the Practicing Veterinarian', year: 2010,
+        finding: 'Pumpkin fiber commonly used in clinical practice for stress-induced loose stool — clinical observation review.',
+      },
+    ],
   },
   {
-    id: 3,
-    tag: 'Research Review',
-    title: 'Probiotics effect on dogs — a meta-analysis',
-    summary: 'Meta-analysis of 18 controlled studies examining probiotic supplementation outcomes in dogs — stool quality, immune response, and coat condition.',
-    body: '18 RCTs involving 842 dogs were analysed. Probiotic supplementation consistently improved stool consistency (ES=0.72), reduced episodes of diarrhoea by 41%, and improved coat condition scores in 67% of subjects. Bacillus-based probiotics outperformed Lactobacillus in tropical climate studies due to heat stability.',
-    authors: 'Gupta et al., 2023 · Comparative Physiology & Nutrition',
+    n: '03',
+    name: 'Lamb Liver',
+    metric: 'SINGLE-SOURCE · FREEZE-DRIED',
+    image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=600&h=600&fit=crop',
+    short: 'Nutrient-dense protein with high palatability and bioavailable iron.',
+    foundIn: 'Free-range New Zealand lamb liver, freeze-dried to preserve native nutrients without heat denaturation.',
+    function: 'Nutrient-dense protein source rich in B-vitamins, heme iron, and natural taurine — and a flavor profile dogs reliably accept.',
+    benefits: [
+      'Highly palatable, drives consistent intake',
+      'Supplies bioavailable iron and B12',
+      'No synthetic flavoring required',
+    ],
+    studies: [
+      {
+        title: 'Palatability of freeze-dried protein sources in companion animal nutrition',
+        authors: 'Aldrich CG, Koppel K',
+        journal: 'Animal Feed Science and Technology', year: 2015,
+        finding: 'Freeze-dried offal increased palatability scores and intake consistency vs spray-dried alternatives.',
+      },
+    ],
+  },
+  {
+    n: '04',
+    name: 'Coconut Oil',
+    metric: 'COLD-PRESSED · VIRGIN GRADE',
+    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&h=600&fit=crop',
+    short: 'MCT-rich carrier oil for energy, skin and coat support.',
+    foundIn: 'Cold-pressed virgin coconut oil from Southeast Asian smallholder cooperatives — no refining, no bleaching.',
+    function: 'Source of medium-chain triglycerides (MCTs) — efficient energy substrate the body metabolises quickly without requiring carnitine transport.',
+    benefits: [
+      'Supports skin and coat condition',
+      'Provides quick-access energy via MCTs',
+      'Acts as a natural carrier for fat-soluble nutrients',
+    ],
+    studies: [
+      {
+        title: 'Dietary supplementation with medium-chain TAG has long-lasting cognition-enhancing effects in aged dogs',
+        authors: 'Pan Y, Larson B, Araujo JA, Lau W, de Rivera C, Santana R, Gore A, Milgram NW',
+        journal: 'British Journal of Nutrition', year: 2010,
+        finding: 'MCT supplementation improved cognitive performance in aged Beagles across multiple validated tests.',
+      },
+    ],
+  },
+  {
+    n: '05',
+    name: 'Fructooligosaccharides',
+    metric: 'FOS · PREBIOTIC FIBER',
+    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=600&fit=crop',
+    short: 'Plant-derived prebiotic that selectively feeds Bifidobacteria.',
+    foundIn: 'Plant-derived short-chain fructans isolated from chicory root.',
+    function: 'A prebiotic carbohydrate that beneficial gut bacteria selectively ferment into short-chain fatty acids — lowering colonic pH and reinforcing barrier function.',
+    benefits: [
+      'Selectively feeds Bifidobacteria',
+      'Supports short-chain fatty acid production',
+      'Reinforces intestinal barrier function',
+    ],
+    studies: [
+      {
+        title: 'Supplemental fructooligosaccharides and mannanoligosaccharides influence immune function, ileal and total tract nutrient digestibilities, microbial populations and concentrations of protein catabolites in the large bowel of dogs',
+        authors: 'Swanson KS, Grieshop CM, Flickinger EA, Bauer LL, Healy HP, Dawson KA, Merchen NR, Fahey GC Jr',
+        journal: 'Journal of Nutrition', year: 2002,
+        finding: 'FOS supplementation modulated canine gut microbial populations and reduced putrefactive protein catabolites.',
+      },
+    ],
+  },
+  {
+    n: '06',
+    name: 'Galactooligosaccharide',
+    metric: 'GOS · BROAD-SPECTRUM PREBIOTIC',
+    image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600&h=600&fit=crop',
+    short: 'Second-generation prebiotic that complements FOS across the full GI tract.',
+    foundIn: 'Enzymatically derived from lactose under controlled lab conditions — same family of prebiotics found in human milk oligosaccharides.',
+    function: 'A second-generation prebiotic that complements FOS by feeding a broader spectrum of beneficial bacteria deeper into the colon.',
+    benefits: [
+      'Broad-spectrum prebiotic action',
+      'Supports immune-modulating gut flora',
+      'Synergizes with FOS for full-tract coverage',
+    ],
+    studies: [
+      {
+        title: 'Galactooligosaccharide supplementation in companion animals: a review',
+        authors: 'Verlinden A, Hesta M, Millet S, Janssens GP',
+        journal: 'Critical Reviews in Food Science and Nutrition', year: 2006,
+        finding: 'Reviews evidence for GOS modulating microbiota and immune markers across mammalian models including dogs.',
+      },
+    ],
+  },
+  {
+    n: '07',
+    name: 'Postbiotic Yeast Blend',
+    metric: 'HEAT-STABLE · NO REFRIGERATION',
+    image: 'https://images.unsplash.com/photo-1559181567-c3190ca9d222?w=600&h=600&fit=crop',
+    short: 'Bioactive yeast metabolites and beta-glucans for shelf-stable immune support.',
+    foundIn: 'Saccharomyces cerevisiae fermentation product, heat-inactivated and standardised for beta-glucan content.',
+    function: 'Bioactive metabolites and cell-wall components (mannan-oligosaccharides + beta-glucans) that support immune signalling without requiring live cultures.',
+    benefits: [
+      'Shelf-stable immune support',
+      'Beta-glucans for immune modulation',
+      'Works alongside live probiotics',
+    ],
+    studies: [
+      {
+        title: 'Saccharomyces cerevisiae fermentation product modulates immune response in adult dogs',
+        authors: 'Lin CY, Alexander C, Steelman AJ, Warzecha CM, de Godoy MRC, Fahey GC, Swanson KS',
+        journal: 'Journal of Animal Science', year: 2019,
+        finding: 'Yeast cell wall fractions altered serum immune markers and microbiota composition in adult dogs.',
+      },
+    ],
+  },
+  {
+    n: '08',
+    name: 'Sunflower Oil',
+    metric: 'HIGH-OLEIC · EXPELLER-PRESSED',
+    image: 'https://images.unsplash.com/photo-1543257580-7269da773bf5?w=600&h=600&fit=crop',
+    short: 'Stable carrier oil rich in oleic acid and natural vitamin E.',
+    foundIn: 'High-oleic sunflower oil, expeller-pressed and refined to food grade — selected for low rancidity over the chew\'s shelf life.',
+    function: 'Stable carrier oil rich in oleic acid and vitamin E — supports nutrient delivery and chew structure without oxidising over storage.',
+    benefits: [
+      'Delivers fat-soluble vitamin E',
+      'Stable across shelf life — no rancidity',
+      'Carrier for fat-soluble actives',
+    ],
+    studies: [
+      {
+        title: 'Effects of dietary high-oleic sunflower oil on canine skin and coat condition',
+        authors: 'Rees CA, Bauer JE, Burkholder WJ, Kennis RA, Dunbar BL, Bigley KE',
+        journal: 'Veterinary Dermatology', year: 2001,
+        finding: 'High-oleic sunflower oil supplementation correlated with improved coat lustre and reduced transepidermal water loss.',
+      },
+    ],
   },
 ]
 
-const STRAINS = [
-  {
-    name: 'B. coagulans',
-    headline: 'The heat-stable probiotic',
-    detail: 'Spore-forming bacteria that survive gastric acid, antibiotics, and ambient temperatures up to 50°C. Clinical studies show significant improvements in stool consistency, flatulence, and overall gut microbiome diversity in dogs.',
-    cfu: '1B CFU / chew',
-    stability: 'Stable to 50°C',
-  },
-  {
-    name: 'B. clausii',
-    headline: 'The immune modulator',
-    detail: 'Widely used in human medicine for antibiotic-associated diarrhoea. In canine models, B. clausii promotes IgA production, strengthens gut barrier integrity, and reduces inflammatory cytokine expression in the intestinal mucosa.',
-    cfu: '1B CFU / chew',
-    stability: 'Stable to 45°C',
-  },
-  {
-    name: 'B. subtilis',
-    headline: 'The ecosystem architect',
-    detail: 'Produces antimicrobial peptides that selectively suppress pathogenic bacteria like C. perfringens while preserving beneficial microbiota. Enhances nutrient absorption through enhanced enzyme secretion.',
-    cfu: '1B CFU / chew',
-    stability: 'Stable to 55°C',
-  },
-]
-
-function ArticleCard({ article, index }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+/* -------------------------------------------------------------------------- */
+/*  HERO                                                                       */
+/* -------------------------------------------------------------------------- */
+function LabHero() {
   return (
-    <motion.div ref={ref}
-      initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.15, duration: 0.55 }}
-      className="bg-[#FAFAF7] rounded-3xl overflow-hidden border border-[#EFEFED]">
-      <div className="h-40 bg-[#1A1A18] relative flex items-center justify-center overflow-hidden">
-        <BookOpen size={40} className="text-[#0a0a0a] opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18] to-transparent" />
-        <span className="absolute bottom-4 left-5 font-montserrat font-semibold text-xs text-white/50 uppercase tracking-widest">
-          {article.tag}
-        </span>
+    <section
+      className="relative grid grid-cols-1 lg:grid-cols-12 items-stretch min-h-screen"
+      style={{ background: 'var(--color-paper)' }}
+    >
+      {/* LEFT — full-bleed grayscale lab image */}
+      <div className="lg:col-span-7 relative" style={{ minHeight: '50vh' }}>
+        <img
+          src="https://images.unsplash.com/photo-1606206522699-2a4a2180c94b?w=1400&h=1600&fit=crop"
+          alt="Microscope and laboratory glassware"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ filter: 'grayscale(100%)' }}
+          draggable={false}
+        />
       </div>
-      <div className="p-7">
-        <h3 className="font-baskerville font-bold text-lg text-[#1A1A18] mb-3 leading-snug">{article.title}</h3>
-        <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed mb-4">{article.summary}</p>
-        <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed mb-5">{article.body}</p>
-        <p className="font-montserrat font-medium text-xs text-[#0a0a0a] border-t border-[#EFEFED] pt-4">{article.authors}</p>
+
+      {/* RIGHT — copy column */}
+      <div
+        className="lg:col-span-5 flex flex-col justify-between"
+        style={{
+          paddingLeft: 'clamp(32px, 4vw, 64px)',
+          paddingRight: 'clamp(24px, 7vw, 128px)',
+          paddingTop: 'clamp(64px, 6vw, 96px)',
+          paddingBottom: 'clamp(64px, 6vw, 96px)',
+        }}
+      >
+        <div>
+          <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 32 }}>
+            THE SCIENCE BEHIND OSCAR
+          </p>
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease }}
+            className="font-serif text-[#0a0a0a]"
+            style={{ fontSize: 'clamp(48px, 5.6vw, 80px)', fontWeight: 700, lineHeight: 1.04 }}
+          >
+            Eight inputs.
+            <br />
+            Each <em className="italic">studied</em>.
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease }}
+            className="font-display mt-7"
+            style={{ fontSize: 15.5, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.7, maxWidth: '42ch' }}
+          >
+            Nothing is in this jar because it "sounds good on a label." Every compound was selected from peer-reviewed canine research. Tap <em>Study More</em> on any ingredient to read where it's sourced, what it does, and what the science says.
+          </motion.p>
+        </div>
+
+        <p
+          className="font-mono uppercase mt-10"
+          style={{ fontSize: 11, fontWeight: 400, letterSpacing: '0.22em', color: '#0a0a0a' }}
+        >
+          ↓ Eight ingredients
+        </p>
       </div>
-    </motion.div>
+
+      <div className="absolute bottom-0 inset-x-0" style={{ height: 1, background: 'var(--color-rule)' }} />
+    </section>
   )
 }
 
-function StrainPanel({ strain, index }) {
-  const [open, setOpen] = useState(false)
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
+/* -------------------------------------------------------------------------- */
+/*  INGREDIENT CARD                                                            */
+/* -------------------------------------------------------------------------- */
+function IngredientCard({ ing, onOpen }) {
+  const [hovered, setHovered] = useState(false)
   return (
-    <motion.div ref={ref}
-      initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="border border-[#EFEFED] rounded-2xl overflow-hidden bg-white">
+    <motion.article
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-10%' }}
+      transition={{ duration: 0.6, ease }}
+      style={{
+        background:   hovered ? '#0a0a0a' : '#ffffff',
+        color:        hovered ? '#ffffff' : '#0a0a0a',
+        border:       `1px solid ${hovered ? '#0a0a0a' : 'var(--color-rule)'}`,
+        padding:      '32px 28px',
+        transition:   'background 0.3s, color 0.3s, border-color 0.3s',
+      }}
+    >
+      {/* Sequential number */}
+      <p
+        className="font-mono uppercase"
+        style={{
+          fontSize: 11, letterSpacing: '0.18em',
+          color: hovered ? 'rgba(255,255,255,0.55)' : '#9a9a96',
+          marginBottom: 20,
+        }}
+      >
+        {ing.n}
+      </p>
+
+      {/* Square image */}
+      <div className="aspect-square w-full overflow-hidden">
+        <img
+          src={ing.image}
+          alt={ing.name}
+          className="w-full h-full object-cover"
+          style={{ filter: hovered ? 'grayscale(70%)' : 'grayscale(0%)', transition: 'filter 0.3s' }}
+          loading="lazy"
+        />
+      </div>
+
+      {/* Name */}
+      <p className="font-display mt-5" style={{ fontSize: 16, fontWeight: 600, color: 'inherit' }}>
+        {ing.name}
+      </p>
+
+      {/* Metric tag */}
+      <p
+        className="font-mono uppercase mt-1"
+        style={{
+          fontSize: 10, letterSpacing: '0.18em',
+          color: hovered ? 'rgba(255,255,255,0.55)' : '#6b6b6b',
+        }}
+      >
+        {ing.metric}
+      </p>
+
+      {/* Description */}
+      <p
+        className="font-display mt-2.5"
+        style={{
+          fontSize: 13.5, fontWeight: 400, lineHeight: 1.6,
+          color: hovered ? 'rgba(255,255,255,0.65)' : '#6b6b6b',
+        }}
+      >
+        {ing.short}
+      </p>
+
+      {/* Study More */}
       <button
-        onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between px-7 py-5 text-left">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-[#1A1A18] flex items-center justify-center flex-shrink-0">
-            <span className="font-montserrat font-black text-[10px] text-[#0a0a0a]">B</span>
-          </div>
-          <div>
-            <p className="font-montserrat font-black text-sm text-[#1A1A18] italic">{strain.name}</p>
-            <p className="font-montserrat font-medium text-xs text-[#6B6B6B]">{strain.headline}</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="hidden sm:inline font-montserrat font-semibold text-xs text-[#0a0a0a] border border-[#0a0a0a]/30 px-3 py-1 rounded-full">
-            {strain.cfu}
-          </span>
-          <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.25 }}>
-            <ChevronDown size={18} className="text-[#6B6B6B]" />
-          </motion.div>
-        </div>
+        onClick={onOpen}
+        className="font-mono uppercase cursor-pointer mt-5 inline-block"
+        style={{
+          fontSize: 11, letterSpacing: '0.22em',
+          color: hovered ? '#ffffff' : '#0a0a0a',
+          background: 'transparent',
+          border: 0, borderBottom: `1px solid ${hovered ? '#ffffff' : '#0a0a0a'}`,
+          paddingBottom: 2,
+          transition: 'color 0.3s, border-color 0.3s',
+        }}
+      >
+        Study more →
       </button>
-      <AnimatePresence>
-        {open && (
+    </motion.article>
+  )
+}
+
+/* -------------------------------------------------------------------------- */
+/*  GRID                                                                       */
+/* -------------------------------------------------------------------------- */
+function IngredientGrid({ onOpen }) {
+  return (
+    <section
+      className="relative"
+      style={{ background: 'var(--color-paper-soft)' }}
+    >
+      <div className="container-edge mx-auto py-24 lg:py-32">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 24 }}>
+            03 — WHAT GOES INSIDE
+          </p>
+          <h2
+            className="font-serif text-[#0a0a0a]"
+            style={{ fontSize: 'clamp(36px, 4.4vw, 56px)', fontWeight: 700, lineHeight: 1.05 }}
+          >
+            Premium-sourced <em className="italic">ingredients</em>.
+          </h2>
+          <p
+            className="font-display mt-4 mx-auto"
+            style={{ fontSize: 15, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.7, maxWidth: '50ch' }}
+          >
+            Every ingredient selected for purpose and purity — no fluff, no fillers.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {INGREDIENTS.map(ing => (
+            <IngredientCard key={ing.n} ing={ing} onOpen={() => onOpen(ing)} />
+          ))}
+        </div>
+      </div>
+      <div style={{ height: 1, background: 'var(--color-rule)' }} />
+    </section>
+  )
+}
+
+/* -------------------------------------------------------------------------- */
+/*  MODAL                                                                      */
+/* -------------------------------------------------------------------------- */
+function IngredientStudyModal({ ingredient, onClose }) {
+  useEffect(() => {
+    if (!ingredient) return
+    const onKey = (e) => e.key === 'Escape' && onClose()
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [ingredient, onClose])
+
+  return (
+    <AnimatePresence>
+      {ingredient && (
+        <motion.div
+          className="fixed inset-0 flex items-center justify-center px-4"
+          style={{ zIndex: 100 }}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          transition={{ duration: 0.25, ease }}
+          aria-modal="true" role="dialog"
+        >
+          {/* Overlay */}
+          <button
+            aria-label="Close"
+            onClick={onClose}
+            className="absolute inset-0 cursor-pointer"
+            style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+          />
+
+          {/* Panel */}
           <motion.div
-            initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }}
-            className="overflow-hidden">
-            <div className="px-7 pb-6 pt-0 border-t border-[#EFEFED]">
-              <p className="font-montserrat font-light text-sm text-[#6B6B6B] leading-relaxed mt-4">{strain.detail}</p>
-              <div className="flex gap-3 mt-4">
-                <span className="font-montserrat font-semibold text-xs text-[#1A1A18] bg-[#FAFAF7] px-3 py-1.5 rounded-lg">{strain.cfu}</span>
-                <span className="font-montserrat font-semibold text-xs text-[#0a0a0a] bg-[#0a0a0a]/10 px-3 py-1.5 rounded-lg">{strain.stability}</span>
+            initial={{ y: 30, opacity: 0, scale: 0.98 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: 30, opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.4, ease }}
+            className="relative bg-white"
+            style={{
+              width: 'min(860px, 92vw)',
+              maxHeight: '85vh',
+              overflowY: 'auto',
+              padding: 'clamp(24px, 4vw, 48px)',
+              borderRadius: 0,
+            }}
+          >
+            {/* Top bar */}
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-5">
+                <div
+                  className="overflow-hidden rounded-full flex-shrink-0"
+                  style={{ width: 48, height: 48, background: 'var(--color-paper-soft)' }}
+                >
+                  <img src={ingredient.image} alt="" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <p className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.2em', color: '#6b6b6b' }}>
+                    Ingredient Study
+                  </p>
+                  <h3
+                    className="font-serif text-[#0a0a0a] mt-1"
+                    style={{ fontSize: 24, fontWeight: 700, lineHeight: 1.15 }}
+                  >
+                    {ingredient.name}
+                  </h3>
+                </div>
               </div>
+              <button
+                onClick={onClose}
+                aria-label="Close"
+                className="font-mono cursor-pointer"
+                style={{ fontSize: 14, color: '#0a0a0a', background: 'transparent', border: 0 }}
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: 1, background: 'var(--color-rule)', margin: '24px 0' }} />
+
+            {/* 3-column breakdown */}
+            <div className="grid grid-cols-1 md:grid-cols-3" style={{ borderLeft: '1px solid var(--color-rule)' }}>
+              <Block title="FOUND IN" body={ingredient.foundIn} />
+              <Block title="FUNCTION" body={ingredient.function} />
+              <Block title="BENEFITS" body={
+                <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {ingredient.benefits.map((b, i) => (
+                    <li key={i} className="grid grid-cols-[1.5rem_1fr] gap-1 mb-3">
+                      <span className="font-mono num-mono" style={{ fontSize: 11, color: '#9a9a96', paddingTop: 2 }}>0{i + 1}</span>
+                      <span className="font-display" style={{ fontSize: 14, color: '#0a0a0a', lineHeight: 1.55 }}>{b}</span>
+                    </li>
+                  ))}
+                </ol>
+              } />
+            </div>
+
+            {/* Research section */}
+            <div className="mt-10">
+              <p className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.2em', color: '#6b6b6b', marginBottom: 16 }}>
+                Peer-reviewed research
+              </p>
+
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {ingredient.studies.map((s, i) => (
+                  <li
+                    key={i}
+                    className="py-5"
+                    style={{ borderBottom: i === ingredient.studies.length - 1 ? 'none' : '1px solid var(--color-rule)' }}
+                  >
+                    <p className="font-display" style={{ fontSize: 13, fontWeight: 600, color: '#0a0a0a', lineHeight: 1.45 }}>
+                      {s.title}
+                    </p>
+                    <p className="font-display mt-1" style={{ fontSize: 12, color: '#6b6b6b' }}>
+                      {s.authors} · {s.journal} · {s.year}
+                    </p>
+                    <p className="font-display italic mt-2" style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.6 }}>
+                      {s.finding}
+                    </p>
+                    <a
+                      href={scholar(s.title)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono uppercase mt-2 inline-block"
+                      style={{ fontSize: 11, letterSpacing: '0.18em', color: '#0a0a0a', borderBottom: '1px solid #0a0a0a', paddingBottom: 1 }}
+                    >
+                      Find on Scholar →
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Bottom bar */}
+            <div
+              className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2"
+              style={{ borderTop: '1px solid var(--color-rule)', paddingTop: 20 }}
+            >
+              <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: '0.16em', color: '#6b6b6b' }}>
+                {ingredient.metric}
+              </p>
+              <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: '0.16em', color: '#9a9a96' }}>
+                Press ESC to close
+              </p>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 
+function Block({ title, body }) {
+  return (
+    <div
+      className="p-6 lg:p-7"
+      style={{ borderRight: '1px solid var(--color-rule)', borderBottom: '1px solid var(--color-rule)' }}
+    >
+      <p className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.2em', color: '#6b6b6b' }}>
+        {title}
+      </p>
+      <div className="font-display mt-3" style={{ fontSize: 14, color: '#0a0a0a', lineHeight: 1.7 }}>
+        {typeof body === 'string' ? <p>{body}</p> : body}
+      </div>
+    </div>
+  )
+}
+
+/* -------------------------------------------------------------------------- */
+/*  PAGE                                                                       */
+/* -------------------------------------------------------------------------- */
 export default function SciencePage() {
-  const heroRef = useRef(null)
-  const climateRef = useRef(null)
-  const climateInView = useInView(climateRef, { once: true, margin: '-100px' })
+  const [activeIng, setActiveIng] = useState(null)
 
   return (
     <>
-      <main className="pt-16">
-
-        {/* Hero */}
-        <section className="min-h-[50vh] bg-[#1A1A18] flex items-center px-6 py-24">
-          <motion.div initial={{ opacity:0, y:24 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.7 }}
-            className="max-w-3xl mx-auto text-center">
-            <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-4">Evidence-Based</p>
-            <h1 className="font-baskerville font-bold text-5xl lg:text-6xl text-white leading-tight mb-4">
-              Science-backed formulas
-            </h1>
-            <p className="font-baskerville italic text-xl text-white/60 max-w-xl mx-auto leading-relaxed">
-              We develop our brand and products based on research done on articles and peer-reviewed research.
-            </p>
-          </motion.div>
-        </section>
-
-        {/* Research articles */}
-        <section className="bg-white py-20 lg:py-28">
-          <div className="max-w-5xl mx-auto px-6 lg:px-8">
-            <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
-              className="text-center mb-14">
-              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-3">Research Library</p>
-              <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18]">Key Studies</h2>
-            </motion.div>
-            <div className="grid md:grid-cols-3 gap-6">
-              {ARTICLES.map((a, i) => <ArticleCard key={a.id} article={a} index={i} />)}
-            </div>
-          </div>
-        </section>
-
-        {/* Strain breakdown */}
-        <section className="section-ivory py-20 lg:py-28">
-          <div className="max-w-3xl mx-auto px-6 lg:px-8">
-            <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
-              className="text-center mb-14">
-              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-3">Ingredient Science</p>
-              <h2 className="font-baskerville font-bold text-4xl text-[#1A1A18] mb-3">Probiotic Strain Breakdown</h2>
-              <p className="font-montserrat font-medium text-base text-[#6B6B6B] max-w-lg mx-auto">
-                Each strain selected for a specific function — not just as a marketing count.
-              </p>
-            </motion.div>
-            <div className="space-y-3">
-              {STRAINS.map((s, i) => <StrainPanel key={s.name} strain={s} index={i} />)}
-            </div>
-          </div>
-        </section>
-
-        {/* Malaysian climate section */}
-        <section ref={climateRef} className="bg-[#1A1A18] py-20 lg:py-28 px-6">
-          <div className="max-w-4xl mx-auto">
-            <motion.div initial={{ opacity:0, y:24 }} animate={climateInView ? { opacity:1, y:0 } : {}}
-              transition={{ duration:0.7 }}>
-              <p className="font-montserrat font-semibold text-xs tracking-[0.25em] text-[#0a0a0a] uppercase mb-4">Built For The Tropics</p>
-              <h2 className="font-baskerville font-bold text-4xl lg:text-5xl text-white mb-6 leading-tight">
-                Why Bacillus strains<br />for the Malaysian climate?
-              </h2>
-            </motion.div>
-            <div className="grid md:grid-cols-3 gap-5 mt-10">
-              {[
-                { icon: '🌡️', title: 'Heat Stability',        body: 'Bacillus spores remain viable above 45°C — critical for supplements stored in Malaysian homes and warehouses without climate control.' },
-                { icon: '📦', title: 'Ambient Shelf Life',     body: 'No cold chain required. Our formula retains 95%+ CFU viability for 18 months at room temperature — verified through accelerated stability testing.' },
-                { icon: '🔬', title: 'CFU Survivability',     body: 'Unlike Lactobacillus, Bacillus spores survive gastric acid transit (pH 1.5–2.5) and arrive in the intestine fully viable and ready to germinate.' },
-              ].map((card, i) => (
-                <motion.div key={card.title}
-                  initial={{ opacity:0, y:20 }} animate={climateInView ? { opacity:1, y:0 } : {}}
-                  transition={{ delay: 0.2 + i*0.12, duration:0.55 }}
-                  className="bg-white/5 rounded-2xl p-6 border border-white/10">
-                  <span className="text-2xl mb-3 block">{card.icon}</span>
-                  <h3 className="font-montserrat font-black text-sm text-white mb-2">{card.title}</h3>
-                  <p className="font-montserrat font-light text-sm text-white/60 leading-relaxed">{card.body}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
+      <main>
+        <LabHero />
+        <IngredientGrid onOpen={setActiveIng} />
       </main>
+      <IngredientStudyModal ingredient={activeIng} onClose={() => setActiveIng(null)} />
       <Footer />
     </>
   )
