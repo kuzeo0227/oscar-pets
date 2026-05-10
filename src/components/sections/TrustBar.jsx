@@ -1,6 +1,6 @@
 /**
- * TRUST BAR — fully static strip, no animation, no scrolling.
- * 4 evenly-spaced trust signals on a single black row beneath the Hero.
+ * TRUST BAR — fully static strip, no animation.
+ * 4 evenly-spaced trust signals via space-between across the full width.
  */
 export default function TrustBar() {
   const items = [
@@ -14,13 +14,12 @@ export default function TrustBar() {
     <div
       style={{
         background: "#0a0a0a",
-        height: 48,
+        height: 56,
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        gap: "clamp(24px, 5vw, 72px)",
+        justifyContent: "space-between",
+        paddingInline: "clamp(24px, 7vw, 128px)",
         borderTop: "1px solid rgba(255,255,255,0.12)",
-        flexWrap: "nowrap",
         overflow: "hidden",
       }}
     >

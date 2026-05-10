@@ -10,14 +10,19 @@ import Footer            from '../components/sections/Footer'
 export default function HomePage() {
   return (
     <main>
+      {/* STICKY HERO — pinned at top:0, z-index:0, height:100vh */}
       <Hero />
-      <TrustBar />
-      <ProductFeature />
-      <Problem />
-      <IngredientsShowcase />
-      <SciencePreview />
-      <OurMission />
-      <Footer />
+
+      {/* COVER STACK — slides over hero on scroll */}
+      <div style={{ position: 'relative', zIndex: 10 }}>
+        <TrustBar />
+        <ProductFeature />
+        <Problem />
+        <IngredientsShowcase />
+        <SciencePreview />
+        <OurMission />
+        <Footer />
+      </div>
     </main>
   )
 }

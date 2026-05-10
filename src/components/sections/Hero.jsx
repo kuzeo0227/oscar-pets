@@ -6,7 +6,16 @@ import { Link } from 'react-router-dom'
 
 export default function Hero() {
   return (
-    <section style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
+    <section
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 0,
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
+      }}
+    >
       <img
         src="/assets/hero-product.png?v=2"
         alt="Oscar Pets — Malaysia's 1st premium chewables"
