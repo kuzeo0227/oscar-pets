@@ -10,6 +10,21 @@ const ease = [0.22, 1, 0.36, 1]
 
 const scholar = (title) => `https://scholar.google.com/scholar?q=${encodeURIComponent(title)}`
 
+/**
+ * Inline-SVG fallback used when an Unsplash CDN URL 404s.
+ * Renders the ingredient name centered on the brand off-white square — always
+ * paints, never makes a network request, stays on-brand (monochrome + Space Mono).
+ */
+const ingredientFallback = (name) =>
+  `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+      <rect width="400" height="400" fill="#f6f5f1"/>
+      <text x="200" y="208" text-anchor="middle"
+            font-family="'Space Mono', monospace" font-size="18" font-weight="700"
+            letter-spacing="3" fill="#0a0a0a">${name.toUpperCase()}</text>
+    </svg>`
+  )}`
+
 const INGREDIENTS = [
   {
     n: '01',
@@ -115,7 +130,7 @@ const INGREDIENTS = [
     n: '05',
     name: 'Fructooligosaccharides',
     metric: 'FOS · PREBIOTIC FIBER',
-    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=600&fit=crop',
+    image: 'https://images.unsplash.com/photo-1598128558393-70ff21433be0?w=600&h=600&fit=crop',
     short: 'Plant-derived prebiotic that selectively feeds Bifidobacteria.',
     foundIn: 'Plant-derived short-chain fructans isolated from chicory root.',
     function: 'A prebiotic carbohydrate that beneficial gut bacteria selectively ferment into short-chain fatty acids — lowering colonic pH and reinforcing barrier function.',
@@ -159,7 +174,7 @@ const INGREDIENTS = [
     n: '07',
     name: 'Postbiotic Yeast Blend',
     metric: 'HEAT-STABLE · NO REFRIGERATION',
-    image: 'https://images.unsplash.com/photo-1559181567-c3190ca9d222?w=600&h=600&fit=crop',
+    image: 'https://images.unsplash.com/photo-1614631446501-abcf76949eca?w=600&h=600&fit=crop',
     short: 'Bioactive yeast metabolites and beta-glucans for shelf-stable immune support.',
     foundIn: 'Saccharomyces cerevisiae fermentation product, heat-inactivated and standardised for beta-glucan content.',
     function: 'Bioactive metabolites and cell-wall components (mannan-oligosaccharides + beta-glucans) that support immune signalling without requiring live cultures.',
@@ -302,12 +317,13 @@ function IngredientCard({ ing, onOpen }) {
       </p>
 
       {/* Square image — contrast/filter does not change on hover */}
-      <div className="aspect-square w-full overflow-hidden">
+      <div className="aspect-square w-full overflow-hidden" style={{ background: '#f6f5f1' }}>
         <img
           src={ing.image}
           alt={ing.name}
           className="w-full h-full object-cover"
           loading="lazy"
+          onError={e => { e.currentTarget.src = ingredientFallback(ing.name) }}
         />
       </div>
 
@@ -368,9 +384,6 @@ function IngredientGrid({ onOpen }) {
     >
       <div className="container-edge mx-auto py-24 lg:py-32">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 24 }}>
-            03 — WHAT GOES INSIDE
-          </p>
           <h2
             className="font-serif text-[#0a0a0a]"
             style={{ fontSize: 'clamp(36px, 4.4vw, 56px)', fontWeight: 700, lineHeight: 1.05 }}
