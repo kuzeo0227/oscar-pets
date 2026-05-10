@@ -1,167 +1,193 @@
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ingredientById, heroRotationA, heroRotationB } from "../../data/ingredients";
-import IngredientImage from "../ui/IngredientImage";
+// ============================================
+// HOMEPAGE HERO — full-viewport 5/7 split
+//   LEFT (5/12): pure black, copy + badges + CTA
+//   RIGHT (7/12): full-bleed product image
+// ============================================
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
-const ROTATION_INTERVAL_MS = 8000;
-const ease = [0.22, 1, 0.36, 1];
+const ease = [0.22, 1, 0.36, 1]
 
-const journey = [
-  { num: "01", label: "our journey" },
-  { num: "02", label: "the science" },
-  { num: "03", label: "why oscar" },
-];
+/* Stagger children by 0.1s */
+const stagger = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+}
+const fadeUp = {
+  hidden:  { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease } },
+}
 
-function IngredientCell({ id, index }) {
-  const ing = ingredientById[id];
-  const display = ing.short || ing.name;
+/* Three brand-appropriate certification badges */
+const BADGES = [
+  { topArc: 'HALAL · COMPLIANT',  center: 'HALAL' },
+  { topArc: '3RD · PARTY TESTED', center: '✓'     },
+  { topArc: 'GMP · PRACTICE',     center: 'GMP'   },
+]
+
+/**
+ * Circular cert badge with curved top text + icon at center.
+ * 72×72 ring, transparent bg, white border at 35% opacity.
+ */
+function CertBadge({ topArc, center }) {
   return (
-    <motion.div
-      initial={{ y: 60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: -60, opacity: 0 }}
-      transition={{ duration: 0.65, ease, delay: index * 0.07 }}
-      className="flex flex-col items-center text-center gap-2"
+    <div
+      className="relative flex items-center justify-center"
+      style={{
+        width: 72, height: 72,
+        border: '1.5px solid rgba(255,255,255,0.35)',
+        borderRadius: '50%',
+        background: 'transparent',
+      }}
+      aria-label={topArc.replace(/ · /g, ' ')}
     >
-      <p
-        className="font-display text-[11.5px] font-medium leading-[1.25] text-ink min-h-[2.6em] flex items-end justify-center px-1"
-        style={{ letterSpacing: "0.01em" }}
+      {/* Curved arc text */}
+      <svg viewBox="0 0 72 72" className="absolute inset-0 w-full h-full" aria-hidden="true">
+        <defs>
+          <path id={`arc-${topArc}`} d="M 10 36 A 26 26 0 0 1 62 36" fill="none" />
+        </defs>
+        <text
+          fill="#ffffff"
+          style={{ fontFamily: "'Space Mono', monospace", fontSize: 7.2, letterSpacing: '0.16em', textTransform: 'uppercase' }}
+        >
+          <textPath href={`#arc-${topArc}`} startOffset="50%" textAnchor="middle">
+            {topArc}
+          </textPath>
+        </text>
+      </svg>
+      {/* Center label */}
+      <span
+        className="font-mono uppercase"
+        style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.16em', color: '#ffffff', lineHeight: 1.2 }}
       >
-        {display}
-      </p>
-      <IngredientImage ingredient={ing} size={56} />
-    </motion.div>
-  );
+        {center}
+      </span>
+    </div>
+  )
 }
 
 export default function Hero() {
-  const sets = [heroRotationA, heroRotationB];
-  const [setIndex, setSetIndex] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setSetIndex((i) => (i + 1) % sets.length);
-    }, ROTATION_INTERVAL_MS);
-    return () => clearInterval(t);
-  }, []);
-
-  const currentSet = sets[setIndex];
-
   return (
-    // Flat-flow hero — sits naturally above TrustBar; no sticky/cover-stack.
     <section
-      id="top"
-      className="relative w-full overflow-hidden"
-      style={{ background: "var(--color-paper-soft)", minHeight: "calc(100vh - 96px)" }}
+      className="relative grid grid-cols-1 lg:grid-cols-12"
+      style={{ minHeight: 'calc(100vh - 96px)' }}
     >
-      <div className="container-edge mx-auto grid h-full grid-cols-1 items-stretch gap-y-10 lg:grid-cols-12 lg:gap-x-10 pt-10 pb-12 lg:pt-14 lg:pb-16">
-        {/* LEFT: copy column */}
-        <div className="lg:col-span-5 flex flex-col justify-between">
-          <div>
-            <p className="eyebrow text-ink">THE PETS SUPPLEMENT LABORATORY</p>
+      {/* LEFT — black copy column (5/12) */}
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        animate="visible"
+        className="lg:col-span-5 flex flex-col justify-center"
+        style={{
+          background: '#0a0a0a',
+          paddingLeft:  'clamp(24px, 7vw, 128px)',
+          paddingRight: 'clamp(24px, 4vw, 64px)',
+          paddingTop:    'clamp(80px, 10vh, 120px)',
+          paddingBottom: 'clamp(80px, 10vh, 120px)',
+        }}
+      >
+        {/* Eyebrow */}
+        <motion.p
+          variants={fadeUp}
+          className="font-mono uppercase"
+          style={{ fontSize: 11, letterSpacing: '0.22em', color: 'rgba(255,255,255,0.55)', marginBottom: 32 }}
+        >
+          THE PETS SUPPLEMENT LABORATORY
+        </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease, delay: 0.05 }}
-              className="mt-7 font-display tracking-[-0.025em] text-ink leading-[0.95]"
-              style={{ fontSize: "clamp(48px, 6.6vw, 96px)", fontWeight: 800 }}
-            >
-              <span className="block whitespace-nowrap">Formulated with</span>
-              <span className="block">science.</span>
-            </motion.h1>
+        {/* Headline */}
+        <motion.h1
+          variants={fadeUp}
+          className="font-serif text-white"
+          style={{ fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 700, lineHeight: 1.15, marginBottom: 36 }}
+        >
+          Malaysia's 1st premium chewables,<br />
+          formulated with <em className="italic">science</em>.
+        </motion.h1>
 
-            {/* Bolder, larger asterisk */}
-            <div
-              className="mt-10 select-none text-ink"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(72px, 8vw, 112px)",
-                fontWeight: 900,
-                lineHeight: 0.7,
-                letterSpacing: "-0.04em",
-              }}
-              aria-hidden
-            >
-              *
-            </div>
+        {/* Certification badges */}
+        <motion.div variants={fadeUp} className="flex items-center gap-4" style={{ marginBottom: 48 }}>
+          {BADGES.map(b => <CertBadge key={b.topArc} {...b} />)}
+        </motion.div>
 
-            <ol className="mt-10 space-y-2.5">
-              {journey.map((j, i) => (
-                <motion.li
-                  key={j.num}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.55, ease, delay: 0.25 + i * 0.06 }}
-                  className="grid grid-cols-[3rem_1fr] items-baseline font-mono text-[14px] text-ink"
-                >
-                  <span className="num-mono">{j.num}</span>
-                  <span className="font-mono lowercase tracking-[0.02em]">{j.label}</span>
-                </motion.li>
-              ))}
-            </ol>
-          </div>
-
-          <motion.a
-            href="#journey"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease, delay: 0.55 }}
-            className="mt-8 inline-block self-start font-mono text-[12px] tracking-[0.22em] uppercase text-ink"
+        {/* Ingredient list */}
+        <motion.div variants={fadeUp} style={{ marginBottom: 28 }}>
+          <p
+            className="font-mono uppercase"
+            style={{ fontSize: 10, letterSpacing: '0.2em', color: 'rgba(255,255,255,0.5)', marginBottom: 12 }}
           >
-            <span className="relative inline-block pb-1">
-              Discover more
-              <span
-                className="absolute bottom-0 left-0 h-px w-full origin-left"
-                style={{ background: "var(--color-ink)" }}
-              />
-            </span>
-          </motion.a>
-        </div>
+            RESEARCH-BACKED INGREDIENTS
+          </p>
+          <ul className="font-serif italic" style={{ color: 'rgba(255,255,255,0.85)', lineHeight: 1.9 }}>
+            {['Probiotics Blend', 'Prebiotics Blend', 'Postbiotics Yeast Blend'].map(name => (
+              <li
+                key={name}
+                style={{ fontWeight: 400, fontSize: 'clamp(15px, 1.4vw, 18px)' }}
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
 
-        {/* RIGHT: ingredients aligned exactly to the jar's width, then jar */}
-        <div className="lg:col-span-7 flex flex-col items-center justify-center">
-          {/* Both ingredients row + jar share this max-width — guarantees alignment */}
-          <div className="flex w-full max-w-[420px] flex-col items-center">
-            {/* Ingredients row — narrower than the jar so it never exceeds */}
-            <div className="relative h-[120px] w-[88%]">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={setIndex}
-                  className="absolute inset-0 grid grid-cols-4 items-end gap-3"
-                >
-                  {currentSet.map((id, i) => (
-                    <IngredientCell key={`${setIndex}-${id}`} id={id} index={i} />
-                  ))}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+        {/* CFU metric */}
+        <motion.div variants={fadeUp} className="flex items-baseline gap-2" style={{ marginBottom: 40 }}>
+          <span
+            className="font-mono num-mono text-white"
+            style={{ fontSize: 'clamp(24px, 2.4vw, 34px)', fontWeight: 700 }}
+          >
+            3 Billion
+          </span>
+          <span
+            className="font-mono uppercase"
+            style={{ fontSize: 12, fontWeight: 400, letterSpacing: '0.2em', color: 'rgba(255,255,255,0.55)' }}
+          >
+            CFU
+          </span>
+        </motion.div>
 
-            {/* Jar */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease, delay: 0.2 }}
-              className="relative mt-2 w-full"
+        {/* CTA */}
+        <motion.div variants={fadeUp} className="self-start">
+          <Link to="/product">
+            <button
+              className="font-mono uppercase cursor-pointer transition-colors"
+              style={{
+                background: '#ffffff', color: '#0a0a0a',
+                fontSize: 12, fontWeight: 700, letterSpacing: '0.22em',
+                padding: '16px 32px',
+                border: 0, borderRadius: 0,
+                transitionDuration: '200ms',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.85)')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#ffffff')}
             >
-              <div className="relative mx-auto aspect-[4/5] w-full overflow-hidden">
-                <img
-                  src="/assets/jar-front.jpg"
-                  alt="Oscar Gut & Immune Probiotic Chews — 60 chews jar"
-                  className="absolute inset-0 h-full w-full object-cover"
-                  style={{ objectPosition: "center 78%", transform: "scale(1.18)" }}
-                  draggable={false}
-                />
-                {/* mask the FRONT VIEW caption baked into the source image */}
-                <div
-                  className="pointer-events-none absolute inset-x-0 top-0 h-[14%]"
-                  style={{ background: "var(--color-paper-soft)" }}
-                />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
+              Shop now →
+            </button>
+          </Link>
+        </motion.div>
+      </motion.div>
+
+      {/* RIGHT — full-bleed product image (7/12) */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, ease, delay: 0.2 }}
+        className="lg:col-span-7 relative overflow-hidden"
+        style={{ minHeight: '50vh', background: '#0a0a0a' }}
+      >
+        {/*
+          TODO: save the attached reference image to /public/assets/hero-product.jpg
+          For now, /assets/jar-front.jpg renders as a working fallback.
+        */}
+        <img
+          src="/assets/hero-product.jpg"
+          alt="Oscar Probiotic Chews — multiple jars"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: 'center' }}
+          onError={e => { e.currentTarget.src = '/assets/jar-front.jpg' }}
+          draggable={false}
+        />
+      </motion.div>
     </section>
-  );
+  )
 }
