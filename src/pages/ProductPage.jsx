@@ -193,8 +193,8 @@ function ShopIntro() {
 export default function ProductPage() {
   return (
     <div className="bg-white text-[#0a0a0a]">
-      <ShopIntro />
       <PdpTopNav />
+      <ShopIntro />
       <VetReviewed />
       <KeyIngredients />
       <DirectionsForUse />
