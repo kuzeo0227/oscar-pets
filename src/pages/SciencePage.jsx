@@ -301,13 +301,12 @@ function IngredientCard({ ing, onOpen }) {
         {ing.n}
       </p>
 
-      {/* Square image */}
+      {/* Square image — contrast/filter does not change on hover */}
       <div className="aspect-square w-full overflow-hidden">
         <img
           src={ing.image}
           alt={ing.name}
           className="w-full h-full object-cover"
-          style={{ filter: hovered ? 'grayscale(70%)' : 'grayscale(0%)', transition: 'filter 0.3s' }}
           loading="lazy"
         />
       </div>
