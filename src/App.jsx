@@ -5,6 +5,7 @@ import CartDrawer from './components/CartDrawer'
 import PageTransition from './components/PageTransition'
 import HomePage from './pages/HomePage'
 import ProductPage from './pages/ProductPage'
+import CheckoutPage from './pages/CheckoutPage'
 import AboutPage from './pages/AboutPage'
 import SciencePage from './pages/SciencePage'
 
@@ -18,6 +19,7 @@ export default function App() {
         <Routes location={location} key={location.pathname}>
           <Route path="/"            element={<PageTransition><HomePage /></PageTransition>} />
           <Route path="/product"     element={<PageTransition><ProductPage /></PageTransition>} />
+          <Route path="/checkout"    element={<PageTransition><CheckoutPage /></PageTransition>} />
           <Route path="/about"       element={<PageTransition><AboutPage /></PageTransition>} />
           <Route path="/science"     element={<PageTransition><SciencePage /></PageTransition>} />
 

@@ -7,7 +7,6 @@
  *                KeyIngredients → DirectionsForUse → ProductBenefits →
  *                WhatToExpect → ProductFAQ → Footer
  */
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 
@@ -33,18 +32,15 @@ const CURRENCY   = 'RM'
  * RIGHT (6/12, col-start-7): H2 + plan toggle + price + ATC + assurance row
  */
 function ShopIntro() {
-  const { addItem }   = useCart()
-  const [plan, setPlan] = useState('subscribe') // 'subscribe' | 'one-time'
-
-  const price   = plan === 'subscribe' ? PRICE_SUB : PRICE_ONE
-  const savings = Math.round(((PRICE_ONE - PRICE_SUB) / PRICE_ONE) * 100)
+  const { addItem } = useCart()
+  const price = PRICE_ONE
 
   function handleAdd() {
     addItem({
-      id:    `probiotic-blend-${plan}`,
+      id:    'probiotic-blend',
       name:  'Probiotic Blend Chewables',
       price,
-      meta:  plan === 'subscribe' ? 'Subscribe & Save' : 'One-time',
+      meta:  'One jar · 60 chews',
     })
   }
 
@@ -98,42 +94,6 @@ function ShopIntro() {
               30 days to decide.
             </motion.h2>
 
-            {/* Plan toggle */}
-            <div
-              className="mt-10 inline-grid grid-cols-2 border"
-              style={{ borderColor: 'var(--color-rule)', borderRadius: 0 }}
-            >
-              {[
-                { id: 'subscribe', label: 'Subscribe & save', note: `Save ${savings}%` },
-                { id: 'one-time',  label: 'One-time',         note: 'No commitment'    },
-              ].map(p => {
-                const active = plan === p.id
-                return (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => setPlan(p.id)}
-                    className="flex cursor-pointer flex-col items-start gap-1 px-7 py-4 transition-colors duration-200"
-                    style={{
-                      background:   active ? '#0a0a0a' : 'transparent',
-                      color:        active ? '#ffffff' : '#0a0a0a',
-                      borderRadius: 0,
-                    }}
-                  >
-                    <span className="font-display uppercase" style={{ fontSize: 13, fontWeight: 600, letterSpacing: '0.04em' }}>
-                      {p.label}
-                    </span>
-                    <span
-                      className="font-mono uppercase"
-                      style={{ fontSize: 10.5, letterSpacing: '0.16em', color: active ? 'rgba(255,255,255,0.7)' : '#6b6b6b' }}
-                    >
-                      {p.note}
-                    </span>
-                  </button>
-                )
-              })}
-            </div>
-
             {/* Price + Add to Cart */}
             <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -144,24 +104,12 @@ function ShopIntro() {
                   >
                     {CURRENCY}
                   </span>
-                  <motion.span
-                    key={price}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, ease }}
+                  <span
                     className="num-mono text-[#0a0a0a]"
                     style={{ fontSize: 'clamp(48px, 5.4vw, 72px)', fontWeight: 700, lineHeight: 1 }}
                   >
                     {price}
-                  </motion.span>
-                  {plan === 'subscribe' && (
-                    <span
-                      className="font-mono line-through"
-                      style={{ fontSize: 12, color: '#9a9a96' }}
-                    >
-                      {CURRENCY}{PRICE_ONE}
-                    </span>
-                  )}
+                  </span>
                 </div>
                 <p
                   className="mt-2 font-mono uppercase"

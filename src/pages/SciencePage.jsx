@@ -226,13 +226,32 @@ function LabHero() {
       style={{ background: 'var(--color-paper)' }}
     >
       {/* LEFT — full-bleed grayscale lab image */}
-      <div className="lg:col-span-7 relative" style={{ minHeight: '50vh' }}>
+      <div className="lg:col-span-7 relative" style={{ minHeight: '50vh', background: '#0a0a0a' }}>
         <img
-          src="https://images.unsplash.com/photo-1606206522699-2a4a2180c94b?w=1400&h=1600&fit=crop"
-          alt="Microscope and laboratory glassware"
+          src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1400&h=1600&fit=crop"
+          alt="Laboratory glassware and equipment"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ filter: 'grayscale(100%)' }}
           draggable={false}
+          onError={e => {
+            e.currentTarget.onerror = null
+            e.currentTarget.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1600">
+                <rect width="1400" height="1600" fill="#0a0a0a"/>
+                <g stroke="#ffffff" stroke-width="2" fill="none" opacity="0.3">
+                  <circle cx="700" cy="600" r="180"/>
+                  <circle cx="700" cy="600" r="120"/>
+                  <circle cx="700" cy="600" r="60"/>
+                  <line x1="700" y1="780" x2="700" y2="1100"/>
+                  <line x1="600" y1="1100" x2="800" y2="1100"/>
+                  <path d="M 580 1100 L 580 1300 L 820 1300 L 820 1100 Z"/>
+                </g>
+                <text x="700" y="1480" text-anchor="middle"
+                      font-family="'Space Mono', monospace" font-size="20" letter-spacing="6"
+                      fill="#ffffff" opacity="0.6">THE LABORATORY</text>
+              </svg>`
+            )}`
+          }}
         />
       </div>
 

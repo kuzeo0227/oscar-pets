@@ -13,7 +13,7 @@ export default function VetReviewed() {
   return (
     <>
       <span id="vet" className="block relative -top-32 invisible" />
-      <section className="relative bg-[#1A1A18] text-white py-20 md:py-24 overflow-hidden">
+      <section className="relative bg-[#0a0a0a] text-white py-20 md:py-24 overflow-hidden">
         {/* Decorative rings */}
         <div className="absolute -top-16 -right-16 w-72 h-72 rounded-full border-[56px] border-white/[0.04] pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full border-[40px] border-[#0a0a0a]/[0.06] pointer-events-none" />
