@@ -2,8 +2,15 @@ import { Link } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
 
 /**
- * Sticky section-anchor nav at the top of the PDP, just under the global header.
- * Links smooth-scroll to anchor IDs that match the `<span id>` in each section file.
+ * Sticky section-anchor nav for the /product page.
+ * Pure CSS sticky — no scroll listener, no JS, no animation on top value.
+ * Sits 96px below the viewport top to clear the global NavHeader.
+ *
+ * Performance notes:
+ *  - will-change: transform + transform: translateZ(0) promote to its own
+ *    composite layer so scrolling doesn't trigger paint of surrounding content.
+ *  - backface-visibility: hidden eliminates flicker on Safari.
+ *  - z-index: 40 (below NavHeader's 50, above section content).
  */
 const SECTIONS = [
   { id: 'hero',        label: 'Product Info' },
@@ -17,15 +24,54 @@ const SECTIONS = [
 
 export default function PdpTopNav() {
   return (
-    <div className="border-b bg-white sticky top-[96px] z-20" style={{ borderColor: 'var(--color-rule)' }}>
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        <Link to="/product" className="inline-flex items-center gap-1.5 text-sm font-montserrat font-medium text-[#6B6B6B] hover:text-[#1A1A18] transition-colors">
-          <ChevronLeft size={16} />
+    <div
+      className="bg-white"
+      style={{
+        position: 'sticky',
+        top: 96,                          // matches NavHeader height
+        zIndex: 40,                       // below NavHeader (50), above content
+        borderBottom: '1px solid var(--color-rule)',
+        willChange: 'transform',
+        transform: 'translateZ(0)',
+        backfaceVisibility: 'hidden',
+        WebkitOverflowScrolling: 'touch',
+      }}
+    >
+      <div className="container-edge mx-auto py-3 flex items-center justify-between gap-6">
+        <Link
+          to="/product"
+          className="inline-flex items-center gap-1.5 font-mono uppercase whitespace-nowrap"
+          style={{
+            fontSize: 11, fontWeight: 400, letterSpacing: '0.18em',
+            color: '#6b6b6b',
+            transition: 'color 0.2s',
+          }}
+          onMouseEnter={e => (e.currentTarget.style.color = '#0a0a0a')}
+          onMouseLeave={e => (e.currentTarget.style.color = '#6b6b6b')}
+        >
+          <ChevronLeft size={14} strokeWidth={1.75} />
           <span>Back to shop</span>
         </Link>
-        <nav className="hidden lg:flex items-center gap-5 text-[11px] font-montserrat font-bold tracking-[0.12em] uppercase text-[#6B6B6B]">
+
+        <nav
+          className="hidden lg:flex items-center gap-6 overflow-x-auto"
+          style={{ scrollbarWidth: 'none' }}
+        >
           {SECTIONS.map(s => (
-            <a key={s.id} href={`#${s.id}`} className="hover:text-[#1A1A18] transition-colors">
+            <a
+              key={s.id}
+              href={`#${s.id}`}
+              className="font-mono uppercase whitespace-nowrap"
+              style={{
+                fontSize: 11, fontWeight: 400, letterSpacing: '0.18em',
+                color: '#6b6b6b',
+                paddingBottom: 4,
+                borderBottom: '2px solid transparent',
+                transition: 'color 0.2s, border-color 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = '#0a0a0a'; e.currentTarget.style.borderBottomColor = '#0a0a0a' }}
+              onMouseLeave={e => { e.currentTarget.style.color = '#6b6b6b'; e.currentTarget.style.borderBottomColor = 'transparent' }}
+            >
               {s.label}
             </a>
           ))}

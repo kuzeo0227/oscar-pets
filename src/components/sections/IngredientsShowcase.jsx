@@ -6,19 +6,18 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const FILTERS = ['ALL', 'SCIENCE-BACKED', 'PREMIUM SOURCED', 'PROBIOTICS', 'OTHERS']
 
-const img = (seed) => `https://picsum.photos/seed/${seed}/400/400`
-
+// Contextually-relevant Unsplash imagery, ?w=400&h=400&fit=crop
 const INGREDIENTS = [
-  { id: 1,  name: 'Probiotic Blend',         desc: 'Multi-strain live cultures for gut health',     category: 'PROBIOTICS',      image: img('oscar-probiotic')  },
-  { id: 2,  name: 'GOS',                     desc: 'Galactooligosaccharide — prebiotic fiber',     category: 'SCIENCE-BACKED',  image: img('oscar-gos')        },
-  { id: 3,  name: 'FOS',                     desc: 'Fructooligosaccharides — prebiotic support',   category: 'SCIENCE-BACKED',  image: img('oscar-fos')        },
-  { id: 4,  name: 'Postbiotic Yeast Blend',  desc: 'Immune-modulating yeast cell wall fractions',  category: 'SCIENCE-BACKED',  image: img('oscar-postbiotic') },
-  { id: 5,  name: 'Lamb Liver',              desc: 'High-palatability protein & nutrient source',  category: 'PREMIUM SOURCED', image: img('oscar-lamb-liver') },
-  { id: 6,  name: 'Pumpkin',                 desc: 'Digestive fiber & natural beta-carotene',      category: 'PREMIUM SOURCED', image: img('oscar-pumpkin')    },
-  { id: 7,  name: 'Coconut Oil',             desc: 'MCT fats for coat health & energy',            category: 'PREMIUM SOURCED', image: img('oscar-coconut')    },
-  { id: 8,  name: 'Apple Cider Vinegar',     desc: 'pH-balancing gut support',                     category: 'OTHERS',          image: img('oscar-acv')        },
-  { id: 9,  name: 'Sunflower Lecithin',      desc: 'Emulsifier & choline source for cognition',    category: 'OTHERS',          image: img('oscar-sunflower')  },
-  { id: 10, name: 'Rosemary Extract',        desc: 'Natural antioxidant & preservative',           category: 'OTHERS',          image: img('oscar-rosemary')   },
+  { id: 1,  name: 'Probiotic Blend',         desc: 'Multi-strain live cultures for gut health',     category: 'PROBIOTICS',      image: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=400&h=400&fit=crop' },
+  { id: 2,  name: 'GOS',                     desc: 'Galactooligosaccharide — prebiotic fiber',     category: 'SCIENCE-BACKED',  image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&h=400&fit=crop' },
+  { id: 3,  name: 'FOS',                     desc: 'Fructooligosaccharides — prebiotic support',   category: 'SCIENCE-BACKED',  image: 'https://images.unsplash.com/photo-1598128558393-70ff21433be0?w=400&h=400&fit=crop' },
+  { id: 4,  name: 'Postbiotic Yeast Blend',  desc: 'Immune-modulating yeast cell wall fractions',  category: 'SCIENCE-BACKED',  image: 'https://images.unsplash.com/photo-1614631446501-abcf76949eca?w=400&h=400&fit=crop' },
+  { id: 5,  name: 'Lamb Liver',              desc: 'High-palatability protein & nutrient source',  category: 'PREMIUM SOURCED', image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&h=400&fit=crop' },
+  { id: 6,  name: 'Pumpkin',                 desc: 'Digestive fiber & natural beta-carotene',      category: 'PREMIUM SOURCED', image: 'https://images.unsplash.com/photo-1570586437263-ab629fccc818?w=400&h=400&fit=crop' },
+  { id: 7,  name: 'Coconut Oil',             desc: 'MCT fats for coat health & energy',            category: 'PREMIUM SOURCED', image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=400&fit=crop' },
+  { id: 8,  name: 'Apple Cider Vinegar',     desc: 'pH-balancing gut support',                     category: 'OTHERS',          image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=400&fit=crop' },
+  { id: 9,  name: 'Sunflower Oil',           desc: 'High-oleic carrier with vitamin E',            category: 'OTHERS',          image: 'https://images.unsplash.com/photo-1543257580-7269da773bf5?w=400&h=400&fit=crop' },
+  { id: 10, name: 'Rosemary Extract',        desc: 'Natural antioxidant & preservative',           category: 'OTHERS',          image: 'https://images.unsplash.com/photo-1515586838455-8b5ae2d9c0e6?w=400&h=400&fit=crop' },
 ]
 
 const sectionVariants = {

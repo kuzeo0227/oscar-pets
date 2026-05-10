@@ -54,7 +54,7 @@ export default function ProductBenefits() {
             initial={{ opacity: 0, scale: 1.04 }} whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="aspect-[4/5] rounded-3xl overflow-hidden bg-[#FAFAF7] relative"
+            className="aspect-[4/5]  overflow-hidden bg-[#FAFAF7] relative"
           >
             <img
               src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1000&q=80"
@@ -62,7 +62,7 @@ export default function ProductBenefits() {
               className="w-full h-full object-cover"
             />
             {/* Brand mark */}
-            <div className="absolute top-4 left-4 w-9 h-9 bg-[#1A1A18] rounded-md flex items-center justify-center">
+            <div className="absolute top-4 left-4 w-9 h-9 bg-[#1A1A18]  flex items-center justify-center">
               <svg viewBox="0 0 32 32" fill="none" className="w-5 h-5">
                 <polygon points="16,4 28,12 28,24 16,28 4,24 4,12" fill="#0a0a0a"/>
                 <polygon points="16,9 22,15 16,22 10,15" fill="white"/>

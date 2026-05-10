@@ -6,8 +6,8 @@ import { TIMELINE_MONTHS } from '../../data/product'
  * ─────────────────────────────────────────────────────────
  * Off-white section.
  * • Centered head: eyebrow + divider + "What to expect" + 89% headline + caption
- * • 3-month timeline cards, gap-1, side-by-side. First card has rounded-l-3xl,
- *   last has rounded-r-3xl. Each card turns off-black on hover, with the giant
+ * • 3-month timeline cards, gap-1, side-by-side. First card has ,
+ *   last has . Each card turns off-black on hover, with the giant
  *   number fading to 20% opacity for visual contrast.
  */
 export default function WhatToExpect() {
@@ -35,9 +35,9 @@ export default function WhatToExpect() {
                 transition={{ duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ backgroundColor: '#1A1A18' }}
                 className={`group bg-white p-8 md:p-10 transition-colors cursor-default ${
-                  i === 0 ? 'rounded-l-3xl rounded-r-md' :
-                  i === 2 ? 'rounded-r-3xl rounded-l-md' :
-                            'rounded-md'
+                  i === 0 ? ' -r-md' :
+                  i === 2 ? ' -l-md' :
+                            ''
                 }`}
               >
                 <p className="font-baskerville font-bold text-6xl text-[#EFEFED] group-hover:text-white/20 leading-none tracking-tight mb-4 transition-colors">

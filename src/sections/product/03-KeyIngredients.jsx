@@ -81,8 +81,8 @@ export default function KeyIngredients() {
               className="aspect-[4/5] rounded-3xl overflow-hidden bg-[#FAFAF7]"
             >
               <img
-                src="https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?w=1000&q=80"
-                alt="Probiotic chew held in hand"
+                src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=900&h=700&fit=crop"
+                alt="Dog running outdoors"
                 className="w-full h-full object-cover"
               />
             </motion.div>

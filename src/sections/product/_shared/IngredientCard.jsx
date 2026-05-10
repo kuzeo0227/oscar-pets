@@ -20,7 +20,7 @@ export default function IngredientCard({ ing, delay }) {
       variants={fadeUp} custom={delay * 12}
       whileHover={{ y: -6 }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-      className="group relative rounded-2xl overflow-hidden bg-[#FAFAF7] border border-[#EFEFED] cursor-pointer aspect-[3/4]"
+      className="group relative overflow-hidden bg-[#FAFAF7] border border-[#EFEFED] cursor-pointer aspect-[3/4]"
     >
       {/* Default face */}
       <div className="h-[55%] overflow-hidden">
@@ -29,20 +29,23 @@ export default function IngredientCard({ ing, delay }) {
         />
       </div>
       <div className="p-4">
-        <p className="font-montserrat font-bold text-sm text-[#1A1A18] tracking-tight">{ing.name}</p>
-        <span className="inline-block font-montserrat font-bold text-[10px] tracking-[0.1em] uppercase text-[#1A1A18] bg-[#EFEFED] px-2 py-0.5 rounded-full mt-2 mb-2">
+        <p className="font-display tracking-tight text-[#0a0a0a]" style={{ fontSize: 14, fontWeight: 700 }}>{ing.name}</p>
+        <span
+          className="inline-block font-mono uppercase mt-2 mb-2"
+          style={{ fontSize: 10, fontWeight: 400, letterSpacing: '0.18em', color: '#0a0a0a', border: '1px solid #0a0a0a', padding: '3px 8px', borderRadius: 0 }}
+        >
           {ing.dose}
         </span>
-        <p className="font-montserrat text-xs text-[#6B6B6B] leading-relaxed">{ing.short}</p>
+        <p className="font-display" style={{ fontSize: 12.5, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.55 }}>{ing.short}</p>
       </div>
 
       {/* Hover overlay */}
-      <div className="absolute inset-0 bg-[#1A1A18] text-white p-6 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <p className="font-baskerville font-bold text-lg leading-tight mb-3">{ing.name}</p>
+      <div className="absolute inset-0 bg-[#0a0a0a] text-white p-6 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <p className="font-serif leading-tight mb-3" style={{ fontSize: 18, fontWeight: 700 }}>{ing.name}</p>
         <ul className="flex flex-col gap-2">
           {ing.benefits.map(b => (
-            <li key={b} className="font-montserrat text-xs text-white/80 flex gap-2 leading-snug">
-              <span className="text-[#0a0a0a]">→</span>
+            <li key={b} className="font-display flex gap-2 leading-snug" style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)' }}>
+              <span style={{ color: '#ffffff' }}>→</span>
               {b}
             </li>
           ))}
