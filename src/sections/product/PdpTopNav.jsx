@@ -1,6 +1,3 @@
-import { Link } from 'react-router-dom'
-import { ChevronLeft } from 'lucide-react'
-
 /**
  * Sticky section-anchor nav for the /product page.
  * Pure CSS sticky — no scroll listener, no JS, no animation on top value.
@@ -37,46 +34,30 @@ export default function PdpTopNav() {
         WebkitOverflowScrolling: 'touch',
       }}
     >
-      <div className="container-edge mx-auto py-3 flex items-center justify-between gap-6">
-        <Link
-          to="/product"
-          className="inline-flex items-center gap-1.5 font-mono uppercase whitespace-nowrap"
-          style={{
-            fontSize: 11, fontWeight: 400, letterSpacing: '0.18em',
-            color: '#6b6b6b',
-            transition: 'color 0.2s',
-          }}
-          onMouseEnter={e => (e.currentTarget.style.color = '#0a0a0a')}
-          onMouseLeave={e => (e.currentTarget.style.color = '#6b6b6b')}
-        >
-          <ChevronLeft size={14} strokeWidth={1.75} />
-          <span>Back to shop</span>
-        </Link>
-
-        <nav
-          className="hidden lg:flex items-center gap-6 overflow-x-auto"
-          style={{ scrollbarWidth: 'none' }}
-        >
-          {SECTIONS.map(s => (
-            <a
-              key={s.id}
-              href={`#${s.id}`}
-              className="font-mono uppercase whitespace-nowrap"
-              style={{
-                fontSize: 11, fontWeight: 400, letterSpacing: '0.18em',
-                color: '#6b6b6b',
-                paddingBottom: 4,
-                borderBottom: '2px solid transparent',
-                transition: 'color 0.2s, border-color 0.2s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.color = '#0a0a0a'; e.currentTarget.style.borderBottomColor = '#0a0a0a' }}
-              onMouseLeave={e => { e.currentTarget.style.color = '#6b6b6b'; e.currentTarget.style.borderBottomColor = 'transparent' }}
-            >
-              {s.label}
-            </a>
-          ))}
-        </nav>
-      </div>
+      <nav
+        className="container-edge mx-auto py-3 flex items-center justify-center gap-x-8 lg:gap-x-12 overflow-x-auto"
+        style={{ scrollbarWidth: 'none' }}
+        aria-label="Section navigation"
+      >
+        {SECTIONS.map(s => (
+          <a
+            key={s.id}
+            href={`#${s.id}`}
+            className="font-mono uppercase whitespace-nowrap"
+            style={{
+              fontSize: 11, fontWeight: 400, letterSpacing: '0.18em',
+              color: '#6b6b6b',
+              paddingBottom: 4,
+              borderBottom: '2px solid transparent',
+              transition: 'color 0.2s, border-color 0.2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.color = '#0a0a0a'; e.currentTarget.style.borderBottomColor = '#0a0a0a' }}
+            onMouseLeave={e => { e.currentTarget.style.color = '#6b6b6b'; e.currentTarget.style.borderBottomColor = 'transparent' }}
+          >
+            {s.label}
+          </a>
+        ))}
+      </nav>
     </div>
   )
 }
