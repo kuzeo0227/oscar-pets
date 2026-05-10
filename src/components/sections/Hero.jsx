@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
       <img
-        src="/assets/hero-product.jpg"
+        src="/assets/hero-product.png"
         alt="Oscar Pets — Malaysia's 1st premium chewables"
         style={{
           width: '100%',
