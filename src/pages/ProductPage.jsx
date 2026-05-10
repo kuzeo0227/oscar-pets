@@ -1,15 +1,14 @@
 /**
  * /product — single merged page.
- *   Shop intro (was /shop)  +  full PDP content (was /product/probiotic-blend)
+ *   Hero  (FinalCTA-style layout)  +  full PDP content
  *   Reviews section is intentionally removed.
  *
- * Section order: ShopIntro → PdpTopNav → PdpHero → VetReviewed →
+ * Section order: ShopIntro (FinalCTA-style hero) → PdpTopNav → VetReviewed →
  *                KeyIngredients → DirectionsForUse → ProductBenefits →
  *                WhatToExpect → ProductFAQ → Footer
  */
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 
 import PdpTopNav        from '../sections/product/PdpTopNav'
@@ -21,199 +20,192 @@ import WhatToExpect     from '../sections/product/06-WhatToExpect'
 import ProductFAQ       from '../sections/product/08-ProductFAQ'
 import Footer           from '../components/sections/Footer'
 
-const ease = [0.22, 1, 0.36, 1]
+const ease       = [0.22, 1, 0.36, 1]
+const PRICE_ONE  = 89
+const PRICE_SUB  = 71
+const CURRENCY   = 'RM'
 
-const PRODUCT = {
-  slug:           'probiotic-blend',
-  name:           'Probiotic Blend Chewables',
-  subtitle:       'Lamb Liver & Pumpkin Mix',
-  oneTimePrice:   89,
-  subscribePrice: 71,
-  image:          '/assets/jar-front.jpg',
-  tags: [
-    'Scientifically Formulated',
-    'Halal-compliant',
-    "Malaysia's 1st Premium Chew",
-  ],
-}
-
-/** Shop intro hero — was the body of the old /shop page. */
+/**
+ * /product HERO
+ * ─────────────────────────────────────────────────────────
+ * Two-column FinalCTA-style layout. No eyebrow.
+ * LEFT  (5/12): jar image with FRONT VIEW caption mask
+ * RIGHT (6/12, col-start-7): H2 + plan toggle + price + ATC + assurance row
+ */
 function ShopIntro() {
-  const { addItem } = useCart()
+  const { addItem }   = useCart()
+  const [plan, setPlan] = useState('subscribe') // 'subscribe' | 'one-time'
+
+  const price   = plan === 'subscribe' ? PRICE_SUB : PRICE_ONE
+  const savings = Math.round(((PRICE_ONE - PRICE_SUB) / PRICE_ONE) * 100)
 
   function handleAdd() {
     addItem({
-      id:    `${PRODUCT.slug}-medium-onetime`,
-      name:  PRODUCT.name,
-      price: PRODUCT.oneTimePrice,
-      meta:  'Medium · One-time',
+      id:    `probiotic-blend-${plan}`,
+      name:  'Probiotic Blend Chewables',
+      price,
+      meta:  plan === 'subscribe' ? 'Subscribe & Save' : 'One-time',
     })
   }
 
   return (
-    <div className="bg-white text-ink">
-      {/* Anchor for PdpTopNav 'Product Info' link */}
-      <span id="hero" className="block relative -top-32 invisible" aria-hidden="true" />
+    <section
+      id="hero"
+      className="relative"
+      style={{ background: 'var(--color-paper-soft)' }}
+    >
+      <div className="container-edge mx-auto py-28 lg:py-36">
+        <div className="grid grid-cols-1 items-center gap-y-16 lg:grid-cols-12 lg:gap-x-16">
 
-      <section
-        className="container-edge mx-auto"
-        style={{ paddingTop: 'clamp(80px, 8vw, 120px)', paddingBottom: 'clamp(80px, 8vw, 120px)' }}
-      >
-        <div
-          className="grid grid-cols-1 lg:grid-cols-12 items-center"
-          style={{ columnGap: 'clamp(40px, 5vw, 80px)', rowGap: 'clamp(48px, 6vw, 96px)' }}
-        >
-          {/* LEFT — copy + CTAs (5/12) */}
+          {/* LEFT — jar */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-10%' }}
+            transition={{ duration: 0.9, ease }}
             className="lg:col-span-5"
           >
-            <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 24 }}>
-              THE SHOP
-            </p>
-            <h1
-              className="font-serif text-[#0a0a0a]"
-              style={{ fontSize: 'clamp(40px, 5vw, 72px)', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.01em' }}
-            >
-              One product. <em className="italic">Built right.</em>
-            </h1>
-            <p
-              className="font-display mt-7"
-              style={{ fontSize: 15, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.7, maxWidth: '38ch' }}
-            >
-              We make a single, science-backed chewable. No upsells, no filler line — just one formula we'd put our name on.
-            </p>
-
-            {/* CTAs */}
-            <div className="mt-10 flex flex-col sm:flex-row gap-3 max-w-md">
-              <a href="#vet" className="flex-1">
-                <motion.button
-                  whileHover={{ backgroundColor: '#2a2a2a' }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full inline-flex items-center justify-center gap-2 font-mono uppercase"
-                  style={{
-                    background: '#0a0a0a', color: '#ffffff',
-                    fontSize: 12, fontWeight: 700, letterSpacing: '0.22em',
-                    padding: '14px 32px', borderRadius: 0,
-                  }}
-                >
-                  View Product <ArrowRight size={14} />
-                </motion.button>
-              </a>
-              <button
-                onClick={handleAdd}
-                className="flex-1 inline-flex items-center justify-center gap-2 font-mono uppercase transition-colors"
-                style={{
-                  border: '2px solid #0a0a0a', color: '#0a0a0a', background: 'transparent',
-                  fontSize: 12, fontWeight: 700, letterSpacing: '0.22em',
-                  padding: '12px 32px', borderRadius: 0,
-                }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#0a0a0a'; e.currentTarget.style.color = '#ffffff' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#0a0a0a' }}
-              >
-                Add to Cart
-              </button>
-            </div>
-
-            <p className="mt-6 font-mono uppercase" style={{ fontSize: 10, fontWeight: 400, letterSpacing: '0.18em', color: '#6b6b6b' }}>
-              30-day money-back guarantee · Free shipping on subscriptions
-            </p>
-          </motion.div>
-
-          {/* RIGHT — jar image + product showcase (7/12) */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease }}
-            className="lg:col-span-7"
-          >
-            {/* Jar image with FRONT VIEW caption mask */}
-            <div
-              className="relative aspect-[4/3] overflow-hidden w-full"
-              style={{ background: 'var(--color-paper-soft)' }}
-            >
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-[420px] overflow-hidden">
               <img
-                src={PRODUCT.image}
-                alt={PRODUCT.name}
-                className="absolute inset-0 h-full w-full object-contain"
+                src="/assets/jar-front.jpg"
+                alt="Oscar Probiotic Chews — 60 chews"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }}
                 draggable={false}
               />
-              {/* Mask the FRONT VIEW caption baked into top of image */}
               <div
                 className="pointer-events-none absolute inset-x-0 top-0"
                 style={{ height: '14%', background: 'var(--color-paper-soft)' }}
               />
             </div>
+          </motion.div>
 
-            {/* Product showcase card — name, subtitle, tags, feature rows, metric pills */}
-            <div
-              className="mt-8 p-7 lg:p-8"
-              style={{ border: '1px solid var(--color-rule)', borderRadius: 0 }}
+          {/* RIGHT — order panel */}
+          <div className="lg:col-span-6 lg:col-start-7">
+            {/* No eyebrow on hero */}
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ duration: 0.8, ease }}
+              className="font-serif text-[#0a0a0a]"
+              style={{ fontSize: 'clamp(36px, 4.4vw, 56px)', fontWeight: 700, lineHeight: 1.05 }}
             >
-              <h2
-                className="font-serif text-[#0a0a0a]"
-                style={{ fontSize: 'clamp(24px, 2.6vw, 32px)', fontWeight: 700, lineHeight: 1.1 }}
-              >
-                {PRODUCT.name}
-              </h2>
-              <p className="font-serif italic mt-2" style={{ fontSize: 16, color: '#6b6b6b' }}>
-                {PRODUCT.subtitle}
-              </p>
+              One jar.
+              <br />
+              <em className="italic">Sixty chews</em>.
+              <br />
+              30 days to decide.
+            </motion.h2>
 
-              {/* Tags */}
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {PRODUCT.tags.map(t => (
-                  <li
-                    key={t}
-                    className="font-mono uppercase"
+            {/* Plan toggle */}
+            <div
+              className="mt-10 inline-grid grid-cols-2 border"
+              style={{ borderColor: 'var(--color-rule)', borderRadius: 0 }}
+            >
+              {[
+                { id: 'subscribe', label: 'Subscribe & save', note: `Save ${savings}%` },
+                { id: 'one-time',  label: 'One-time',         note: 'No commitment'    },
+              ].map(p => {
+                const active = plan === p.id
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => setPlan(p.id)}
+                    className="flex cursor-pointer flex-col items-start gap-1 px-7 py-4 transition-colors duration-200"
                     style={{
-                      fontSize: 10, fontWeight: 400, letterSpacing: '0.18em',
-                      color: '#0a0a0a',
-                      border: '1px solid #0a0a0a',
-                      padding: '5px 12px', borderRadius: 0,
+                      background:   active ? '#0a0a0a' : 'transparent',
+                      color:        active ? '#ffffff' : '#0a0a0a',
+                      borderRadius: 0,
                     }}
                   >
-                    {t}
-                  </li>
-                ))}
-              </ul>
-
-              {/* Feature rows */}
-              <div className="mt-6 flex flex-col" style={{ borderTop: '1px solid var(--color-rule)' }}>
-                {[
-                  { label: 'Scientifically Formulated', desc: 'Every strain and compound backed by peer-reviewed studies.' },
-                  { label: 'Premium Ingredients',       desc: 'Real Lamb Liver & Pumpkin — no artificial fillers.' },
-                  { label: '3 Billion CFU per Chew',    desc: 'Spore-forming Bacillus strains stable at tropical ambient temperature.' },
-                ].map(row => (
-                  <div key={row.label} className="grid grid-cols-[2rem_1fr] gap-3 items-baseline py-4"
-                    style={{ borderBottom: '1px solid var(--color-rule)' }}>
-                    <span className="font-mono num-mono text-[#0a0a0a]" style={{ fontSize: 13, fontWeight: 700 }}>·</span>
-                    <div>
-                      <p className="font-display text-[#0a0a0a]" style={{ fontSize: 14, fontWeight: 600 }}>{row.label}</p>
-                      <p className="font-display mt-1" style={{ fontSize: 13, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.65 }}>{row.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Metric pills */}
-              <div className="grid grid-cols-3 gap-2 mt-6">
-                {[
-                  { value: '3 BILLION CFU',  sub: 'PER CHEW' },
-                  { value: 'LAMB & PUMPKIN', sub: 'PREMIUM' },
-                  { value: 'S/M BREEDS',     sub: 'LAB-FORMULATED' },
-                ].map(m => (
-                  <div key={m.value} className="px-3 py-3 text-center" style={{ background: '#0a0a0a', borderRadius: 0 }}>
-                    <p className="font-mono text-white" style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.18em' }}>{m.value}</p>
-                    <p className="font-mono mt-1" style={{ fontSize: 9, fontWeight: 400, letterSpacing: '0.18em', color: 'rgba(255,255,255,0.55)' }}>{m.sub}</p>
-                  </div>
-                ))}
-              </div>
+                    <span className="font-display uppercase" style={{ fontSize: 13, fontWeight: 600, letterSpacing: '0.04em' }}>
+                      {p.label}
+                    </span>
+                    <span
+                      className="font-mono uppercase"
+                      style={{ fontSize: 10.5, letterSpacing: '0.16em', color: active ? 'rgba(255,255,255,0.7)' : '#6b6b6b' }}
+                    >
+                      {p.note}
+                    </span>
+                  </button>
+                )
+              })}
             </div>
-          </motion.div>
+
+            {/* Price + Add to Cart */}
+            <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <div className="flex items-baseline gap-3">
+                  <span
+                    className="font-mono uppercase"
+                    style={{ fontSize: 13, letterSpacing: '0.18em', color: '#6b6b6b' }}
+                  >
+                    {CURRENCY}
+                  </span>
+                  <motion.span
+                    key={price}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, ease }}
+                    className="num-mono text-[#0a0a0a]"
+                    style={{ fontSize: 'clamp(48px, 5.4vw, 72px)', fontWeight: 700, lineHeight: 1 }}
+                  >
+                    {price}
+                  </motion.span>
+                  {plan === 'subscribe' && (
+                    <span
+                      className="font-mono line-through"
+                      style={{ fontSize: 12, color: '#9a9a96' }}
+                    >
+                      {CURRENCY}{PRICE_ONE}
+                    </span>
+                  )}
+                </div>
+                <p
+                  className="mt-2 font-mono uppercase"
+                  style={{ fontSize: 11, letterSpacing: '0.16em', color: '#6b6b6b' }}
+                >
+                  60 chews · 1 month supply · cancel anytime
+                </p>
+              </div>
+
+              <button
+                onClick={handleAdd}
+                className="group inline-flex cursor-pointer items-center gap-3 font-mono uppercase text-white transition-colors duration-300"
+                style={{
+                  background: '#0a0a0a',
+                  fontSize: 12, letterSpacing: '0.22em',
+                  padding: '20px 36px',
+                  borderRadius: 0,
+                  border: 0,
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = '#2a2a2a')}
+                onMouseLeave={e => (e.currentTarget.style.background = '#0a0a0a')}
+              >
+                Add to cart
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="transition-transform duration-300 group-hover:translate-x-1">
+                  <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="1.6" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Assurance row */}
+            <ul
+              className="mt-10 grid grid-cols-2 gap-y-3 gap-x-6 border-t pt-6 font-mono uppercase sm:grid-cols-4"
+              style={{ borderColor: 'var(--color-rule)', color: '#0a0a0a', fontSize: 11, letterSpacing: '0.16em' }}
+            >
+              <li>· 30-day money-back</li>
+              <li>· Vet-formulated</li>
+              <li>· cGMP made</li>
+              <li>· Free shipping over RM150</li>
+            </ul>
+          </div>
         </div>
-      </section>
-    </div>
+      </div>
+      <div style={{ height: 1, background: 'var(--color-rule)' }} />
+    </section>
   )
 }
 
