@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
       <img
-        src="/assets/hero-product.png"
+        src="/assets/hero-product.png?v=2"
         alt="Oscar Pets — Malaysia's 1st premium chewables"
         style={{
           width: '100%',
@@ -24,7 +24,7 @@ export default function Hero() {
         to="/product"
         style={{
           position: 'absolute',
-          bottom: 'clamp(40px, 6vh, 72px)',
+          bottom: 'clamp(96px, 14vh, 168px)',
           left:   'clamp(24px, 7vw, 128px)',
         }}
       >
@@ -32,18 +32,18 @@ export default function Hero() {
           className="cursor-pointer transition-colors"
           style={{
             fontFamily: "'Space Mono', monospace",
-            fontSize: 12,
+            fontSize: 15,
             letterSpacing: '0.22em',
             textTransform: 'uppercase',
-            background: '#ffffff',
-            color: '#0a0a0a',
+            background: '#0a0a0a',
+            color: '#ffffff',
             borderRadius: 0,
-            padding: '16px 32px',
+            padding: '20px 40px',
             border: 'none',
             transitionDuration: '200ms',
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.85)')}
-          onMouseLeave={e => (e.currentTarget.style.background = '#ffffff')}
+          onMouseEnter={e => (e.currentTarget.style.background = '#2a2a2a')}
+          onMouseLeave={e => (e.currentTarget.style.background = '#0a0a0a')}
         >
           Shop now →
         </button>
