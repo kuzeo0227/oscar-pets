@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Star, Shield } from 'lucide-react'
+import { Shield } from 'lucide-react'
 import { useCart } from '../../context/CartContext'
 import { PRODUCT, SIZES } from '../../data/product'
 import PurchaseOption from './_shared/PurchaseOption'
@@ -85,17 +85,6 @@ export default function PdpHero() {
 
           {/* INFO COLUMN */}
           <div>
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0.5}
-              className="flex items-center gap-2 mb-3"
-            >
-              <div className="flex items-center gap-0.5">
-                {[1,2,3,4,5].map(i => <Star key={i} size={14} fill="#1A1A18" stroke="#1A1A18" />)}
-              </div>
-              <span className="font-montserrat font-semibold text-xs text-[#6B6B6B]">
-                {PRODUCT.rating} · {PRODUCT.reviewCount.toLocaleString()} Reviews
-              </span>
-            </motion.div>
-
             <motion.h1 initial="hidden" animate="visible" variants={fadeUp} custom={1}
               className="font-baskerville font-bold text-3xl md:text-4xl lg:text-5xl leading-[1.05] text-[#1A1A18] tracking-tight"
             >

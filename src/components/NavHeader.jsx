@@ -5,7 +5,7 @@ import { ShoppingCart } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 const links = [
-  { label: "Products", to: "/shop"    },
+  { label: "Products", to: "/product" },
   { label: "Lab",      to: "/science" },
   { label: "About",    to: "/about"   },
 ];

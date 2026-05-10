@@ -12,7 +12,6 @@ const SECTIONS = [
   { id: 'directions',  label: 'Directions For Use' },
   { id: 'benefits',    label: 'Product Benefits' },
   { id: 'expect',      label: 'What To Expect' },
-  { id: 'reviews',     label: 'Reviews' },
   { id: 'faq',         label: 'FAQ' },
 ]
 
@@ -20,7 +19,7 @@ export default function PdpTopNav() {
   return (
     <div className="border-b bg-white sticky top-[96px] z-20" style={{ borderColor: 'var(--color-rule)' }}>
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        <Link to="/shop" className="inline-flex items-center gap-1.5 text-sm font-montserrat font-medium text-[#6B6B6B] hover:text-[#1A1A18] transition-colors">
+        <Link to="/product" className="inline-flex items-center gap-1.5 text-sm font-montserrat font-medium text-[#6B6B6B] hover:text-[#1A1A18] transition-colors">
           <ChevronLeft size={16} />
           <span>Back to shop</span>
         </Link>

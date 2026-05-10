@@ -124,7 +124,7 @@ export default function ProductFeature() {
               variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
               className="mt-8"
             >
-              <Link to="/product/probiotic-blend">
+              <Link to="/product">
                 <motion.button
                   whileHover={{ background: '#2a2a2a' }}
                   whileTap={{ scale: 0.98 }}

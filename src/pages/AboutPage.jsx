@@ -160,9 +160,9 @@ export default function AboutPage() {
             transition={{ duration:0.6 }}>
             <h2 className="font-baskerville font-bold text-4xl text-white mb-4">Ready to start?</h2>
             <p className="font-montserrat font-medium text-base text-white/60 mb-8">Give your dog the premium nutrition they deserve.</p>
-            <Link to="/shop">
+            <Link to="/product">
               <motion.button whileHover={{ scale:1.03, filter:'brightness(1.08)' }} whileTap={{ scale:0.97 }}
-                className="bg-[#0a0a0a] text-[#1A1A18] font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4 rounded-xl">
+                className="bg-[#0a0a0a] text-white font-montserrat font-black text-sm uppercase tracking-widest px-10 py-4">
                 Shop Now
               </motion.button>
             </Link>

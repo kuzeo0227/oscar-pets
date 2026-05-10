@@ -9,8 +9,8 @@ const cols = [
   {
     heading: 'SHOP',
     links: [
-      { label: 'Probiotic Blend Chewables', to: '/product/probiotic-blend' },
-      { label: 'All Products',              to: '/shop' },
+      { label: 'Probiotic Blend Chewables', to: '/product' },
+      { label: 'All Products',              to: '/product' },
     ],
   },
   {
