@@ -116,7 +116,7 @@ function ProductHero() {
                   src={THUMBS[mainIdx]}
                   alt="Oscar Probiotic Chews"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }}
+                  style={{ objectPosition: 'center 100%', transform: 'scale(1.45)', transformOrigin: 'center 65%' }}
                   draggable={false}
                 />
               </div>
@@ -145,7 +145,7 @@ function ProductHero() {
                         borderRadius: 0, cursor: 'pointer', padding: 0,
                       }}>
                       <img src={src} alt="" className="w-full h-full object-cover"
-                        style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }} draggable={false} />
+                        style={{ objectPosition: 'center 100%', transform: 'scale(1.45)', transformOrigin: 'center 65%' }} draggable={false} />
                     </button>
                   ))}
                 </div>
