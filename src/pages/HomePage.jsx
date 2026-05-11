@@ -191,17 +191,26 @@ const CERTS = [
 function CertBanner() {
   return (
     <section
-      className="relative w-full"
+      className="relative w-full overflow-hidden"
       style={{
-        /* Height tuned to a 16:9-ish aspect of the source image so 'cover' fits without aggressive cropping */
         minHeight: 'clamp(540px, 60vw, 880px)',
-        backgroundImage: "url('/assets/hero-product.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        background: '#0a0a0a',
         borderRadius: 0,
       }}
     >
+      {/* Background image as <img> so onError can fall back if the file is missing */}
+      <img
+        src="/assets/cert-banner.jpg"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full"
+        style={{ objectFit: 'cover', objectPosition: 'center', zIndex: 0 }}
+        draggable={false}
+        onError={e => {
+          e.currentTarget.onerror = null
+          e.currentTarget.src = '/assets/hero-product.png'
+        }}
+      />
       {/* Soft dark vignette — the source image is already dark, so a lighter overlay keeps it visible */}
       <div
         className="absolute inset-0"
