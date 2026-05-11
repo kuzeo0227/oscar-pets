@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import HorizontalDeck from '../HorizontalDeck'
 
 const INGREDIENTS = [
   { name: 'Probiotic Blend',         metric: '3B CFU · PER CHEW',         short: 'Spore-forming probiotics that survive heat and gastric acid.', image: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=300&h=400&fit=crop' },
@@ -22,233 +22,95 @@ const fallback = (name) =>
     </svg>`
   )}`
 
+function Card({ ing }) {
+  return (
+    <article
+      style={{
+        width: 'clamp(220px, 22vw, 300px)',
+        flexShrink: 0,
+        background: '#ffffff',
+        border: '1px solid var(--color-rule)',
+        borderRadius: 0,
+      }}
+    >
+      <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', background: '#ffffff' }}>
+        <img
+          src={ing.image}
+          alt={ing.name}
+          className="w-full h-full object-cover"
+          loading="lazy"
+          draggable={false}
+          style={{ pointerEvents: 'none', userSelect: 'none' }}
+          onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = fallback(ing.name) }}
+        />
+      </div>
+      <div style={{ padding: 20 }}>
+        <p className="font-display" style={{ fontSize: 15, fontWeight: 600, color: '#0a0a0a' }}>
+          {ing.name}
+        </p>
+        <p className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.16em', color: '#6b6b6b', marginTop: 4 }}>
+          {ing.metric}
+        </p>
+        <p className="font-display" style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.6, marginTop: 8 }}>
+          {ing.short}
+        </p>
+      </div>
+    </article>
+  )
+}
+
+function ShowMoreCard() {
+  return (
+    <Link
+      to="/science"
+      style={{
+        width: 'clamp(220px, 22vw, 300px)',
+        flexShrink: 0,
+        background: '#0a0a0a',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        padding: 32, textDecoration: 'none',
+        transition: 'background 0.2s',
+      }}
+      onMouseEnter={e => (e.currentTarget.style.background = '#1a1a1a')}
+      onMouseLeave={e => (e.currentTarget.style.background = '#0a0a0a')}
+    >
+      <span className="font-mono uppercase text-center" style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.22em', color: '#ffffff' }}>
+        Explore all<br />ingredients →
+      </span>
+      <span className="font-display text-center" style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', marginTop: 12 }}>
+        Full breakdown on the Lab page
+      </span>
+    </Link>
+  )
+}
+
 export default function IngredientsScroll() {
-  const trackRef     = useRef(null)
-  const scrollbarRef = useRef(null)
-  const [thumb,      setThumb]      = useState({ left: 0, width: 20 })
-  const [isDragging, setIsDragging] = useState(false)
-  const dragStart = useRef({ startX: 0, scrollLeftStart: 0 })
-
-  // Sync scrollbar thumb position with track scroll
-  function syncThumb() {
-    const el = trackRef.current
-    if (!el) return
-    const scrollable = el.scrollWidth - el.clientWidth
-    if (scrollable <= 0) {
-      setThumb({ left: 0, width: 100 })
-      return
-    }
-    const pct       = el.scrollLeft / scrollable
-    const visiblePct = (el.clientWidth / el.scrollWidth) * 100
-    const thumbW    = Math.max(visiblePct, 10)
-    const leftPct   = pct * (100 - thumbW)
-    setThumb({ left: leftPct, width: thumbW })
-  }
-
-  useEffect(() => {
-    syncThumb()
-    const el = trackRef.current
-    if (!el) return
-    el.addEventListener('scroll', syncThumb)
-    const ro = new ResizeObserver(syncThumb)
-    ro.observe(el)
-    return () => {
-      el.removeEventListener('scroll', syncThumb)
-      ro.disconnect()
-    }
-  }, [])
-
-  // Click on scrollbar track scrolls proportionally
-  function onBarClick(e) {
-    const bar = scrollbarRef.current
-    const track = trackRef.current
-    if (!bar || !track) return
-    const rect = bar.getBoundingClientRect()
-    const clickPct = (e.clientX - rect.left) / rect.width
-    const max = track.scrollWidth - track.clientWidth
-    track.scrollTo({ left: clickPct * max, behavior: 'smooth' })
-  }
-
-  // ── Drag-to-scroll ──
-  function handleMouseDown(e) {
-    const el = trackRef.current
-    if (!el) return
-    setIsDragging(true)
-    dragStart.current = {
-      startX:          e.pageX - el.offsetLeft,
-      scrollLeftStart: el.scrollLeft,
-    }
-    el.style.cursor = 'grabbing'
-    el.style.scrollBehavior = 'auto'
-  }
-  function handleMouseMove(e) {
-    if (!isDragging) return
-    const el = trackRef.current
-    if (!el) return
-    e.preventDefault()
-    const x    = e.pageX - el.offsetLeft
-    const walk = (x - dragStart.current.startX) * 1.5
-    el.scrollLeft = dragStart.current.scrollLeftStart - walk
-  }
-  function handleMouseUp() {
-    const el = trackRef.current
-    if (!el) return
-    if (isDragging) {
-      setIsDragging(false)
-      el.style.cursor = 'grab'
-      el.style.scrollBehavior = 'smooth'
-    }
-  }
-
   return (
     <section style={{ background: '#ffffff' }}>
-      <div className="container-contained" style={{ paddingTop: 'clamp(80px, 9vh, 144px)', paddingBottom: 'clamp(80px, 9vh, 144px)' }}>
-        {/* Section header */}
+      <div className="section-container py-20 lg:py-28">
+        {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12 gap-y-6 mb-10">
           <div className="lg:col-span-6">
             <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 16 }}>
               03 — ACTIVE INGREDIENTS
             </p>
-            <h2
-              className="font-serif text-[#0a0a0a]"
-              style={{ fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 700, lineHeight: 1.1 }}
-            >
+            <h2 className="font-serif text-[#0a0a0a]"
+              style={{ fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 700, lineHeight: 1.1 }}>
               Research-backed <em className="italic">active ingredients.</em>
             </h2>
           </div>
           <div className="lg:col-span-5 lg:col-start-8">
-            <p
-              className="font-display"
-              style={{ fontSize: 14.5, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.7 }}
-            >
+            <p className="font-display" style={{ fontSize: 14.5, color: '#6b6b6b', lineHeight: 1.7 }}>
               We believe there are no shortcuts in supplement formulation. Every active compound is selected from peer-reviewed canine studies — no fillers, no padding, no ingredients that can't justify their presence.
             </p>
           </div>
         </div>
 
-        {/* Drag-to-scroll deck (contained, NOT edge-to-edge) */}
-        <style>{`.oscar-deck::-webkit-scrollbar { display: none; }`}</style>
-        <div
-          ref={trackRef}
-          className="oscar-deck flex flex-row"
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          style={{
-            overflowX:                  'auto',
-            scrollBehavior:             'smooth',
-            scrollbarWidth:             'none',
-            msOverflowStyle:            'none',
-            WebkitOverflowScrolling:    'touch',
-            cursor:                     'grab',
-            userSelect:                 'none',
-            paddingInline:              0,
-          }}
-        >
-          {INGREDIENTS.map(ing => (
-            <article
-              key={ing.name}
-              style={{
-                width: 'clamp(220px, 22vw, 300px)',
-                flexShrink: 0,
-                background: '#ffffff',
-                borderRight: '1px solid var(--color-rule)',
-                userSelect: 'none',
-                WebkitUserDrag: 'none',
-              }}
-            >
-              <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', background: '#ffffff' }}>
-                <img
-                  src={ing.image}
-                  alt={ing.name}
-                  loading="lazy"
-                  draggable={false}
-                  className="w-full h-full object-cover"
-                  style={{ pointerEvents: 'none', userSelect: 'none', WebkitUserDrag: 'none' }}
-                  onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = fallback(ing.name) }}
-                />
-              </div>
-              <div style={{ padding: 20 }}>
-                <p className="font-display" style={{ fontSize: 15, fontWeight: 600, color: '#0a0a0a' }}>
-                  {ing.name}
-                </p>
-                <p
-                  className="font-mono uppercase"
-                  style={{ fontSize: 10, letterSpacing: '0.16em', color: '#6b6b6b', marginTop: 4 }}
-                >
-                  {ing.metric}
-                </p>
-                <p
-                  className="font-display"
-                  style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.6, marginTop: 8 }}
-                >
-                  {ing.short}
-                </p>
-              </div>
-            </article>
-          ))}
-
-          {/* Show more card */}
-          <Link
-            to="/science"
-            onDragStart={e => e.preventDefault()}
-            style={{
-              width: 'clamp(220px, 22vw, 300px)',
-              flexShrink: 0,
-              background: '#0a0a0a',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 32,
-              textDecoration: 'none',
-              transition: 'background 0.2s',
-              userSelect: 'none',
-              WebkitUserDrag: 'none',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.background = '#1a1a1a')}
-            onMouseLeave={e => (e.currentTarget.style.background = '#0a0a0a')}
-          >
-            <span
-              className="font-mono uppercase text-center"
-              style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.22em', color: '#ffffff' }}
-            >
-              Explore all<br />ingredients →
-            </span>
-            <span
-              className="font-display text-center"
-              style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', marginTop: 12 }}
-            >
-              Full breakdown on the Lab page
-            </span>
-          </Link>
-        </div>
-
-        {/* Custom scrollbar — aligned with deck inside container */}
-        <div
-          ref={scrollbarRef}
-          onClick={onBarClick}
-          style={{
-            marginTop: 24,
-            height: 2,
-            background: 'var(--color-rule)',
-            width: '100%',
-            position: 'relative',
-            cursor: 'pointer',
-          }}
-        >
-          <div
-            style={{
-              height: 2,
-              background: '#0a0a0a',
-              width: `${thumb.width}%`,
-              position: 'absolute',
-              left: `${thumb.left}%`,
-              transition: isDragging ? 'none' : 'left 0.1s linear',
-            }}
-          />
-        </div>
+        {/* Bounded deck */}
+        <HorizontalDeck gap={16}>
+          {INGREDIENTS.map(ing => <Card key={ing.name} ing={ing} />)}
+          <ShowMoreCard />
+        </HorizontalDeck>
       </div>
     </section>
   )

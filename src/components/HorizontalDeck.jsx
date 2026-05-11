@@ -1,0 +1,140 @@
+import { useRef, useState, useEffect } from 'react'
+
+/**
+ * HorizontalDeck — generic draggable horizontal scroll track with bounded
+ * right edge + synced custom scrollbar. Used by:
+ *   - Homepage ingredient deck
+ *   - /product Comprehensive Functional Benefits deck
+ *   - /product Research-backed Ingredients deck
+ *
+ * Behavior:
+ *   • Both ends respect the parent's container width (no edge bleed)
+ *   • cursor: grab default, grabbing while dragging
+ *   • Images inside cards must have draggable={false} + pointer-events: none
+ *   • 2px scrollbar below the track, click to jump, thumb follows scroll
+ *
+ * Usage:
+ *   <HorizontalDeck>
+ *     {items.map(...)}
+ *   </HorizontalDeck>
+ */
+export default function HorizontalDeck({ children, gap = 16 }) {
+  const trackRef     = useRef(null)
+  const scrollbarRef = useRef(null)
+  const [thumb, setThumb] = useState({ left: 0, width: 20 })
+  const dragState = useRef({ active: false, startX: 0, scrollLeftStart: 0 })
+
+  /* ---- Drag-to-scroll ---- */
+  function onMouseDown(e) {
+    const el = trackRef.current
+    if (!el) return
+    dragState.current = {
+      active: true,
+      startX: e.pageX - el.offsetLeft,
+      scrollLeftStart: el.scrollLeft,
+    }
+    el.style.cursor = 'grabbing'
+    el.style.scrollBehavior = 'auto'
+  }
+  function onMouseMove(e) {
+    const el = trackRef.current
+    if (!el || !dragState.current.active) return
+    e.preventDefault()
+    const x = e.pageX - el.offsetLeft
+    const walk = (x - dragState.current.startX) * 1.5
+    el.scrollLeft = dragState.current.scrollLeftStart - walk
+  }
+  function onMouseUp() {
+    const el = trackRef.current
+    if (!el) return
+    dragState.current.active = false
+    el.style.cursor = 'grab'
+    el.style.scrollBehavior = 'smooth'
+  }
+
+  /* ---- Sync custom scrollbar to scroll position ---- */
+  function onScroll() {
+    const el = trackRef.current
+    if (!el) return
+    const scrollable = el.scrollWidth - el.clientWidth
+    if (scrollable <= 0) {
+      setThumb({ left: 0, width: 100 })
+      return
+    }
+    const pct       = el.scrollLeft / scrollable
+    const visiblePct = (el.clientWidth / el.scrollWidth) * 100
+    const thumbW    = Math.max(visiblePct, 10)
+    const leftPct   = pct * (100 - thumbW)
+    setThumb({ left: leftPct, width: thumbW })
+  }
+
+  useEffect(() => {
+    onScroll()
+    const ro = new ResizeObserver(onScroll)
+    if (trackRef.current) ro.observe(trackRef.current)
+    return () => ro.disconnect()
+  }, [])
+
+  /* ---- Click on scrollbar track to jump ---- */
+  function onBarClick(e) {
+    const bar = scrollbarRef.current
+    const track = trackRef.current
+    if (!bar || !track) return
+    const rect = bar.getBoundingClientRect()
+    const clickPct = (e.clientX - rect.left) / rect.width
+    const max = track.scrollWidth - track.clientWidth
+    track.scrollTo({ left: clickPct * max, behavior: 'smooth' })
+  }
+
+  return (
+    <div className="w-full">
+      <div
+        ref={trackRef}
+        onScroll={onScroll}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseUp}
+        className="flex flex-row overflow-x-auto"
+        style={{
+          gap,
+          cursor: 'grab',
+          userSelect: 'none',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch',
+          scrollBehavior: 'smooth',
+          paddingInline: 0,
+        }}
+      >
+        <style>{`.no-native-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+        {children}
+      </div>
+
+      {/* Custom 2px scrollbar */}
+      <div
+        ref={scrollbarRef}
+        onClick={onBarClick}
+        style={{
+          marginTop: 24,
+          height: 2,
+          background: 'var(--color-rule)',
+          width: '100%',
+          position: 'relative',
+          cursor: 'pointer',
+        }}
+      >
+        <div
+          style={{
+            height: 2,
+            background: '#0a0a0a',
+            width: `${thumb.width}%`,
+            position: 'absolute',
+            left: `${thumb.left}%`,
+            transition: 'left 0.1s linear',
+          }}
+        />
+      </div>
+    </div>
+  )
+}
