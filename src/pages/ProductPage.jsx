@@ -116,7 +116,7 @@ function ProductHero() {
                   src={THUMBS[mainIdx]}
                   alt="Oscar Probiotic Chews"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: 'center 100%', transform: 'scale(1.45)', transformOrigin: 'center 65%' }}
+                  style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }}
                   draggable={false}
                 />
               </div>
@@ -128,12 +128,12 @@ function ProductHero() {
                   style={{
                     position: 'absolute', left: -20, top: '50%', transform: 'translateY(-50%)',
                     background: 'transparent', border: 0, color: '#0a0a0a', cursor: 'pointer',
-                    fontSize: 16, zIndex: 1, padding: 0,
+                    fontSize: 14, zIndex: 1, padding: 0,
                   }}
                   onClick={() => setMainIdx((mainIdx - 1 + THUMBS.length) % THUMBS.length)}>
-                  ‹
+                  ←
                 </button>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, width: '100%' }}>
                   {THUMBS.map((src, i) => (
                     <button key={i}
                       onClick={() => setMainIdx(i)}
@@ -141,11 +141,12 @@ function ProductHero() {
                       style={{
                         width: '100%', aspectRatio: '1 / 1',
                         background: '#ffffff',
-                        border: i === mainIdx ? '1.5px solid #0a0a0a' : '1.5px solid transparent',
+                        border: i === mainIdx ? '1.5px solid #0a0a0a' : '1px solid transparent',
                         borderRadius: 0, cursor: 'pointer', padding: 0,
+                        transition: 'border-color 200ms',
                       }}>
                       <img src={src} alt="" className="w-full h-full object-cover"
-                        style={{ objectPosition: 'center 100%', transform: 'scale(1.45)', transformOrigin: 'center 65%' }} draggable={false} />
+                        style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }} draggable={false} />
                     </button>
                   ))}
                 </div>
@@ -154,10 +155,10 @@ function ProductHero() {
                   style={{
                     position: 'absolute', right: -20, top: '50%', transform: 'translateY(-50%)',
                     background: 'transparent', border: 0, color: '#0a0a0a', cursor: 'pointer',
-                    fontSize: 16, zIndex: 1, padding: 0,
+                    fontSize: 14, zIndex: 1, padding: 0,
                   }}
                   onClick={() => setMainIdx((mainIdx + 1) % THUMBS.length)}>
-                  ›
+                  →
                 </button>
               </div>
             </div>
