@@ -11,112 +11,123 @@ const ease = [0.22, 1, 0.36, 1]
 /* -------------------------------------------------------------------------- */
 /*  SECTION 2 — EDITORIAL TWO-COLUMN  (contained)                              */
 /* -------------------------------------------------------------------------- */
+function EditorialCard({ delay, eyebrow, image, alt, imageStyle, title, body, ctaLabel, ctaTo, fallback }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-10%' }}
+      transition={{ duration: 0.8, delay, ease }}
+      className="flex flex-col"
+    >
+      {/* Image with rounded corners */}
+      <div
+        className="overflow-hidden"
+        style={{
+          aspectRatio: '4 / 3',
+          background: '#f6f5f1',
+          borderRadius: 20,
+        }}
+      >
+        <img
+          src={image}
+          alt={alt}
+          className="w-full h-full object-cover"
+          style={imageStyle}
+          draggable={false}
+          onError={fallback ? (e => { e.currentTarget.onerror = null; e.currentTarget.src = fallback }) : undefined}
+        />
+      </div>
+
+      {/* Eyebrow with leading dot */}
+      <div className="flex items-center gap-2.5" style={{ marginTop: 32 }}>
+        <span
+          aria-hidden="true"
+          style={{
+            display: 'inline-block', width: 8, height: 8,
+            borderRadius: '50%', background: '#0a0a0a',
+          }}
+        />
+        <p className="eyebrow" style={{ color: '#0a0a0a' }}>{eyebrow}</p>
+      </div>
+
+      {/* Heading */}
+      <h3
+        className="font-serif text-[#0a0a0a]"
+        style={{
+          fontSize: 'clamp(28px, 3vw, 44px)',
+          fontWeight: 700,
+          lineHeight: 1.15,
+          marginTop: 24,
+        }}
+      >
+        {title}
+      </h3>
+
+      {/* Body */}
+      <p
+        className="font-display"
+        style={{
+          fontSize: 15,
+          color: '#6b6b6b',
+          lineHeight: 1.7,
+          marginTop: 20,
+          maxWidth: '52ch',
+        }}
+      >
+        {body}
+      </p>
+
+      {/* Bordered CTA */}
+      <Link to={ctaTo} className="inline-block self-start" style={{ marginTop: 32 }}>
+        <button
+          className="font-mono uppercase cursor-pointer transition-colors inline-flex items-center gap-2"
+          style={{
+            fontSize: 11, fontWeight: 700, letterSpacing: '0.18em',
+            color: '#0a0a0a', background: 'transparent',
+            border: '1px solid #0a0a0a',
+            padding: '12px 22px',
+            borderRadius: 0,
+          }}
+          onMouseEnter={e => { e.currentTarget.style.background = '#0a0a0a'; e.currentTarget.style.color = '#ffffff' }}
+          onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#0a0a0a' }}
+        >
+          {ctaLabel} →
+        </button>
+      </Link>
+    </motion.div>
+  )
+}
+
 function EditorialTwoCol() {
   return (
     <section style={{ background: 'var(--color-paper-soft)' }}>
-      <div className="container-contained py-20 lg:py-28">
+      <div className="container-contained py-24 lg:py-32">
         <div
           className="grid grid-cols-1 lg:grid-cols-2"
-          style={{ columnGap: 'clamp(32px, 5vw, 80px)', rowGap: 'clamp(48px, 6vw, 80px)' }}
+          style={{ columnGap: 'clamp(40px, 5vw, 96px)', rowGap: 'clamp(64px, 8vw, 96px)' }}
         >
-          {/* LEFT */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-10%' }}
-            transition={{ duration: 0.8, ease }}
-            className="lg:pr-10"
-          >
-            <div style={{ aspectRatio: '4 / 3', overflow: 'hidden', background: '#f6f5f1' }}>
-              <img
-                src="/assets/jar-front.jpg"
-                alt="Oscar Probiotic Chews"
-                className="w-full h-full object-cover"
-                style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }}
-                draggable={false}
-              />
-            </div>
-            <div className="mt-6">
-              <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 16 }}>
-                OUR MISSION
-              </p>
-              <h3
-                className="font-serif text-[#0a0a0a]"
-                style={{ fontSize: 'clamp(22px, 2.2vw, 32px)', fontWeight: 700, lineHeight: 1.2, marginBottom: 16 }}
-              >
-                Built for one outcome. <em className="italic">A healthier gut.</em>
-              </h3>
-              <p
-                className="font-display"
-                style={{ fontSize: 14, color: '#6b6b6b', lineHeight: 1.7 }}
-              >
-                Our science-first approach means every ingredient earns its place — backed by peer-reviewed research and sourced from audited suppliers.
-              </p>
-              <Link
-                to="/about"
-                className="font-mono uppercase inline-block"
-                style={{
-                  fontSize: 11, fontWeight: 700, letterSpacing: '0.22em',
-                  color: '#0a0a0a',
-                  borderBottom: '1px solid #0a0a0a',
-                  paddingBottom: 2,
-                  marginTop: 24,
-                  borderRadius: 0,
-                }}
-              >
-                Learn more →
-              </Link>
-            </div>
-          </motion.div>
-
-          {/* RIGHT */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-10%' }}
-            transition={{ duration: 0.8, delay: 0.1, ease }}
-            className="lg:pl-10"
-            style={{ borderLeft: '1px solid var(--color-rule)' }}
-          >
-            <div style={{ aspectRatio: '4 / 3', overflow: 'hidden', background: '#f6f5f1' }}>
-              <img
-                src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=900&h=675&fit=crop"
-                alt="Dog enjoying the outdoors"
-                className="w-full h-full object-cover"
-                onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/assets/jar-front.jpg' }}
-              />
-            </div>
-            <div className="mt-6">
-              <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 16 }}>
-                FOR PET OWNERS
-              </p>
-              <h3
-                className="font-serif text-[#0a0a0a]"
-                style={{ fontSize: 'clamp(22px, 2.2vw, 32px)', fontWeight: 700, lineHeight: 1.2, marginBottom: 16 }}
-              >
-                Your dog can't tell you. <em className="italic">But the gut can.</em>
-              </h3>
-              <p
-                className="font-display"
-                style={{ fontSize: 14, color: '#6b6b6b', lineHeight: 1.7 }}
-              >
-                Loose stools, dull coat, low energy — most of what shows on the outside starts in the microbiome. Oscar addresses the root, not the symptom.
-              </p>
-              <Link to="/product" className="inline-block" style={{ marginTop: 24 }}>
-                <button
-                  className="font-mono uppercase cursor-pointer transition-colors"
-                  style={{
-                    fontSize: 11, fontWeight: 700, letterSpacing: '0.22em',
-                    color: '#ffffff', background: '#0a0a0a',
-                    padding: '14px 28px',
-                    border: 0, borderRadius: 0,
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.background = '#2a2a2a')}
-                  onMouseLeave={e => (e.currentTarget.style.background = '#0a0a0a')}
-                >
-                  Shop now →
-                </button>
-              </Link>
-            </div>
-          </motion.div>
+          <EditorialCard
+            delay={0}
+            eyebrow="OUR MISSION"
+            image="/assets/jar-front.jpg"
+            alt="Oscar Probiotic Chews"
+            imageStyle={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }}
+            title={<>Built for one outcome.<br /><em className="italic">A healthier gut.</em></>}
+            body="Our science-first approach means every ingredient earns its place — backed by peer-reviewed research and sourced from audited suppliers."
+            ctaLabel="Learn more"
+            ctaTo="/about"
+          />
+          <EditorialCard
+            delay={0.1}
+            eyebrow="FOR PET OWNERS"
+            image="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200&h=900&fit=crop"
+            alt="Dog enjoying the outdoors"
+            fallback="/assets/jar-front.jpg"
+            title={<>Your dog can't tell you.<br /><em className="italic">But the gut can.</em></>}
+            body="Loose stools, dull coat, low energy — most of what shows on the outside starts in the microbiome. Oscar addresses the root, not the symptom."
+            ctaLabel="Start your journey"
+            ctaTo="/product"
+          />
         </div>
       </div>
     </section>
