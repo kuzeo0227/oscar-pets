@@ -208,7 +208,7 @@ function CertBanner() {
         style={{
           objectFit: 'cover',
           objectPosition: 'center',
-          transform: 'scale(1.15)',   /* zoom the center, sides clip naturally via overflow-hidden */
+          transform: 'scale(1.18)',   /* +3% over the previous 1.15× to crop sides a touch tighter */
           transformOrigin: 'center',
           zIndex: 0,
         }}
