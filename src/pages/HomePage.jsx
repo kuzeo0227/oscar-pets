@@ -193,18 +193,25 @@ function CertBanner() {
     <section
       className="relative w-full overflow-hidden"
       style={{
-        minHeight: 'clamp(540px, 60vw, 880px)',
+        /* Slightly taller so 'cover' crops more of the wide image's sides, keeping the center framed */
+        minHeight: 'clamp(620px, 70vw, 960px)',
         background: '#0a0a0a',
         borderRadius: 0,
       }}
     >
-      {/* Background image as <img> so onError can fall back if the file is missing */}
+      {/* Background image as <img> — full-bleed, centered, scaled to crop sides */}
       <img
-        src="/assets/cert-banner.jpg"
+        src="/assets/cert-banner.png"
         alt=""
         aria-hidden="true"
         className="absolute inset-0 w-full h-full"
-        style={{ objectFit: 'cover', objectPosition: 'center', zIndex: 0 }}
+        style={{
+          objectFit: 'cover',
+          objectPosition: 'center',
+          transform: 'scale(1.15)',   /* zoom the center, sides clip naturally via overflow-hidden */
+          transformOrigin: 'center',
+          zIndex: 0,
+        }}
         draggable={false}
         onError={e => {
           e.currentTarget.onerror = null
@@ -225,7 +232,7 @@ function CertBanner() {
         className="relative flex flex-col items-center justify-center text-center"
         style={{
           zIndex: 2,
-          minHeight: 'clamp(540px, 60vw, 880px)',
+          minHeight: 'clamp(620px, 70vw, 960px)',
           padding: 'clamp(64px, 10vh, 128px) clamp(24px, 6vw, 96px)',
         }}
       >
