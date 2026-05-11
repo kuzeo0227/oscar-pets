@@ -193,28 +193,30 @@ function CertBanner() {
     <section
       className="relative w-full"
       style={{
-        minHeight: 'clamp(560px, 70vh, 760px)',
-        backgroundImage: "url('https://images.unsplash.com/photo-1581093458791-9d09c5f0e1a8?w=2400&h=1400&fit=crop')",
+        /* Height tuned to a 16:9-ish aspect of the source image so 'cover' fits without aggressive cropping */
+        minHeight: 'clamp(540px, 60vw, 880px)',
+        backgroundImage: "url('/assets/hero-product.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         borderRadius: 0,
       }}
     >
-      {/* Dark gradient overlay — full bleed */}
+      {/* Soft dark vignette — the source image is already dark, so a lighter overlay keeps it visible */}
       <div
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.7) 100%)',
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)',
           zIndex: 1,
         }}
       />
 
-      {/* Centered content (still uses contained padding for legibility, but bg is full-width) */}
+      {/* Centered content */}
       <div
         className="relative flex flex-col items-center justify-center text-center"
         style={{
           zIndex: 2,
-          minHeight: 'clamp(560px, 70vh, 760px)',
+          minHeight: 'clamp(540px, 60vw, 880px)',
           padding: 'clamp(64px, 10vh, 128px) clamp(24px, 6vw, 96px)',
         }}
       >
