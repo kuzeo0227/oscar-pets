@@ -24,7 +24,7 @@ function EditorialCard({ delay, eyebrow, image, alt, imageStyle, title, body, ct
         className="overflow-hidden"
         style={{
           aspectRatio: '4 / 3',
-          background: '#f6f5f1',
+          background: '#ffffff',
           borderRadius: 20,
         }}
       >
@@ -100,7 +100,7 @@ function EditorialCard({ delay, eyebrow, image, alt, imageStyle, title, body, ct
 
 function EditorialTwoCol() {
   return (
-    <section style={{ background: 'var(--color-paper-soft)' }}>
+    <section style={{ background: '#ffffff' }}>
       <div className="container-contained py-24 lg:py-32">
         <div
           className="grid grid-cols-1 lg:grid-cols-2"
@@ -233,7 +233,7 @@ function LifestyleGrid() {
   return (
     <section
       style={{
-        background: 'var(--color-paper-soft)',
+        background: '#ffffff',
         borderTop: '1px solid var(--color-rule)',
       }}
     >
@@ -300,7 +300,7 @@ function ReviewsHome() {
               viewport={{ once: true, margin: '-10%' }}
               transition={{ duration: 0.6, delay: i * 0.08, ease }}
               style={{
-                background: 'var(--color-paper-soft)',
+                background: '#ffffff',
                 border: '1px solid var(--color-rule)',
                 borderRadius: 0,
                 padding: 32,
@@ -336,7 +336,7 @@ function AsSeenIn() {
   return (
     <section
       style={{
-        background: 'var(--color-paper-soft)',
+        background: '#ffffff',
         borderTop: '1px solid var(--color-rule)',
         borderBottom: '1px solid var(--color-rule)',
       }}
@@ -447,7 +447,7 @@ const FAQS = [
 function FaqHome() {
   const [open, setOpen] = useState(0)
   return (
-    <section style={{ background: 'var(--color-paper-soft)' }}>
+    <section style={{ background: '#ffffff' }}>
       <div className="container-contained py-20 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12 gap-y-8 items-start">
           <div className="lg:col-span-5">

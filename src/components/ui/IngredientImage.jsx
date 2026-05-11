@@ -7,7 +7,7 @@ export default function IngredientImage({ ingredient, size = 64, className = "" 
       style={{
         width: size,
         height: size,
-        background: "var(--color-paper-soft)",
+        background: "#ffffff",
         boxShadow: "inset 0 0 0 1px rgba(10,10,10,0.06)",
       }}
       aria-hidden

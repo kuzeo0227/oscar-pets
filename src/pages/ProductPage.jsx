@@ -48,7 +48,7 @@ function ShopIntro() {
     <section
       id="hero"
       className="relative"
-      style={{ background: 'var(--color-paper-soft)' }}
+      style={{ background: '#ffffff' }}
     >
       <div className="container-edge mx-auto py-28 lg:py-36">
         <div className="grid grid-cols-1 items-center gap-y-16 lg:grid-cols-12 lg:gap-x-16">
@@ -71,7 +71,7 @@ function ShopIntro() {
               />
               <div
                 className="pointer-events-none absolute inset-x-0 top-0"
-                style={{ height: '14%', background: 'var(--color-paper-soft)' }}
+                style={{ height: '14%', background: '#ffffff' }}
               />
             </div>
           </motion.div>

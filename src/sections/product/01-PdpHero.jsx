@@ -42,7 +42,7 @@ export default function PdpHero() {
   return (
     <>
       <span id="hero" className="block relative -top-32 invisible" />
-      <section className="bg-[#FAFAF7] py-14 md:py-20">
+      <section className="bg-white py-14 md:py-20">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
           {/* IMAGE COLUMN — sticky on desktop */}

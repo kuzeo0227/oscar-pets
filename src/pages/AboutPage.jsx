@@ -115,7 +115,7 @@ const STATS = [
 
 function MarketContext() {
   return (
-    <section className="relative" style={{ background: 'var(--color-paper-soft)' }}>
+    <section className="relative" style={{ background: '#ffffff' }}>
       <div className="container-edge mx-auto py-24 lg:py-32">
         <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 24 }}>
           01 — THE CONTEXT
@@ -361,7 +361,7 @@ function TheFormula() {
 
 function TransparencyPledge() {
   return (
-    <section className="relative" style={{ background: 'var(--color-paper-soft)' }}>
+    <section className="relative" style={{ background: '#ffffff' }}>
       <div className="container-edge mx-auto py-24 lg:py-32 text-center">
         <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 24 }}>
           04 — OUR PLEDGE

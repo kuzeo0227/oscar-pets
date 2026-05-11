@@ -16,7 +16,7 @@ const INGREDIENTS = [
 const fallback = (name) =>
   `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
-      <rect width="300" height="400" fill="#f6f5f1"/>
+      <rect width="300" height="400" fill="#ffffff"/>
       <text x="150" y="208" text-anchor="middle"
             font-family="'Space Mono', monospace" font-size="14" font-weight="700"
             letter-spacing="3" fill="#0a0a0a">${name.toUpperCase()}</text>
@@ -115,7 +115,7 @@ export default function IngredientsScroll() {
                 borderRight: '1px solid var(--color-rule)',
               }}
             >
-              <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', background: '#f6f5f1' }}>
+              <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', background: '#ffffff' }}>
                 <img
                   src={ing.image}
                   alt={ing.name}

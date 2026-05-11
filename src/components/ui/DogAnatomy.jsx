@@ -34,7 +34,7 @@ export default function DogAnatomy() {
         <svg viewBox="0 0 320 280" className="h-auto w-full">
           <path
             d={dogPath}
-            fill="var(--color-paper-soft)"
+            fill="#ffffff"
             stroke="var(--color-ink)"
             strokeWidth="1.4"
             strokeLinejoin="round"

@@ -78,7 +78,7 @@ export default function KeyIngredients() {
               initial={{ opacity: 0, scale: 1.04 }} whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="aspect-[4/5] rounded-3xl overflow-hidden bg-[#FAFAF7]"
+              className="aspect-[4/5] rounded-3xl overflow-hidden bg-white"
             >
               <img
                 src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=900&h=700&fit=crop"

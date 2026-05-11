@@ -74,7 +74,7 @@ export default function CartDrawer() {
                     {/* Thumbnail */}
                     <div
                       className="flex-shrink-0 overflow-hidden"
-                      style={{ width: 64, height: 64, background: 'var(--color-paper-soft)' }}
+                      style={{ width: 64, height: 64, background: '#ffffff' }}
                     >
                       <img
                         src={item.image || '/assets/jar-front.jpg'}

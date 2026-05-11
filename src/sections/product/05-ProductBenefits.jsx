@@ -37,7 +37,7 @@ export default function ProductBenefits() {
                   transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   className="flex items-start gap-5 py-6 first:pt-0 last:pb-0"
                 >
-                  <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-[#FAFAF7]">
+                  <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-white">
                     <img src={b.img} alt="" className="w-full h-full object-cover" />
                   </div>
                   <div>
@@ -54,7 +54,7 @@ export default function ProductBenefits() {
             initial={{ opacity: 0, scale: 1.04 }} whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="aspect-[4/5]  overflow-hidden bg-[#FAFAF7] relative"
+            className="aspect-[4/5]  overflow-hidden bg-white relative"
           >
             <img
               src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1000&q=80"

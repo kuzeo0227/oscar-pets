@@ -20,7 +20,7 @@ export default function IngredientCard({ ing, delay }) {
       variants={fadeUp} custom={delay * 12}
       whileHover={{ y: -6 }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-      className="group relative overflow-hidden bg-[#FAFAF7] border border-[#EFEFED] cursor-pointer aspect-[3/4]"
+      className="group relative overflow-hidden bg-white border border-[#EFEFED] cursor-pointer aspect-[3/4]"
     >
       {/* Default face */}
       <div className="h-[55%] overflow-hidden">

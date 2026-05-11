@@ -46,7 +46,7 @@ function IngredientCard({ item }) {
       className="bg-white overflow-hidden flex flex-col"
       style={{ border: '1px solid var(--color-rule)', borderRadius: 0 }}
     >
-      <div className="relative h-[200px] w-full overflow-hidden" style={{ background: 'var(--color-paper-soft)' }}>
+      <div className="relative h-[200px] w-full overflow-hidden" style={{ background: '#ffffff' }}>
         <img
           src={item.image}
           alt={item.name}

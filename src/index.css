@@ -10,7 +10,7 @@
   --color-ink:        #0a0a0a;
   --color-ink-soft:   #1a1a18;
   --color-paper:      #ffffff;
-  --color-paper-soft: #f6f5f1;
+  --color-paper-soft: #ffffff;
   --color-rule:       #e6e5e0;
   --color-mute:       #6b6b6b;
   --color-mute-soft:  #9a9a96;
@@ -103,7 +103,7 @@
 
   /* Section-bg helpers (no color) */
   .section-paper      { background-color: #ffffff; }
-  .section-paper-soft { background-color: #f6f5f1; }
+  .section-paper-soft { background-color: #ffffff; }
   .section-ink        { background-color: #0a0a0a; color: #ffffff; }
 
   .text-ink           { color: #0a0a0a; }

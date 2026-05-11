@@ -14,7 +14,7 @@ export default function WhatToExpect() {
   return (
     <>
       <span id="expect" className="block relative -top-32 invisible" />
-      <section className="bg-[#FAFAF7] py-20 md:py-24">
+      <section className="bg-white py-20 md:py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto">
             <p className="font-montserrat font-bold text-[10px] tracking-[0.25em] uppercase text-[#0a0a0a]">The Journey</p>

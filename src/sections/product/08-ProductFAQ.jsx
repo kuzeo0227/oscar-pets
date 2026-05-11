@@ -18,7 +18,7 @@ export default function ProductFAQ() {
   return (
     <>
       <span id="faq" className="block relative -top-32 invisible" />
-      <section className="bg-[#FAFAF7] py-20 md:py-24">
+      <section className="bg-white py-20 md:py-24">
         <div className="max-w-3xl mx-auto px-6">
           <SectionHead label="Got Questions?" title="Frequently asked" />
 

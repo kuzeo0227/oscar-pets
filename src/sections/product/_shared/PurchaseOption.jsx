@@ -14,7 +14,7 @@ export default function PurchaseOption({ selected, onClick, badge, title, sub, p
     <button
       onClick={onClick}
       className={`relative flex items-center justify-between gap-3 p-4 rounded-xl border-2 text-left transition-all ${
-        selected ? 'border-[#1A1A18] bg-[#FAFAF7]' : 'border-[#EFEFED] bg-white hover:border-[#1A1A18]/40'
+        selected ? 'border-[#1A1A18] bg-white' : 'border-[#EFEFED] bg-white hover:border-[#1A1A18]/40'
       }`}
     >
       {badge && (

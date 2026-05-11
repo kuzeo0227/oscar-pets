@@ -48,7 +48,7 @@ export default function OurMission() {
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
       className="oscar-section py-28 lg:py-36"
-      style={{ background: 'var(--color-paper-soft)' }}
+      style={{ background: '#ffffff' }}
     >
       <div className="container-edge mx-auto">
 

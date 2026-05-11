@@ -90,7 +90,7 @@ export default function SciencePreview() {
                   hidden: { opacity: 0, y: 32 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } }
                 }}
-                whileHover={{ background: 'var(--color-paper-soft)' }}
+                whileHover={{ background: '#ffffff' }}
                 className="group h-full p-7 lg:p-8 cursor-pointer"
                 style={{ borderRight: '1px solid var(--color-rule)', borderBottom: '1px solid var(--color-rule)' }}
               >

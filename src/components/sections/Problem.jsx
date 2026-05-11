@@ -8,7 +8,7 @@ export default function Problem() {
     <section
       id="problem"
       className="relative"
-      style={{ background: "var(--color-paper-soft)" }}
+      style={{ background: "#ffffff" }}
     >
       <div className="container-edge mx-auto py-24 lg:py-32">
         <div className="grid grid-cols-1 gap-y-14 lg:grid-cols-12 lg:gap-x-12 items-center">

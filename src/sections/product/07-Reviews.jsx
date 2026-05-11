@@ -38,7 +38,7 @@ export default function Reviews() {
           <motion.div
             initial="hidden" whileInView="visible" viewport={{ once: true }}
             variants={fadeUp}
-            className="bg-[#FAFAF7] rounded-2xl p-6 md:p-7 grid md:grid-cols-[auto,1fr] gap-6 md:gap-10 items-center mb-10"
+            className="bg-white rounded-2xl p-6 md:p-7 grid md:grid-cols-[auto,1fr] gap-6 md:gap-10 items-center mb-10"
           >
             <div className="flex items-center gap-5">
               <p className="font-baskerville font-bold text-5xl md:text-6xl text-[#1A1A18] leading-none tracking-tight">{PRODUCT.rating}</p>
@@ -79,7 +79,7 @@ export default function Reviews() {
                 variants={fadeUp} custom={i}
                 whileHover={{ y: -4, boxShadow: '0 12px 32px rgba(0,0,0,0.08)' }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="bg-[#FAFAF7] border border-[#EFEFED] rounded-2xl p-6"
+                className="bg-white border border-[#EFEFED] rounded-2xl p-6"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 rounded-full bg-[#1A1A18] text-white font-montserrat font-bold text-xs flex items-center justify-center">

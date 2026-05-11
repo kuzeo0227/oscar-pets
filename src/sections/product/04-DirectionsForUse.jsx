@@ -15,7 +15,7 @@ export default function DirectionsForUse() {
   return (
     <>
       <span id="directions" className="block relative -top-32 invisible" />
-      <section className="bg-[#FAFAF7] py-20 md:py-24">
+      <section className="bg-white py-20 md:py-24">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* LEFT: lifestyle image */}

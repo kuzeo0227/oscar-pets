@@ -18,7 +18,7 @@ const scholar = (title) => `https://scholar.google.com/scholar?q=${encodeURIComp
 const ingredientFallback = (name) =>
   `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-      <rect width="400" height="400" fill="#f6f5f1"/>
+      <rect width="400" height="400" fill="#ffffff"/>
       <text x="200" y="208" text-anchor="middle"
             font-family="'Space Mono', monospace" font-size="18" font-weight="700"
             letter-spacing="3" fill="#0a0a0a">${name.toUpperCase()}</text>
@@ -336,7 +336,7 @@ function IngredientCard({ ing, onOpen }) {
       </p>
 
       {/* Square image — contrast/filter does not change on hover */}
-      <div className="aspect-square w-full overflow-hidden" style={{ background: '#f6f5f1' }}>
+      <div className="aspect-square w-full overflow-hidden" style={{ background: '#ffffff' }}>
         <img
           src={ing.image}
           alt={ing.name}
@@ -399,7 +399,7 @@ function IngredientGrid({ onOpen }) {
   return (
     <section
       className="relative"
-      style={{ background: 'var(--color-paper-soft)' }}
+      style={{ background: '#ffffff' }}
     >
       <div className="container-edge mx-auto py-24 lg:py-32">
         <div className="text-center max-w-2xl mx-auto mb-14">
@@ -481,7 +481,7 @@ function IngredientStudyModal({ ingredient, onClose }) {
               <div className="flex items-center gap-5">
                 <div
                   className="overflow-hidden rounded-full flex-shrink-0"
-                  style={{ width: 48, height: 48, background: 'var(--color-paper-soft)' }}
+                  style={{ width: 48, height: 48, background: '#ffffff' }}
                 >
                   <img src={ingredient.image} alt="" className="w-full h-full object-cover" />
                 </div>

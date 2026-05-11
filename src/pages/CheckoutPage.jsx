@@ -98,7 +98,7 @@ export default function CheckoutPage() {
                   className="lg:sticky"
                   style={{
                     top: 120,
-                    background: 'var(--color-paper-soft)',
+                    background: '#ffffff',
                     padding: '32px 28px',
                   }}
                 >
