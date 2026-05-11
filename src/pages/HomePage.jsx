@@ -136,14 +136,10 @@ function EditorialTwoCol() {
   return (
     <section style={{ background: '#ffffff' }}>
       <div
-        className="mx-auto"
+        className="container-contained"
         style={{
-          /* +20% from previous: max-width 1512 -> 1814; padding scaled 1.2×; gap scaled 0.7× (-30%) */
-          maxWidth: 1814,
           paddingTop:    'clamp(82px, 9.6vh, 151px)',
           paddingBottom: 'clamp(82px, 9.6vh, 151px)',
-          paddingLeft:   'clamp(34px, 5vw, 101px)',
-          paddingRight:  'clamp(34px, 5vw, 101px)',
         }}
       >
         <div
@@ -190,15 +186,17 @@ const CERTS = [
 
 function CertBanner() {
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      style={{
-        /* Slightly taller so 'cover' crops more of the wide image's sides, keeping the center framed */
-        minHeight: 'clamp(620px, 70vw, 960px)',
-        background: '#0a0a0a',
-        borderRadius: 0,
-      }}
-    >
+    <section style={{ background: '#ffffff' }}>
+      <div className="container-contained">
+        <div
+          className="relative w-full overflow-hidden"
+          style={{
+            /* Image-card lives inside the same contained margins as every other section */
+            minHeight: 'clamp(620px, 60vw, 880px)',
+            background: '#0a0a0a',
+            borderRadius: 0,
+          }}
+        >
       {/* Background image as <img> — full-bleed, centered, scaled to crop sides */}
       <img
         src="/assets/cert-banner.png"
@@ -232,8 +230,8 @@ function CertBanner() {
         className="relative flex flex-col items-center justify-center text-center"
         style={{
           zIndex: 2,
-          minHeight: 'clamp(620px, 70vw, 960px)',
-          padding: 'clamp(64px, 10vh, 128px) clamp(24px, 6vw, 96px)',
+          minHeight: 'clamp(620px, 60vw, 880px)',
+          padding: 'clamp(64px, 10vh, 128px) clamp(24px, 4vw, 80px)',
         }}
       >
         <h2
@@ -276,6 +274,8 @@ function CertBanner() {
               </span>
             </div>
           ))}
+        </div>
+      </div>
         </div>
       </div>
     </section>

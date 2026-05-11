@@ -12,7 +12,6 @@ const INGREDIENTS = [
   { name: 'Sunflower Oil',           metric: 'HIGH-OLEIC · EXPELLER-PRESSED', short: 'Stable carrier oil rich in oleic acid and natural vitamin E.', image: 'https://images.unsplash.com/photo-1543257580-7269da773bf5?w=300&h=400&fit=crop' },
 ]
 
-/* Inline SVG fallback for any image that fails to load */
 const fallback = (name) =>
   `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
@@ -26,26 +25,37 @@ const fallback = (name) =>
 export default function IngredientsScroll() {
   const trackRef     = useRef(null)
   const scrollbarRef = useRef(null)
-  const [thumb, setThumb] = useState({ left: 0, width: 20 })
+  const [thumb,      setThumb]      = useState({ left: 0, width: 20 })
+  const [isDragging, setIsDragging] = useState(false)
+  const dragStart = useRef({ startX: 0, scrollLeftStart: 0 })
 
-  // Sync scrollbar thumb to track scroll position
-  function onScroll() {
+  // Sync scrollbar thumb position with track scroll
+  function syncThumb() {
     const el = trackRef.current
     if (!el) return
     const scrollable = el.scrollWidth - el.clientWidth
-    if (scrollable <= 0) return
-    const pct = el.scrollLeft / scrollable
+    if (scrollable <= 0) {
+      setThumb({ left: 0, width: 100 })
+      return
+    }
+    const pct       = el.scrollLeft / scrollable
     const visiblePct = (el.clientWidth / el.scrollWidth) * 100
-    const thumbW = Math.max(visiblePct, 10)
-    const leftPct = pct * (100 - thumbW)
+    const thumbW    = Math.max(visiblePct, 10)
+    const leftPct   = pct * (100 - thumbW)
     setThumb({ left: leftPct, width: thumbW })
   }
 
   useEffect(() => {
-    onScroll()
-    const ro = new ResizeObserver(onScroll)
-    if (trackRef.current) ro.observe(trackRef.current)
-    return () => ro.disconnect()
+    syncThumb()
+    const el = trackRef.current
+    if (!el) return
+    el.addEventListener('scroll', syncThumb)
+    const ro = new ResizeObserver(syncThumb)
+    ro.observe(el)
+    return () => {
+      el.removeEventListener('scroll', syncThumb)
+      ro.disconnect()
+    }
   }, [])
 
   // Click on scrollbar track scrolls proportionally
@@ -59,9 +69,40 @@ export default function IngredientsScroll() {
     track.scrollTo({ left: clickPct * max, behavior: 'smooth' })
   }
 
+  // ── Drag-to-scroll ──
+  function handleMouseDown(e) {
+    const el = trackRef.current
+    if (!el) return
+    setIsDragging(true)
+    dragStart.current = {
+      startX:          e.pageX - el.offsetLeft,
+      scrollLeftStart: el.scrollLeft,
+    }
+    el.style.cursor = 'grabbing'
+    el.style.scrollBehavior = 'auto'
+  }
+  function handleMouseMove(e) {
+    if (!isDragging) return
+    const el = trackRef.current
+    if (!el) return
+    e.preventDefault()
+    const x    = e.pageX - el.offsetLeft
+    const walk = (x - dragStart.current.startX) * 1.5
+    el.scrollLeft = dragStart.current.scrollLeftStart - walk
+  }
+  function handleMouseUp() {
+    const el = trackRef.current
+    if (!el) return
+    if (isDragging) {
+      setIsDragging(false)
+      el.style.cursor = 'grab'
+      el.style.scrollBehavior = 'smooth'
+    }
+  }
+
   return (
     <section style={{ background: '#ffffff' }}>
-      <div className="container-contained pt-20 lg:pt-28">
+      <div className="container-contained" style={{ paddingTop: 'clamp(80px, 9vh, 144px)', paddingBottom: 'clamp(80px, 9vh, 144px)' }}>
         {/* Section header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12 gap-y-6 mb-10">
           <div className="lg:col-span-6">
@@ -84,25 +125,25 @@ export default function IngredientsScroll() {
             </p>
           </div>
         </div>
-      </div>
 
-      {/* Edge-to-edge horizontal scroll */}
-      <div
-        ref={trackRef}
-        onScroll={onScroll}
-        className="overflow-x-auto"
-        style={{
-          scrollbarWidth: 'none',
-          WebkitOverflowScrolling: 'touch',
-        }}
-      >
-        <style>{`.ingredients-track::-webkit-scrollbar { display: none; }`}</style>
+        {/* Drag-to-scroll deck (contained, NOT edge-to-edge) */}
+        <style>{`.oscar-deck::-webkit-scrollbar { display: none; }`}</style>
         <div
-          className="flex flex-row mx-auto"
+          ref={trackRef}
+          className="oscar-deck flex flex-row"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
           style={{
-            width: 'max-content',
-            paddingLeft:  'max(clamp(24px, 6vw, 96px), calc((100vw - 1400px) / 2 + 24px))',
-            paddingRight: 'max(clamp(24px, 6vw, 96px), calc((100vw - 1400px) / 2 + 24px))',
+            overflowX:                  'auto',
+            scrollBehavior:             'smooth',
+            scrollbarWidth:             'none',
+            msOverflowStyle:            'none',
+            WebkitOverflowScrolling:    'touch',
+            cursor:                     'grab',
+            userSelect:                 'none',
+            paddingInline:              0,
           }}
         >
           {INGREDIENTS.map(ing => (
@@ -113,14 +154,18 @@ export default function IngredientsScroll() {
                 flexShrink: 0,
                 background: '#ffffff',
                 borderRight: '1px solid var(--color-rule)',
+                userSelect: 'none',
+                WebkitUserDrag: 'none',
               }}
             >
               <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', background: '#ffffff' }}>
                 <img
                   src={ing.image}
                   alt={ing.name}
-                  className="w-full h-full object-cover"
                   loading="lazy"
+                  draggable={false}
+                  className="w-full h-full object-cover"
+                  style={{ pointerEvents: 'none', userSelect: 'none', WebkitUserDrag: 'none' }}
                   onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = fallback(ing.name) }}
                 />
               </div>
@@ -147,6 +192,7 @@ export default function IngredientsScroll() {
           {/* Show more card */}
           <Link
             to="/science"
+            onDragStart={e => e.preventDefault()}
             style={{
               width: 'clamp(220px, 22vw, 300px)',
               flexShrink: 0,
@@ -158,6 +204,8 @@ export default function IngredientsScroll() {
               padding: 32,
               textDecoration: 'none',
               transition: 'background 0.2s',
+              userSelect: 'none',
+              WebkitUserDrag: 'none',
             }}
             onMouseEnter={e => (e.currentTarget.style.background = '#1a1a1a')}
             onMouseLeave={e => (e.currentTarget.style.background = '#0a0a0a')}
@@ -176,10 +224,8 @@ export default function IngredientsScroll() {
             </span>
           </Link>
         </div>
-      </div>
 
-      {/* Custom scrollbar */}
-      <div className="container-contained pb-20 lg:pb-28">
+        {/* Custom scrollbar — aligned with deck inside container */}
         <div
           ref={scrollbarRef}
           onClick={onBarClick}
@@ -199,7 +245,7 @@ export default function IngredientsScroll() {
               width: `${thumb.width}%`,
               position: 'absolute',
               left: `${thumb.left}%`,
-              transition: 'left 0.1s linear',
+              transition: isDragging ? 'none' : 'left 0.1s linear',
             }}
           />
         </div>
