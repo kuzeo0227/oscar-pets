@@ -138,17 +138,17 @@ function EditorialTwoCol() {
       <div
         className="mx-auto"
         style={{
-          /* +50% scale: max-width 1440 -> 2160; vertical pad 64-120 -> 96-180; horizontal pad keeps but min lifted */
-          maxWidth: 2160,
-          paddingTop:    'clamp(96px, 12vh, 180px)',
-          paddingBottom: 'clamp(96px, 12vh, 180px)',
-          paddingLeft:   'clamp(40px, 6vw, 120px)',
-          paddingRight:  'clamp(40px, 6vw, 120px)',
+          /* -30% from previous: max-width 2160 -> 1512; padding scaled 0.7×; gap scaled to 0.4× (-60%) */
+          maxWidth: 1512,
+          paddingTop:    'clamp(68px, 8vh, 126px)',
+          paddingBottom: 'clamp(68px, 8vh, 126px)',
+          paddingLeft:   'clamp(28px, 4.2vw, 84px)',
+          paddingRight:  'clamp(28px, 4.2vw, 84px)',
         }}
       >
         <div
           className="grid grid-cols-1 lg:grid-cols-2 mx-auto"
-          style={{ gap: 'clamp(36px, 4.5vw, 72px)' }}
+          style={{ gap: 'clamp(14px, 1.8vw, 28px)' }}
         >
           <EditorialCard
             delay={0}
