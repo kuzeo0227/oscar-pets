@@ -61,7 +61,7 @@ export default function IngredientsScroll() {
 
   return (
     <section style={{ background: '#ffffff' }}>
-      <div className="container-edge mx-auto pt-20 lg:pt-28">
+      <div className="container-contained pt-20 lg:pt-28">
         {/* Section header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12 gap-y-6 mb-10">
           <div className="lg:col-span-6">
@@ -98,11 +98,11 @@ export default function IngredientsScroll() {
       >
         <style>{`.ingredients-track::-webkit-scrollbar { display: none; }`}</style>
         <div
-          className="flex flex-row"
+          className="flex flex-row mx-auto"
           style={{
             width: 'max-content',
-            paddingLeft:  'clamp(24px, 7vw, 128px)',
-            paddingRight: 'clamp(24px, 7vw, 128px)',
+            paddingLeft:  'max(clamp(24px, 6vw, 96px), calc((100vw - 1400px) / 2 + 24px))',
+            paddingRight: 'max(clamp(24px, 6vw, 96px), calc((100vw - 1400px) / 2 + 24px))',
           }}
         >
           {INGREDIENTS.map(ing => (
@@ -179,7 +179,7 @@ export default function IngredientsScroll() {
       </div>
 
       {/* Custom scrollbar */}
-      <div className="container-edge mx-auto pb-20 lg:pb-28">
+      <div className="container-contained pb-20 lg:pb-28">
         <div
           ref={scrollbarRef}
           onClick={onBarClick}
