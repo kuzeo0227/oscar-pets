@@ -135,78 +135,74 @@ const CERTS = [
 
 function CertBanner() {
   return (
-    <section style={{ background: 'var(--color-paper-soft)' }}>
-      <div className="container-contained py-16 lg:py-24">
-        <div
-          className="relative w-full"
+    <section
+      className="relative w-full"
+      style={{
+        minHeight: 'clamp(560px, 70vh, 760px)',
+        backgroundImage: "url('https://images.unsplash.com/photo-1581093458791-9d09c5f0e1a8?w=2400&h=1400&fit=crop')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        borderRadius: 0,
+      }}
+    >
+      {/* Dark gradient overlay — full bleed */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.7) 100%)',
+          zIndex: 1,
+        }}
+      />
+
+      {/* Centered content (still uses contained padding for legibility, but bg is full-width) */}
+      <div
+        className="relative flex flex-col items-center justify-center text-center"
+        style={{
+          zIndex: 2,
+          minHeight: 'clamp(560px, 70vh, 760px)',
+          padding: 'clamp(64px, 10vh, 128px) clamp(24px, 6vw, 96px)',
+        }}
+      >
+        <h2
+          className="font-serif"
           style={{
-            minHeight: 'clamp(420px, 50vh, 560px)',
-            backgroundImage: "url('https://images.unsplash.com/photo-1581093458791-9d09c5f0e1a8?w=1600&h=900&fit=crop')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            borderRadius: 0,
+            fontSize: 'clamp(28px, 3.6vw, 52px)',
+            fontWeight: 700, color: '#ffffff', lineHeight: 1.2,
+            maxWidth: 720, margin: '0 auto',
           }}
         >
-          {/* Dark gradient overlay */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.7) 100%)',
-              zIndex: 1,
-            }}
-          />
+          Internationally certified with<br />
+          the <em className="italic">highest standards</em>
+        </h2>
 
-          {/* Centered content */}
-          <div
-            className="relative flex flex-col items-center justify-center text-center"
-            style={{
-              zIndex: 2,
-              minHeight: 'clamp(420px, 50vh, 560px)',
-              padding: 'clamp(48px, 8vh, 96px) clamp(24px, 6vw, 80px)',
-            }}
-          >
-            <h2
-              className="font-serif"
+        <div
+          className="flex flex-wrap justify-center items-center"
+          style={{ gap: 'clamp(24px, 4vw, 56px)', marginTop: 64 }}
+        >
+          {CERTS.map(c => (
+            <div
+              key={c.l1}
+              className="flex flex-col items-center justify-center"
               style={{
-                fontSize: 'clamp(28px, 3.6vw, 52px)',
-                fontWeight: 700, color: '#ffffff', lineHeight: 1.2,
-                maxWidth: 720, margin: '0 auto',
+                width: 84, height: 84,
+                border: '1.5px solid rgba(255,255,255,0.45)',
+                background: 'rgba(0,0,0,0.2)',
+                backdropFilter: 'blur(4px)',
+                WebkitBackdropFilter: 'blur(4px)',
+                borderRadius: '50%',
               }}
             >
-              Internationally certified with<br />
-              the <em className="italic">highest standards</em>
-            </h2>
-
-            <div
-              className="flex flex-wrap justify-center items-center"
-              style={{ gap: 'clamp(24px, 4vw, 56px)', marginTop: 56 }}
-            >
-              {CERTS.map(c => (
-                <div
-                  key={c.l1}
-                  className="flex flex-col items-center justify-center"
-                  style={{
-                    width: 84, height: 84,
-                    border: '1.5px solid rgba(255,255,255,0.45)',
-                    background: 'rgba(0,0,0,0.2)',
-                    backdropFilter: 'blur(4px)',
-                    WebkitBackdropFilter: 'blur(4px)',
-                    borderRadius: '50%',
-                  }}
-                >
-                  <span style={{ fontSize: 16, color: '#ffffff', lineHeight: 1, marginBottom: 4 }}>
-                    {c.icon}
-                  </span>
-                  <span
-                    className="font-mono uppercase text-center"
-                    style={{ fontSize: 9, letterSpacing: '0.16em', color: '#ffffff', lineHeight: 1.4 }}
-                  >
-                    {c.l1}<br />{c.l2}
-                  </span>
-                </div>
-              ))}
+              <span style={{ fontSize: 16, color: '#ffffff', lineHeight: 1, marginBottom: 4 }}>
+                {c.icon}
+              </span>
+              <span
+                className="font-mono uppercase text-center"
+                style={{ fontSize: 9, letterSpacing: '0.16em', color: '#ffffff', lineHeight: 1.4 }}
+              >
+                {c.l1}<br />{c.l2}
+              </span>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
