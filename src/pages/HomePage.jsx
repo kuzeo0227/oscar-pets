@@ -186,17 +186,15 @@ const CERTS = [
 
 function CertBanner() {
   return (
-    <section style={{ background: '#ffffff' }}>
-      <div className="container-contained">
-        <div
-          className="relative w-full overflow-hidden"
-          style={{
-            /* Image-card lives inside the same contained margins as every other section */
-            minHeight: 'clamp(620px, 60vw, 880px)',
-            background: '#0a0a0a',
-            borderRadius: 0,
-          }}
-        >
+    <section
+      className="relative w-full overflow-hidden"
+      style={{
+        /* Full-bleed: no contained margins, image covers viewport edge-to-edge */
+        minHeight: 'clamp(620px, 70vw, 960px)',
+        background: '#0a0a0a',
+        borderRadius: 0,
+      }}
+    >
       {/* Background image as <img> — full-bleed, centered, scaled to crop sides */}
       <img
         src="/assets/cert-banner.png"
@@ -230,8 +228,8 @@ function CertBanner() {
         className="relative flex flex-col items-center justify-center text-center"
         style={{
           zIndex: 2,
-          minHeight: 'clamp(620px, 60vw, 880px)',
-          padding: 'clamp(64px, 10vh, 128px) clamp(24px, 4vw, 80px)',
+          minHeight: 'clamp(620px, 70vw, 960px)',
+          padding: 'clamp(64px, 10vh, 128px) clamp(24px, 6vw, 96px)',
         }}
       >
         <h2
@@ -274,8 +272,6 @@ function CertBanner() {
               </span>
             </div>
           ))}
-        </div>
-      </div>
         </div>
       </div>
     </section>
