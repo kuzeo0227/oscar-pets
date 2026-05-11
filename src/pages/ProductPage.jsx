@@ -122,23 +122,27 @@ function ProductHero() {
               </div>
 
               {/* Thumbnails */}
-              <div className="flex items-center gap-3 mt-4">
+              <div style={{ position: 'relative', marginTop: 12 }}>
                 <button aria-label="Previous"
                   className="font-mono"
-                  style={{ width: 32, height: 32, border: '1px solid var(--color-rule)', background: 'transparent', color: '#0a0a0a', cursor: 'pointer', borderRadius: 0 }}
+                  style={{
+                    position: 'absolute', left: -20, top: '50%', transform: 'translateY(-50%)',
+                    background: 'transparent', border: 0, color: '#0a0a0a', cursor: 'pointer',
+                    fontSize: 16, zIndex: 1, padding: 0,
+                  }}
                   onClick={() => setMainIdx((mainIdx - 1 + THUMBS.length) % THUMBS.length)}>
-                  ←
+                  ‹
                 </button>
-                <div className="flex gap-3">
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
                   {THUMBS.map((src, i) => (
                     <button key={i}
                       onClick={() => setMainIdx(i)}
                       className="overflow-hidden"
                       style={{
-                        width: 80, height: 80,
+                        width: '100%', aspectRatio: '1 / 1',
                         background: '#ffffff',
-                        border: i === mainIdx ? '1px solid #0a0a0a' : '1px solid transparent',
-                        borderRadius: 0, cursor: 'pointer',
+                        border: i === mainIdx ? '1.5px solid #0a0a0a' : '1.5px solid transparent',
+                        borderRadius: 0, cursor: 'pointer', padding: 0,
                       }}>
                       <img src={src} alt="" className="w-full h-full object-cover"
                         style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }} draggable={false} />
@@ -147,9 +151,13 @@ function ProductHero() {
                 </div>
                 <button aria-label="Next"
                   className="font-mono"
-                  style={{ width: 32, height: 32, border: '1px solid var(--color-rule)', background: 'transparent', color: '#0a0a0a', cursor: 'pointer', borderRadius: 0 }}
+                  style={{
+                    position: 'absolute', right: -20, top: '50%', transform: 'translateY(-50%)',
+                    background: 'transparent', border: 0, color: '#0a0a0a', cursor: 'pointer',
+                    fontSize: 16, zIndex: 1, padding: 0,
+                  }}
                   onClick={() => setMainIdx((mainIdx + 1) % THUMBS.length)}>
-                  →
+                  ›
                 </button>
               </div>
             </div>
@@ -301,7 +309,7 @@ function StudyStats() {
                 { src: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&h=750&fit=crop',     stat: '78%', caption: 'of dogs showed visible coat improvements after 6 weeks' },
               ].map(s => (
                 <div key={s.stat} className="relative overflow-hidden"
-                  style={{ aspectRatio: '4 / 5', background: '#0a0a0a', borderRadius: 0 }}>
+                  style={{ aspectRatio: '4 / 5', background: '#0a0a0a', borderRadius: 16 }}>
                   <img src={s.src} alt="" className="absolute inset-0 w-full h-full object-cover"
                     onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/assets/jar-front.jpg' }} />
                   <div className="absolute inset-0"
@@ -367,7 +375,7 @@ function BenefitsDeck() {
                   border: '1px solid var(--color-rule)',
                   borderRadius: 0,
                 }}>
-                <div style={{ aspectRatio: '1 / 1', overflow: 'hidden', background: '#ffffff' }}>
+                <div style={{ aspectRatio: '1 / 1', overflow: 'hidden', background: '#ffffff', borderRadius: 16 }}>
                   <img src={b.image} alt={b.title} className="w-full h-full object-cover"
                     loading="lazy" draggable={false}
                     style={{ pointerEvents: 'none', userSelect: 'none', filter: 'grayscale(100%)' }}

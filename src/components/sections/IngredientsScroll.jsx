@@ -33,7 +33,7 @@ function Card({ ing }) {
         borderRadius: 0,
       }}
     >
-      <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', background: '#ffffff' }}>
+      <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', background: '#ffffff', borderRadius: 16 }}>
         <img
           src={ing.image}
           alt={ing.name}

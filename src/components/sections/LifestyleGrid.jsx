@@ -12,7 +12,7 @@ export default function LifestyleGrid() {
     <section style={{ background: '#ffffff', borderTop: '1px solid var(--color-rule)' }}>
       <div className="grid grid-cols-3" style={{ gap: 0 }}>
         {LIFESTYLE.map((src, i) => (
-          <div key={i} style={{ width: '33.333vw', height: 'clamp(280px, 35vw, 480px)', overflow: 'hidden', background: '#0a0a0a' }}>
+          <div key={i} style={{ width: '33.333vw', aspectRatio: '1 / 1', overflow: 'hidden', background: '#0a0a0a' }}>
             <img src={src} alt="" className="w-full h-full object-cover" style={{ objectPosition: 'center' }}
               loading="lazy" draggable={false}
               onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/assets/jar-front.jpg' }}
