@@ -405,36 +405,44 @@ function CaringForDog() {
     <>
       <span id="what-to-expect" />
       <section style={{ background: '#ffffff' }}>
-        <div className="section-container py-20 lg:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-2"
-            style={{ gap: 'clamp(40px, 5vw, 80px)' }}>
-            {/* LEFT — product hero */}
-            <div className="overflow-hidden"
-              style={{ aspectRatio: '5 / 4', background: '#ffffff', borderRadius: 0 }}>
-              <img src="/assets/hero-product.png" alt="Oscar Probiotic Chews"
-                className="w-full h-full object-cover" draggable={false}
-                onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/assets/jar-front.jpg' }} />
-            </div>
+        {/* Full-bleed grid — image flush-left to viewport, content padded right */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+          {/* LEFT — square product image, no left margin, fills its column */}
+          <div className="overflow-hidden"
+            style={{ aspectRatio: '1 / 1', background: '#ffffff', borderRadius: 0, width: '100%' }}>
+            <img src="/assets/hero-product.png" alt="Oscar Probiotic Chews"
+              className="w-full h-full object-cover" draggable={false}
+              onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/assets/jar-front.jpg' }} />
+          </div>
 
-            {/* RIGHT — feature list */}
+          {/* RIGHT — feature list, vertically centered, right-side padding matches section-container */}
+          <div
+            className="flex flex-col justify-center"
+            style={{
+              paddingTop:    'clamp(48px, 6vw, 96px)',
+              paddingBottom: 'clamp(48px, 6vw, 96px)',
+              paddingLeft:   'clamp(32px, 5vw, 80px)',
+              paddingRight:  'clamp(34px, 5vw, 101px)',
+            }}
+          >
             <div>
               <div className="flex items-center" style={{ gap: 10 }}>
                 <span aria-hidden="true" style={{ display: 'inline-block', width: 8, height: 8, background: '#0a0a0a', borderRadius: '50%' }} />
                 <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: '0.22em', color: '#6b6b6b' }}>PRODUCT FEATURES</p>
               </div>
               <h2 className="font-serif text-[#0a0a0a]"
-                style={{ fontSize: 'clamp(28px, 3vw, 42px)', fontWeight: 700, lineHeight: 1.1, marginTop: 16 }}>
+                style={{ fontSize: 'clamp(32px, 3.4vw, 52px)', fontWeight: 700, lineHeight: 1.08, marginTop: 20, maxWidth: '14ch' }}>
                 Caring for your dog, <em className="italic">made simple.</em>
               </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 mt-10" style={{ gap: 32 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: 'clamp(24px, 3vw, 40px)', marginTop: 'clamp(40px, 5vw, 64px)' }}>
                 {FEATURES.map(f => (
                   <div key={f.title}>
-                    <span style={{ fontSize: 18, color: '#0a0a0a', lineHeight: 1 }}>✦</span>
-                    <p className="font-display" style={{ fontSize: 14, fontWeight: 600, color: '#0a0a0a', marginTop: 8 }}>
+                    <span style={{ fontSize: 20, color: '#0a0a0a', lineHeight: 1 }}>✦</span>
+                    <p className="font-display" style={{ fontSize: 15, fontWeight: 600, color: '#0a0a0a', marginTop: 10 }}>
                       {f.title}
                     </p>
-                    <p className="font-display" style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.7, marginTop: 4 }}>
+                    <p className="font-display" style={{ fontSize: 13.5, color: '#6b6b6b', lineHeight: 1.7, marginTop: 6 }}>
                       {f.desc}
                     </p>
                   </div>
