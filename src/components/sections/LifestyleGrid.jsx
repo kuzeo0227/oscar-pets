@@ -1,7 +1,7 @@
 const LIFESTYLE = [
-  'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=900&h=720&fit=crop',
-  'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=900&h=720&fit=crop',
-  'https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=900&h=720&fit=crop',
+  '/assets/oscar-product6.png',
+  '/assets/oscar-product7.png',
+  '/assets/oscar-product5.png',
 ]
 
 /**
