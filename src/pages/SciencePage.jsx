@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Footer from '../components/sections/Footer'
+import CertBanner from '../components/sections/CertBanner'
 import HorizontalDeck from '../components/HorizontalDeck'
 import IngredientStudyModal from '../components/IngredientStudyModal'
 import { INGREDIENT_STUDIES as INGREDIENTS, ingredientFallback } from '../data/ingredient-studies'
@@ -53,7 +54,7 @@ function LabHero() {
       style={{
         position: 'relative',
         width: '100%',
-        height: 'clamp(340px, 45vh, 520px)',
+        height: 'clamp(510px, 67.5vh, 780px)',
         overflow: 'hidden',
       }}
     >
@@ -116,13 +117,14 @@ function IngredientCard({ ing, onOpen }) {
     <article
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={onOpen}
       style={{
-        width: 'clamp(280px, 30vw, 420px)',
+        width: 392,
+        minWidth: 392,
+        maxWidth: 392,
         flexShrink: 0,
         borderRight: '1px solid var(--color-rule)',
         background: hovered ? '#f6f5f1' : '#ffffff',
-        cursor: 'pointer',
+        cursor: 'default',
         padding: 0,
         transition: 'background 200ms',
       }}
@@ -171,7 +173,7 @@ function IngredientCard({ ing, onOpen }) {
           {ing.short}
         </p>
         <button
-          onClick={e => { e.stopPropagation(); onOpen() }}
+          onClick={onOpen}
           className="font-mono uppercase"
           style={{
             fontSize: 11, letterSpacing: '0.22em',
@@ -246,84 +248,15 @@ function IngredientsSection({ onOpen }) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  SECTION 3 — INTERNATIONALLY CERTIFIED                                      */
-/* -------------------------------------------------------------------------- */
-function CertifiedSection() {
-  const badges = [
-    { icon: '★', label: 'MADE IN USA' },
-    { icon: '◎', label: '3RD PARTY TESTED' },
-    { icon: '⬡', label: 'GMP PRACTICE' },
-  ]
-  return (
-    <section
-      style={{
-        background: '#ffffff',
-        padding: 'clamp(48px, 5vh, 72px) clamp(32px, 5vw, 96px)',
-        borderTop: '1px solid var(--color-rule)',
-        borderBottom: '1px solid var(--color-rule)',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: 32,
-        }}
-      >
-        <h2
-          className="font-serif"
-          style={{
-            fontWeight: 700,
-            fontSize: 'clamp(22px, 2.4vw, 32px)',
-            color: '#0a0a0a',
-            lineHeight: 1.15,
-          }}
-        >
-          Internationally certified with
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'row', gap: 32 }}>
-          {badges.map(b => (
-            <div
-              key={b.label}
-              style={{
-                width: 80, height: 80,
-                border: '1.5px solid #0a0a0a',
-                background: 'transparent',
-                borderRadius: '50%',
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center',
-                padding: 6,
-              }}
-            >
-              <span style={{ fontSize: 16, color: '#0a0a0a', lineHeight: 1 }}>{b.icon}</span>
-              <span
-                className="font-mono uppercase"
-                style={{
-                  fontSize: 9, letterSpacing: '0.14em',
-                  color: '#0a0a0a', textAlign: 'center',
-                  lineHeight: 1.4, marginTop: 4,
-                }}
-              >
-                {b.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* -------------------------------------------------------------------------- */
 /*  SECTION 4 — SCIENCE-BACKED FORMULAS                                        */
 /* -------------------------------------------------------------------------- */
 function FormulaCard({ card }) {
   return (
     <article
       style={{
-        width: 'clamp(300px, 32vw, 460px)',
+        width: 448,
+        minWidth: 448,
+        maxWidth: 448,
         flexShrink: 0,
         background: '#f6f5f1',
         borderRadius: 0,
@@ -331,7 +264,7 @@ function FormulaCard({ card }) {
         border: '1px solid var(--color-rule)',
       }}
     >
-      <div style={{ width: '100%', aspectRatio: '3 / 2', overflow: 'hidden' }}>
+      <div style={{ width: '100%', aspectRatio: '4 / 3', overflow: 'hidden' }}>
         <img
           src={card.image}
           alt={card.title}
@@ -346,7 +279,7 @@ function FormulaCard({ card }) {
           loading="lazy"
         />
       </div>
-      <div style={{ padding: 24 }}>
+      <div style={{ padding: 24, minHeight: 180 }}>
         <p
           className="font-mono uppercase"
           style={{ fontSize: 10, letterSpacing: '0.18em', color: '#6b6b6b' }}
@@ -430,7 +363,7 @@ export default function SciencePage() {
       <main>
         <LabHero />
         <IngredientsSection onOpen={setActiveIng} />
-        <CertifiedSection />
+        <CertBanner />
         <FormulasSection />
       </main>
       <IngredientStudyModal ingredient={activeIng} onClose={() => setActiveIng(null)} />

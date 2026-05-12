@@ -30,6 +30,7 @@ export default function HorizontalDeck({ children, gap = 16 }) {
     lastTime: 0,
     velocity: 0,
   })
+  const didDrag = useRef(false)
   const rafId = useRef(null)
 
   /* ---- Drag-to-scroll with momentum (kinetic inertia) ---- */
@@ -44,6 +45,7 @@ export default function HorizontalDeck({ children, gap = 16 }) {
     const el = trackRef.current
     if (!el) return
     cancelMomentum()
+    didDrag.current = false
     dragState.current = {
       active: true,
       startX: e.pageX - el.offsetLeft,
@@ -51,6 +53,7 @@ export default function HorizontalDeck({ children, gap = 16 }) {
       lastX: e.pageX,
       lastTime: Date.now(),
       velocity: 0,
+      mouseDownX: e.pageX,
     }
     el.style.cursor = 'grabbing'
     el.style.scrollBehavior = 'auto'
@@ -65,6 +68,10 @@ export default function HorizontalDeck({ children, gap = 16 }) {
     const walk = (x - s.startX) * 1.2
     el.scrollLeft = s.scrollLeftStart - walk
 
+    if (Math.abs(e.pageX - s.mouseDownX) > 4) {
+      didDrag.current = true
+    }
+
     // Track velocity for momentum on release
     const now = Date.now()
     const dt = now - s.lastTime
@@ -73,6 +80,13 @@ export default function HorizontalDeck({ children, gap = 16 }) {
     }
     s.lastX = e.pageX
     s.lastTime = now
+  }
+
+  function onClickCapture(e) {
+    if (didDrag.current) {
+      e.stopPropagation()
+      e.preventDefault()
+    }
   }
 
   function onMouseUp() {
@@ -142,6 +156,7 @@ export default function HorizontalDeck({ children, gap = 16 }) {
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseUp}
+        onClickCapture={onClickCapture}
         className="flex flex-row overflow-x-auto"
         style={{
           gap,
