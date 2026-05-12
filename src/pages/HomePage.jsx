@@ -132,18 +132,24 @@ function ProductCTA() {
   return (
     <section style={{ background: '#ffffff' }}>
       <div className="section-container py-20 lg:py-28">
-        <div className="relative w-full flex items-center"
+        <div className="relative w-full flex items-center overflow-hidden"
           style={{
-            background: '#0a0a0a',
-            minHeight: 'clamp(400px, 50vh, 560px)',
+            backgroundImage: 'url(/assets/oscar-product1.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            aspectRatio: '16 / 9',
             borderRadius: 0,
             padding: 'clamp(48px, 6vw, 96px) clamp(40px, 6vw, 88px)',
           }}>
+          <div aria-hidden="true" className="absolute inset-0 pointer-events-none"
+            style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 60%)' }} />
           <motion.div
             initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-10%' }}
             transition={{ duration: 0.8, ease }}
-            style={{ maxWidth: 560 }}
+            className="relative"
+            style={{ maxWidth: 560, zIndex: 1 }}
           >
             <h2 className="font-serif"
               style={{
