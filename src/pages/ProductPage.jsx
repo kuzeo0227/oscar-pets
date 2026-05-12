@@ -72,7 +72,11 @@ function SubNav() {
 /* ============================================================================
    2. PRODUCT HERO
    ============================================================================ */
-const THUMBS = ['/assets/jar-front.jpg', '/assets/jar-front.jpg', '/assets/jar-front.jpg']
+const THUMBS = [
+  { src: '/assets/jar-front.jpg',    style: { objectPosition: 'center 78%', transform: 'scale(1.18)' } },
+  { src: '/assets/oscar-flatlay.png', style: { objectPosition: 'center',     transform: 'none'        } },
+  { src: '/assets/jar-front.jpg',    style: { objectPosition: 'center 78%', transform: 'scale(1.18)' } },
+]
 
 const ACCORDIONS = [
   { label: 'PRODUCT DESCRIPTION', body: 'A tri-biotic chew combining prebiotics, probiotics, and postbiotics — formulated for daily gut and immune support in dogs.' },
@@ -113,10 +117,10 @@ function ProductHero() {
               <div className="aspect-square w-full overflow-hidden"
                 style={{ background: '#ffffff', borderRadius: 0 }}>
                 <img
-                  src={THUMBS[mainIdx]}
+                  src={THUMBS[mainIdx].src}
                   alt="Oscar Probiotic Chews"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }}
+                  style={THUMBS[mainIdx].style}
                   draggable={false}
                 />
               </div>
@@ -134,7 +138,7 @@ function ProductHero() {
                   ←
                 </button>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, width: '100%' }}>
-                  {THUMBS.map((src, i) => (
+                  {THUMBS.map((t, i) => (
                     <button key={i}
                       onClick={() => setMainIdx(i)}
                       className="overflow-hidden"
@@ -145,8 +149,8 @@ function ProductHero() {
                         borderRadius: 0, cursor: 'pointer', padding: 0,
                         transition: 'border-color 200ms',
                       }}>
-                      <img src={src} alt="" className="w-full h-full object-cover"
-                        style={{ objectPosition: 'center 78%', transform: 'scale(1.18)' }} draggable={false} />
+                      <img src={t.src} alt="" className="w-full h-full object-cover"
+                        style={t.style} draggable={false} />
                     </button>
                   ))}
                 </div>

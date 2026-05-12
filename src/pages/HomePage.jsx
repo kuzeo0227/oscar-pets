@@ -24,7 +24,7 @@ function EditorialCard({ delay, eyebrow, image, alt, imageStyle, title, body, ct
       className="flex flex-col"
     >
       <div className="relative w-full overflow-hidden"
-        style={{ aspectRatio: '1 / 1', background: '#0a0a0a', borderRadius: 0 }}>
+        style={{ aspectRatio: '1 / 1', background: '#0a0a0a', borderRadius: 16 }}>
         <img src={image} alt={alt}
           className="block w-full h-full object-cover"
           style={{ objectPosition: 'center', ...imageStyle }}
@@ -99,9 +99,9 @@ function EditorialTwoCol() {
           <EditorialCard
             delay={0}
             eyebrow="OUR MISSION"
-            image="/assets/jar-front.jpg"
-            alt="Oscar Probiotic Chews"
-            imageStyle={{ objectPosition: 'center 70%', transform: 'scale(1.12)' }}
+            image="/assets/oscar-flatlay.png"
+            alt="Oscar Probiotic Chews packaging flat-lay"
+            imageStyle={{ objectPosition: 'center' }}
             title={<>Built for one outcome.<br />A healthier gut.</>}
             body="Our science-first approach means every ingredient earns its place — backed by peer-reviewed research and sourced from audited suppliers."
             ctaLabel="Learn more"
