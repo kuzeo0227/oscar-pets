@@ -1,219 +1,421 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import Footer from '../components/sections/Footer'
+import HorizontalDeck from '../components/HorizontalDeck'
 import IngredientStudyModal from '../components/IngredientStudyModal'
 import { INGREDIENT_STUDIES as INGREDIENTS, ingredientFallback } from '../data/ingredient-studies'
 
-const ease = [0.22, 1, 0.36, 1]
+const PAD_X = 'clamp(32px, 5vw, 96px)'
+
+const INGREDIENT_IMAGES = {
+  'Probiotic Blend':  'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600&h=450&fit=crop',
+  'Pumpkin Fibers':   'https://images.unsplash.com/photo-1570586437263-ab629fccc818?w=600&h=450&fit=crop',
+  'Lamb Liver':       'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=600&h=450&fit=crop',
+  'Coconut Oil':      'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&h=450&fit=crop',
+  'FOS':              'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=450&fit=crop',
+  'GOS':              'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600&h=450&fit=crop',
+  'Postbiotic Yeast': 'https://images.unsplash.com/photo-1559181567-c3190ca9d222?w=600&h=450&fit=crop',
+  'Sunflower Oil':    'https://images.unsplash.com/photo-1543257580-7269da773bf5?w=600&h=450&fit=crop',
+}
+
+const FORMULA_CARDS = [
+  {
+    eyebrow: 'GUT HEALTH',
+    title:   'Balanced flora, every day.',
+    body:    'Bacillus spore strains + FOS/GOS prebiotics maintain a balanced gut microbiome in tropical ambient conditions.',
+    image:   'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600&h=400&fit=crop',
+  },
+  {
+    eyebrow: 'IMMUNE SUPPORT',
+    title:   'Defences that hold.',
+    body:    'S. cerevisiae postbiotic fractions modulate immune signalling — supporting seasonal resilience and allergy tolerance.',
+    image:   'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=400&fit=crop',
+  },
+  {
+    eyebrow: 'SKIN & COAT',
+    title:   'Visibly better coat.',
+    body:    'Freeze-dried lamb liver and sunflower oil deliver B-vitamins and high-oleic fatty acids for coat shine and calmer skin.',
+    image:   'https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=600&h=400&fit=crop',
+  },
+  {
+    eyebrow: 'TROPICAL STABILITY',
+    title:   'Stable without refrigeration.',
+    body:    "Spore-forming Bacillus strains survive Malaysia's heat and humidity without cold chain or microencapsulation.",
+    image:   'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&h=400&fit=crop',
+  },
+]
 
 /* -------------------------------------------------------------------------- */
-/*  HERO                                                                       */
+/*  SECTION 1 — HERO                                                           */
 /* -------------------------------------------------------------------------- */
 function LabHero() {
   return (
     <section
-      className="relative grid grid-cols-1 lg:grid-cols-12 items-stretch min-h-screen"
-      style={{ background: 'var(--color-paper)' }}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: 'clamp(340px, 45vh, 520px)',
+        overflow: 'hidden',
+      }}
     >
-      {/* LEFT — full-bleed grayscale lab image */}
-      <div className="lg:col-span-7 relative" style={{ minHeight: '50vh', background: '#0a0a0a' }}>
-        <img
-          src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1400&h=1600&fit=crop"
-          alt="Laboratory glassware and equipment"
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ filter: 'grayscale(100%)' }}
-          draggable={false}
-          onError={e => {
-            e.currentTarget.onerror = null
-            e.currentTarget.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1600">
-                <rect width="1400" height="1600" fill="#0a0a0a"/>
-                <g stroke="#ffffff" stroke-width="2" fill="none" opacity="0.3">
-                  <circle cx="700" cy="600" r="180"/>
-                  <circle cx="700" cy="600" r="120"/>
-                  <circle cx="700" cy="600" r="60"/>
-                  <line x1="700" y1="780" x2="700" y2="1100"/>
-                  <line x1="600" y1="1100" x2="800" y2="1100"/>
-                  <path d="M 580 1100 L 580 1300 L 820 1300 L 820 1100 Z"/>
-                </g>
-                <text x="700" y="1480" text-anchor="middle"
-                      font-family="'Space Mono', monospace" font-size="20" letter-spacing="6"
-                      fill="#ffffff" opacity="0.6">THE LABORATORY</text>
-              </svg>`
-            )}`
-          }}
-        />
-      </div>
-
-      {/* RIGHT — copy column */}
-      <div
-        className="lg:col-span-5 flex flex-col justify-between"
+      <img
+        src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1600&h=900&fit=crop"
+        alt=""
         style={{
-          paddingLeft: 'clamp(32px, 4vw, 64px)',
-          paddingRight: 'clamp(24px, 7vw, 128px)',
-          paddingTop: 'clamp(64px, 6vw, 96px)',
-          paddingBottom: 'clamp(64px, 6vw, 96px)',
+          position: 'absolute', inset: 0,
+          width: '100%', height: '100%',
+          objectFit: 'cover', objectPosition: 'center',
+          filter: 'brightness(0.55)',
+        }}
+        draggable={false}
+      />
+      <div
+        style={{
+          position: 'absolute', inset: 0,
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          textAlign: 'center',
+          paddingInline: 'clamp(24px, 8vw, 120px)',
         }}
       >
-        <div>
-          <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 32 }}>
-            THE SCIENCE BEHIND OSCAR
-          </p>
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease }}
-            className="font-serif text-[#0a0a0a]"
-            style={{ fontSize: 'clamp(48px, 5.6vw, 80px)', fontWeight: 700, lineHeight: 1.04 }}
-          >
-            Eight inputs.
-            <br />
-            Each <em className="italic">studied</em>.
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15, ease }}
-            className="font-display mt-7"
-            style={{ fontSize: 15.5, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.7, maxWidth: '42ch' }}
-          >
-            Nothing is in this jar because it "sounds good on a label." Every compound was selected from peer-reviewed canine research. Tap <em>Study More</em> on any ingredient to read where it's sourced, what it does, and what the science says.
-          </motion.p>
-        </div>
-
-        <p
-          className="font-mono uppercase mt-10"
-          style={{ fontSize: 11, fontWeight: 400, letterSpacing: '0.22em', color: '#0a0a0a' }}
+        <h1
+          className="font-serif"
+          style={{
+            fontWeight: 700,
+            fontSize: 'clamp(32px, 4.5vw, 64px)',
+            color: '#ffffff',
+            lineHeight: 1.1,
+          }}
         >
-          ↓ Eight ingredients
+          Research-backed
+          <br />
+          <em className="italic">active</em> ingredients.
+        </h1>
+        <p
+          className="font-display"
+          style={{
+            fontSize: 15,
+            color: 'rgba(255,255,255,0.8)',
+            lineHeight: 1.6,
+            marginTop: 16,
+            maxWidth: '44ch',
+          }}
+        >
+          We believe that each ingredient must serve a purpose. We only deliver the best.
         </p>
       </div>
-
-      <div className="absolute bottom-0 inset-x-0" style={{ height: 1, background: 'var(--color-rule)' }} />
     </section>
   )
 }
 
 /* -------------------------------------------------------------------------- */
-/*  INGREDIENT CARD                                                            */
+/*  SECTION 2 — RESEARCH-BACKED ACTIVE INGREDIENTS                             */
 /* -------------------------------------------------------------------------- */
 function IngredientCard({ ing, onOpen }) {
   const [hovered, setHovered] = useState(false)
   return (
-    <motion.article
+    <article
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-10%' }}
-      transition={{ duration: 0.6, ease }}
+      onClick={onOpen}
       style={{
-        background:   hovered ? '#0a0a0a' : '#ffffff',
-        color:        hovered ? '#ffffff' : '#0a0a0a',
-        border:       `1px solid ${hovered ? '#0a0a0a' : 'var(--color-rule)'}`,
-        padding:      '32px 28px',
-        transition:   'background 0.3s, color 0.3s, border-color 0.3s',
+        width: 'clamp(280px, 30vw, 420px)',
+        flexShrink: 0,
+        borderRight: '1px solid var(--color-rule)',
+        background: hovered ? '#f6f5f1' : '#ffffff',
+        cursor: 'pointer',
+        padding: 0,
+        transition: 'background 200ms',
       }}
     >
-      {/* Sequential number */}
       <p
-        className="font-mono uppercase"
+        className="font-display"
         style={{
-          fontSize: 11, letterSpacing: '0.18em',
-          color: hovered ? 'rgba(255,255,255,0.55)' : '#9a9a96',
-          marginBottom: 20,
+          padding: '20px 20px 12px',
+          fontSize: 14, fontWeight: 600, color: '#0a0a0a',
         }}
       >
-        {ing.n}
-      </p>
-
-      {/* Square image — contrast/filter does not change on hover */}
-      <div className="aspect-square w-full overflow-hidden" style={{ background: '#ffffff' }}>
-        <img
-          src={ing.image}
-          alt={ing.name}
-          className="w-full h-full object-cover"
-          loading="lazy"
-          onError={e => { e.currentTarget.src = ingredientFallback(ing.name) }}
-        />
-      </div>
-
-      {/* Name */}
-      <p className="font-display mt-5" style={{ fontSize: 16, fontWeight: 600, color: 'inherit' }}>
         {ing.name}
       </p>
 
-      {/* Metric tag */}
-      <p
-        className="font-mono uppercase mt-1"
-        style={{
-          fontSize: 10, letterSpacing: '0.18em',
-          color: hovered ? 'rgba(255,255,255,0.55)' : '#6b6b6b',
-        }}
-      >
-        {ing.metric}
-      </p>
+      <div style={{ width: '100%', aspectRatio: '4 / 3', overflow: 'hidden' }}>
+        <img
+          src={INGREDIENT_IMAGES[ing.name] || ing.image}
+          alt={ing.name}
+          draggable={false}
+          style={{
+            width: '100%', height: '100%',
+            objectFit: 'cover', objectPosition: 'center',
+            borderRadius: 0,
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+          loading="lazy"
+          onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = ingredientFallback(ing.name) }}
+        />
+      </div>
 
-      {/* Description */}
-      <p
-        className="font-display mt-2.5"
-        style={{
-          fontSize: 13.5, fontWeight: 400, lineHeight: 1.6,
-          color: hovered ? 'rgba(255,255,255,0.65)' : '#6b6b6b',
-        }}
-      >
-        {ing.short}
-      </p>
+      <div style={{ padding: '16px 20px 24px' }}>
+        <p
+          className="font-mono uppercase"
+          style={{
+            fontSize: 10, letterSpacing: '0.18em',
+            color: '#6b6b6b', marginBottom: 8,
+          }}
+        >
+          {ing.metric}
+        </p>
+        <p
+          className="font-display"
+          style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.6 }}
+        >
+          {ing.short}
+        </p>
+        <button
+          onClick={e => { e.stopPropagation(); onOpen() }}
+          className="font-mono uppercase"
+          style={{
+            fontSize: 11, letterSpacing: '0.22em',
+            color: '#0a0a0a',
+            borderBottom: '1px solid #0a0a0a',
+            background: 'transparent',
+            border: 0,
+            borderBottomWidth: 1,
+            borderBottomStyle: 'solid',
+            borderBottomColor: '#0a0a0a',
+            paddingBottom: 2,
+            marginTop: 14,
+            cursor: 'pointer',
+            display: 'inline-block',
+          }}
+        >
+          Study more →
+        </button>
+      </div>
+    </article>
+  )
+}
 
-      {/* Study More */}
-      <button
-        onClick={onOpen}
-        className="font-mono uppercase cursor-pointer mt-5 inline-block"
+function IngredientsSection({ onOpen }) {
+  return (
+    <section
+      style={{
+        background: '#ffffff',
+        paddingTop: 'clamp(56px, 6vw, 96px)',
+        paddingBottom: 'clamp(56px, 6vw, 96px)',
+        borderBottom: '1px solid var(--color-rule)',
+      }}
+    >
+      <div
         style={{
-          fontSize: 11, letterSpacing: '0.22em',
-          color: hovered ? '#ffffff' : '#0a0a0a',
-          background: 'transparent',
-          border: 0, borderBottom: `1px solid ${hovered ? '#ffffff' : '#0a0a0a'}`,
-          paddingBottom: 2,
-          transition: 'color 0.3s, border-color 0.3s',
+          paddingInline: PAD_X,
+          display: 'grid',
+          gridTemplateColumns: '5fr 4fr',
+          gap: 'clamp(32px, 5vw, 80px)',
+          alignItems: 'end',
+          marginBottom: 40,
         }}
       >
-        Study more →
-      </button>
-    </motion.article>
+        <h2
+          className="font-serif"
+          style={{
+            fontWeight: 700,
+            fontSize: 'clamp(28px, 3.2vw, 44px)',
+            color: '#0a0a0a',
+            lineHeight: 1.1,
+          }}
+        >
+          Research-backed <em className="italic">active</em> ingredients.
+        </h2>
+        <p
+          className="font-display"
+          style={{ fontSize: 14, color: '#6b6b6b', lineHeight: 1.7 }}
+        >
+          We believe that each ingredient must serve a purpose. We only deliver the best.
+        </p>
+      </div>
+
+      <div style={{ paddingInline: PAD_X }}>
+        <HorizontalDeck gap={0}>
+          {INGREDIENTS.map(ing => (
+            <IngredientCard key={ing.n} ing={ing} onOpen={() => onOpen(ing)} />
+          ))}
+        </HorizontalDeck>
+      </div>
+    </section>
   )
 }
 
 /* -------------------------------------------------------------------------- */
-/*  GRID                                                                       */
+/*  SECTION 3 — INTERNATIONALLY CERTIFIED                                      */
 /* -------------------------------------------------------------------------- */
-function IngredientGrid({ onOpen }) {
+function CertifiedSection() {
+  const badges = [
+    { icon: '★', label: 'MADE IN USA' },
+    { icon: '◎', label: '3RD PARTY TESTED' },
+    { icon: '⬡', label: 'GMP PRACTICE' },
+  ]
   return (
     <section
-      className="relative"
-      style={{ background: '#ffffff' }}
+      style={{
+        background: '#ffffff',
+        padding: 'clamp(48px, 5vh, 72px) clamp(32px, 5vw, 96px)',
+        borderTop: '1px solid var(--color-rule)',
+        borderBottom: '1px solid var(--color-rule)',
+      }}
     >
-      <div className="container-edge mx-auto py-24 lg:py-32">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <h2
-            className="font-serif text-[#0a0a0a]"
-            style={{ fontSize: 'clamp(36px, 4.4vw, 56px)', fontWeight: 700, lineHeight: 1.05 }}
-          >
-            Premium-sourced <em className="italic">ingredients</em>.
-          </h2>
-          <p
-            className="font-display mt-4 mx-auto"
-            style={{ fontSize: 15, fontWeight: 400, color: '#6b6b6b', lineHeight: 1.7, maxWidth: '50ch' }}
-          >
-            Every ingredient selected for purpose and purity — no fluff, no fillers.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {INGREDIENTS.map(ing => (
-            <IngredientCard key={ing.n} ing={ing} onOpen={() => onOpen(ing)} />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 32,
+        }}
+      >
+        <h2
+          className="font-serif"
+          style={{
+            fontWeight: 700,
+            fontSize: 'clamp(22px, 2.4vw, 32px)',
+            color: '#0a0a0a',
+            lineHeight: 1.15,
+          }}
+        >
+          Internationally certified with
+        </h2>
+        <div style={{ display: 'flex', flexDirection: 'row', gap: 32 }}>
+          {badges.map(b => (
+            <div
+              key={b.label}
+              style={{
+                width: 80, height: 80,
+                border: '1.5px solid #0a0a0a',
+                background: 'transparent',
+                borderRadius: '50%',
+                display: 'flex', flexDirection: 'column',
+                alignItems: 'center', justifyContent: 'center',
+                padding: 6,
+              }}
+            >
+              <span style={{ fontSize: 16, color: '#0a0a0a', lineHeight: 1 }}>{b.icon}</span>
+              <span
+                className="font-mono uppercase"
+                style={{
+                  fontSize: 9, letterSpacing: '0.14em',
+                  color: '#0a0a0a', textAlign: 'center',
+                  lineHeight: 1.4, marginTop: 4,
+                }}
+              >
+                {b.label}
+              </span>
+            </div>
           ))}
         </div>
       </div>
-      <div style={{ height: 1, background: 'var(--color-rule)' }} />
+    </section>
+  )
+}
+
+/* -------------------------------------------------------------------------- */
+/*  SECTION 4 — SCIENCE-BACKED FORMULAS                                        */
+/* -------------------------------------------------------------------------- */
+function FormulaCard({ card }) {
+  return (
+    <article
+      style={{
+        width: 'clamp(300px, 32vw, 460px)',
+        flexShrink: 0,
+        background: '#f6f5f1',
+        borderRadius: 0,
+        overflow: 'hidden',
+        border: '1px solid var(--color-rule)',
+      }}
+    >
+      <div style={{ width: '100%', aspectRatio: '3 / 2', overflow: 'hidden' }}>
+        <img
+          src={card.image}
+          alt={card.title}
+          draggable={false}
+          style={{
+            width: '100%', height: '100%',
+            objectFit: 'cover',
+            borderRadius: 0,
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+          loading="lazy"
+        />
+      </div>
+      <div style={{ padding: 24 }}>
+        <p
+          className="font-mono uppercase"
+          style={{ fontSize: 10, letterSpacing: '0.18em', color: '#6b6b6b' }}
+        >
+          {card.eyebrow}
+        </p>
+        <h3
+          className="font-serif"
+          style={{ fontWeight: 700, fontSize: 18, color: '#0a0a0a', marginTop: 8, lineHeight: 1.25 }}
+        >
+          {card.title}
+        </h3>
+        <p
+          className="font-display"
+          style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.6, marginTop: 10 }}
+        >
+          {card.body}
+        </p>
+      </div>
+    </article>
+  )
+}
+
+function FormulasSection() {
+  return (
+    <section
+      style={{
+        background: '#ffffff',
+        paddingTop: 'clamp(56px, 6vw, 96px)',
+        paddingBottom: 'clamp(56px, 6vw, 96px)',
+        borderBottom: '1px solid var(--color-rule)',
+      }}
+    >
+      <div
+        style={{
+          paddingInline: PAD_X,
+          display: 'grid',
+          gridTemplateColumns: '5fr 4fr',
+          gap: 'clamp(32px, 5vw, 80px)',
+          alignItems: 'end',
+          marginBottom: 40,
+        }}
+      >
+        <h2
+          className="font-serif"
+          style={{
+            fontWeight: 700,
+            fontSize: 'clamp(28px, 3.2vw, 44px)',
+            color: '#0a0a0a',
+            lineHeight: 1.1,
+          }}
+        >
+          Science-backed <em className="italic">formulas.</em>
+        </h2>
+        <p
+          className="font-display"
+          style={{ fontSize: 14, color: '#6b6b6b', lineHeight: 1.7 }}
+        >
+          Every formula is validated against published canine research. If a study didn't support it at the dose used, it didn't make the product.
+        </p>
+      </div>
+
+      <div style={{ paddingInline: PAD_X }}>
+        <HorizontalDeck gap={16}>
+          {FORMULA_CARDS.map(c => (
+            <FormulaCard key={c.eyebrow} card={c} />
+          ))}
+        </HorizontalDeck>
+      </div>
     </section>
   )
 }
@@ -223,12 +425,13 @@ function IngredientGrid({ onOpen }) {
 /* -------------------------------------------------------------------------- */
 export default function SciencePage() {
   const [activeIng, setActiveIng] = useState(null)
-
   return (
     <>
       <main>
         <LabHero />
-        <IngredientGrid onOpen={setActiveIng} />
+        <IngredientsSection onOpen={setActiveIng} />
+        <CertifiedSection />
+        <FormulasSection />
       </main>
       <IngredientStudyModal ingredient={activeIng} onClose={() => setActiveIng(null)} />
       <Footer />
