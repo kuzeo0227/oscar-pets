@@ -310,7 +310,7 @@ function StudyStats() {
                 { src: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&h=750&fit=crop',     stat: '78%', caption: 'of dogs showed visible coat improvements after 6 weeks' },
               ].map(s => (
                 <div key={s.stat} className="relative overflow-hidden"
-                  style={{ aspectRatio: '4 / 5', background: '#0a0a0a', borderRadius: 16 }}>
+                  style={{ aspectRatio: '4 / 6', background: '#0a0a0a', borderRadius: 16 }}>
                   <img src={s.src} alt="" className="absolute inset-0 w-full h-full object-cover"
                     onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/assets/jar-front.jpg' }} />
                   <div className="absolute inset-0"
