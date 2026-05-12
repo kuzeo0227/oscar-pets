@@ -1,14 +1,13 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import HorizontalDeck from '../HorizontalDeck'
 import IngredientStudyModal from '../IngredientStudyModal'
 import { INGREDIENT_STUDIES, ingredientFallback } from '../../data/ingredient-studies'
 
-/* PDP ingredient slider — visually identical to the /science (LAB) deck:
-   fixed-by-viewport card width, portrait 3/4 image, hairline right border,
-   STUDY MORE → opens the shared IngredientStudyModal. */
+/* Shared ingredient deck — pixel-identical to the /science (LAB) deck so the
+   homepage, PDP, and lab page all render the same component. */
 
-const CARD_WIDTH = 'calc((100vw - clamp(64px, 10vw, 192px)) / 3.5)'
+const PAD_X = 'clamp(32px, 5vw, 96px)'
+const CARD_WIDTH = 'calc((100vw - clamp(64px, 10vw, 192px)) / 4.2)'
 
 const INGREDIENT_IMAGES = {
   'Probiotic Blend':  'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600&h=450&fit=crop',
@@ -103,63 +102,52 @@ function Card({ ing, onOpen }) {
   )
 }
 
-function ShowMoreCard() {
-  return (
-    <Link
-      to="/science"
-      style={{
-        width: CARD_WIDTH,
-        minWidth: CARD_WIDTH,
-        maxWidth: CARD_WIDTH,
-        flexShrink: 0,
-        background: '#0a0a0a',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-        padding: 32, textDecoration: 'none',
-        transition: 'background 0.2s',
-      }}
-      onMouseEnter={e => (e.currentTarget.style.background = '#1a1a1a')}
-      onMouseLeave={e => (e.currentTarget.style.background = '#0a0a0a')}
-    >
-      <span className="font-mono uppercase text-center" style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.22em', color: '#ffffff' }}>
-        Explore all<br />ingredients →
-      </span>
-      <span className="font-display text-center" style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', marginTop: 12 }}>
-        Full breakdown on the Lab page
-      </span>
-    </Link>
-  )
-}
-
 export default function IngredientsScroll() {
   const [openIngredient, setOpenIngredient] = useState(null)
 
   return (
-    <section style={{ background: '#ffffff' }}>
-      <div className="section-container py-20 lg:py-28">
-        {/* Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12 gap-y-6 mb-10">
-          <div className="lg:col-span-6">
-            <p className="eyebrow" style={{ color: '#6b6b6b', marginBottom: 16 }}>
-              03 — ACTIVE INGREDIENTS
-            </p>
-            <h2 className="font-serif text-[#0a0a0a]"
-              style={{ fontSize: 'clamp(28px, 3.2vw, 44px)', fontWeight: 700, lineHeight: 1.1 }}>
-              Research-backed <em className="italic">active ingredients.</em>
-            </h2>
-          </div>
-          <div className="lg:col-span-5 lg:col-start-8">
-            <p className="font-display" style={{ fontSize: 14.5, color: '#6b6b6b', lineHeight: 1.7 }}>
-              We believe there are no shortcuts in supplement formulation. Every active compound is selected from peer-reviewed canine studies — no fillers, no padding, no ingredients that can't justify their presence.
-            </p>
-          </div>
-        </div>
+    <section
+      style={{
+        background: '#ffffff',
+        paddingTop: 'clamp(56px, 6vw, 96px)',
+        paddingBottom: 'clamp(56px, 6vw, 96px)',
+        borderBottom: '1px solid var(--color-rule)',
+      }}
+    >
+      <div
+        style={{
+          paddingInline: PAD_X,
+          display: 'grid',
+          gridTemplateColumns: '5fr 4fr',
+          gap: 'clamp(32px, 5vw, 80px)',
+          alignItems: 'end',
+          marginBottom: 40,
+        }}
+      >
+        <h2
+          className="font-serif"
+          style={{
+            fontWeight: 700,
+            fontSize: 'clamp(28px, 3.2vw, 44px)',
+            color: '#0a0a0a',
+            lineHeight: 1.1,
+          }}
+        >
+          Research-backed <em className="italic">active</em> ingredients.
+        </h2>
+        <p
+          className="font-display"
+          style={{ fontSize: 14, color: '#6b6b6b', lineHeight: 1.7 }}
+        >
+          We believe that each ingredient must serve a purpose. We only deliver the best.
+        </p>
+      </div>
 
-        {/* Bounded deck with momentum drag */}
+      <div style={{ paddingInline: PAD_X }}>
         <HorizontalDeck gap={0}>
           {INGREDIENT_STUDIES.map(ing => (
             <Card key={ing.name} ing={ing} onOpen={() => setOpenIngredient(ing)} />
           ))}
-          <ShowMoreCard />
         </HorizontalDeck>
       </div>
 
