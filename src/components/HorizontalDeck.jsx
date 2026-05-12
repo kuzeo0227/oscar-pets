@@ -22,34 +22,78 @@ export default function HorizontalDeck({ children, gap = 16 }) {
   const trackRef     = useRef(null)
   const scrollbarRef = useRef(null)
   const [thumb, setThumb] = useState({ left: 0, width: 20 })
-  const dragState = useRef({ active: false, startX: 0, scrollLeftStart: 0 })
+  const dragState = useRef({
+    active: false,
+    startX: 0,
+    scrollLeftStart: 0,
+    lastX: 0,
+    lastTime: 0,
+    velocity: 0,
+  })
+  const rafId = useRef(null)
 
-  /* ---- Drag-to-scroll ---- */
+  /* ---- Drag-to-scroll with momentum (kinetic inertia) ---- */
+  function cancelMomentum() {
+    if (rafId.current) {
+      cancelAnimationFrame(rafId.current)
+      rafId.current = null
+    }
+  }
+
   function onMouseDown(e) {
     const el = trackRef.current
     if (!el) return
+    cancelMomentum()
     dragState.current = {
       active: true,
       startX: e.pageX - el.offsetLeft,
       scrollLeftStart: el.scrollLeft,
+      lastX: e.pageX,
+      lastTime: Date.now(),
+      velocity: 0,
     }
     el.style.cursor = 'grabbing'
     el.style.scrollBehavior = 'auto'
   }
+
   function onMouseMove(e) {
     const el = trackRef.current
-    if (!el || !dragState.current.active) return
+    const s = dragState.current
+    if (!el || !s.active) return
     e.preventDefault()
     const x = e.pageX - el.offsetLeft
-    const walk = (x - dragState.current.startX) * 1.5
-    el.scrollLeft = dragState.current.scrollLeftStart - walk
+    const walk = (x - s.startX) * 1.2
+    el.scrollLeft = s.scrollLeftStart - walk
+
+    // Track velocity for momentum on release
+    const now = Date.now()
+    const dt = now - s.lastTime
+    if (dt > 0) {
+      s.velocity = ((e.pageX - s.lastX) / dt) * 16
+    }
+    s.lastX = e.pageX
+    s.lastTime = now
   }
+
   function onMouseUp() {
     const el = trackRef.current
-    if (!el) return
-    dragState.current.active = false
+    const s = dragState.current
+    if (!el || !s.active) return
+    s.active = false
     el.style.cursor = 'grab'
-    el.style.scrollBehavior = 'smooth'
+
+    // Kinetic momentum: friction 0.92 produces smooth deceleration.
+    const step = () => {
+      if (Math.abs(s.velocity) < 0.5) {
+        rafId.current = null
+        el.style.scrollBehavior = 'smooth'
+        return
+      }
+      el.scrollLeft -= s.velocity
+      s.velocity *= 0.92
+      rafId.current = requestAnimationFrame(step)
+    }
+    rafId.current = requestAnimationFrame(step)
   }
 
   /* ---- Sync custom scrollbar to scroll position ---- */
@@ -72,7 +116,10 @@ export default function HorizontalDeck({ children, gap = 16 }) {
     onScroll()
     const ro = new ResizeObserver(onScroll)
     if (trackRef.current) ro.observe(trackRef.current)
-    return () => ro.disconnect()
+    return () => {
+      ro.disconnect()
+      if (rafId.current) cancelAnimationFrame(rafId.current)
+    }
   }, [])
 
   /* ---- Click on scrollbar track to jump ---- */

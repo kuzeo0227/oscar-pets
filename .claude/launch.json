@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "oscar-pets",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "C:\\Users\\Zen\\OneDrive\\Desktop\\Claude Code\\oscar-pets",
+      "port": 5173
+    }
+  ]
+}

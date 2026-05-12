@@ -1,28 +1,15 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HorizontalDeck from '../HorizontalDeck'
+import IngredientStudyModal from '../IngredientStudyModal'
+import { INGREDIENT_STUDIES, ingredientFallback } from '../../data/ingredient-studies'
 
-const INGREDIENTS = [
-  { name: 'Probiotic Blend',         metric: '3B CFU · PER CHEW',         short: 'Spore-forming probiotics that survive heat and gastric acid.', image: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=300&h=400&fit=crop' },
-  { name: 'Pumpkin Fibers',          metric: '100MG · DIETARY FIBER',     short: 'Soluble + insoluble fiber blend that feeds beneficial bacteria.', image: 'https://images.unsplash.com/photo-1570586437263-ab629fccc818?w=300&h=400&fit=crop' },
-  { name: 'Lamb Liver',              metric: 'SINGLE-SOURCE · FREEZE-DRIED', short: 'Nutrient-dense protein with bioavailable iron and B-vitamins.', image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=300&h=400&fit=crop' },
-  { name: 'Coconut Oil',             metric: 'COLD-PRESSED · VIRGIN',     short: 'MCT-rich carrier oil supporting skin, coat and energy.', image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300&h=400&fit=crop' },
-  { name: 'Fructooligosaccharides',  metric: 'FOS · PREBIOTIC FIBER',     short: 'Plant-derived prebiotic that selectively feeds Bifidobacteria.', image: 'https://images.unsplash.com/photo-1598128558393-70ff21433be0?w=300&h=400&fit=crop' },
-  { name: 'Galactooligosaccharide',  metric: 'GOS · BROAD-SPECTRUM',      short: 'Second-generation prebiotic complementing FOS across the gut.', image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=400&fit=crop' },
-  { name: 'Postbiotic Yeast Blend',  metric: 'HEAT-STABLE · NO COLD CHAIN', short: 'Yeast metabolites + beta-glucans for shelf-stable immune support.', image: 'https://images.unsplash.com/photo-1614631446501-abcf76949eca?w=300&h=400&fit=crop' },
-  { name: 'Sunflower Oil',           metric: 'HIGH-OLEIC · EXPELLER-PRESSED', short: 'Stable carrier oil rich in oleic acid and natural vitamin E.', image: 'https://images.unsplash.com/photo-1543257580-7269da773bf5?w=300&h=400&fit=crop' },
-]
+/* PDP ingredient slider — uses the shared INGREDIENT_STUDIES catalog so each
+   card can open the same Study More modal used on /science (LAB). Image sits
+   inside card padding (not edge-bleed), and a STUDY MORE → CTA opens the
+   detailed peer-reviewed breakdown. */
 
-const fallback = (name) =>
-  `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
-      <rect width="300" height="400" fill="#ffffff"/>
-      <text x="150" y="208" text-anchor="middle"
-            font-family="'Space Mono', monospace" font-size="14" font-weight="700"
-            letter-spacing="3" fill="#0a0a0a">${name.toUpperCase()}</text>
-    </svg>`
-  )}`
-
-function Card({ ing }) {
+function Card({ ing, onOpen }) {
   return (
     <article
       style={{
@@ -31,20 +18,41 @@ function Card({ ing }) {
         background: '#ffffff',
         border: '1px solid var(--color-rule)',
         borderRadius: 0,
+        padding: '20px 20px 0 20px',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
-      <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', background: '#ffffff', borderRadius: 16 }}>
+      {/* Image sits inside padding — does not bleed to card edge */}
+      <div
+        style={{
+          width: '100%',
+          aspectRatio: '1 / 1',
+          overflow: 'hidden',
+          borderRadius: 0,
+          background: '#f6f5f1',
+        }}
+      >
         <img
           src={ing.image}
           alt={ing.name}
-          className="w-full h-full object-cover"
           loading="lazy"
           draggable={false}
-          style={{ pointerEvents: 'none', userSelect: 'none' }}
-          onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = fallback(ing.name) }}
+          style={{
+            display: 'block',
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+          onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = ingredientFallback(ing.name) }}
         />
       </div>
-      <div style={{ padding: 20 }}>
+
+      {/* Content area — padding at bottom completes the inner gutter */}
+      <div style={{ padding: '16px 0 20px 0' }}>
         <p className="font-display" style={{ fontSize: 15, fontWeight: 600, color: '#0a0a0a' }}>
           {ing.name}
         </p>
@@ -54,6 +62,25 @@ function Card({ ing }) {
         <p className="font-display" style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.6, marginTop: 8 }}>
           {ing.short}
         </p>
+
+        <button
+          onClick={onOpen}
+          className="font-mono uppercase cursor-pointer"
+          style={{
+            display: 'inline-block',
+            marginTop: 16,
+            fontSize: 11,
+            letterSpacing: '0.22em',
+            color: '#0a0a0a',
+            background: 'transparent',
+            border: 0,
+            borderBottom: '1px solid #0a0a0a',
+            paddingBottom: 2,
+            padding: '0 0 2px 0',
+          }}
+        >
+          Study more →
+        </button>
       </div>
     </article>
   )
@@ -85,6 +112,8 @@ function ShowMoreCard() {
 }
 
 export default function IngredientsScroll() {
+  const [openIngredient, setOpenIngredient] = useState(null)
+
   return (
     <section style={{ background: '#ffffff' }}>
       <div className="section-container py-20 lg:py-28">
@@ -106,12 +135,19 @@ export default function IngredientsScroll() {
           </div>
         </div>
 
-        {/* Bounded deck */}
+        {/* Bounded deck with momentum drag */}
         <HorizontalDeck gap={16}>
-          {INGREDIENTS.map(ing => <Card key={ing.name} ing={ing} />)}
+          {INGREDIENT_STUDIES.map(ing => (
+            <Card key={ing.name} ing={ing} onOpen={() => setOpenIngredient(ing)} />
+          ))}
           <ShowMoreCard />
         </HorizontalDeck>
       </div>
+
+      <IngredientStudyModal
+        ingredient={openIngredient}
+        onClose={() => setOpenIngredient(null)}
+      />
     </section>
   )
 }
