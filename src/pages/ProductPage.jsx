@@ -428,7 +428,7 @@ function CaringForDog() {
           {/* LEFT — square product image, no left margin, fills its column */}
           <div className="overflow-hidden"
             style={{ aspectRatio: '1 / 1', background: '#ffffff', borderRadius: 0, width: '100%' }}>
-            <img src="/assets/hero-product.png" alt="Oscar Probiotic Chews"
+            <img src="/assets/oscar-product2.png" alt="Oscar Probiotic Chews"
               className="w-full h-full object-cover" draggable={false}
               onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/assets/jar-front.jpg' }} />
           </div>
