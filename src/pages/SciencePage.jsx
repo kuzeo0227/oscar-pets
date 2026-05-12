@@ -118,9 +118,9 @@ function IngredientCard({ ing, onOpen }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        width: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4)',
-        minWidth: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4)',
-        maxWidth: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4)',
+        width: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4.2)',
+        minWidth: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4.2)',
+        maxWidth: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4.2)',
         flexShrink: 0,
         borderRight: '1px solid var(--color-rule)',
         background: hovered ? '#f6f5f1' : '#ffffff',
@@ -254,17 +254,17 @@ function FormulaCard({ card }) {
   return (
     <article
       style={{
-        width: 448,
-        minWidth: 448,
-        maxWidth: 448,
+        width: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4.2)',
+        minWidth: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4.2)',
+        maxWidth: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4.2)',
         flexShrink: 0,
         background: '#f6f5f1',
         borderRadius: 0,
         overflow: 'hidden',
-        border: '1px solid var(--color-rule)',
+        borderRight: '1px solid var(--color-rule)',
       }}
     >
-      <div style={{ width: '100%', aspectRatio: '4 / 3', overflow: 'hidden' }}>
+      <div style={{ width: '100%', aspectRatio: '3 / 4', overflow: 'hidden' }}>
         <img
           src={card.image}
           alt={card.title}
@@ -279,7 +279,7 @@ function FormulaCard({ card }) {
           loading="lazy"
         />
       </div>
-      <div style={{ padding: 24, minHeight: 180 }}>
+      <div style={{ padding: '16px 20px 24px', minHeight: 160 }}>
         <p
           className="font-mono uppercase"
           style={{ fontSize: 10, letterSpacing: '0.18em', color: '#6b6b6b' }}
@@ -343,7 +343,7 @@ function FormulasSection() {
       </div>
 
       <div style={{ paddingInline: PAD_X }}>
-        <HorizontalDeck gap={16}>
+        <HorizontalDeck gap={0}>
           {FORMULA_CARDS.map(c => (
             <FormulaCard key={c.eyebrow} card={c} />
           ))}
