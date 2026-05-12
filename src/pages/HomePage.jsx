@@ -5,7 +5,7 @@ import Hero               from '../components/sections/Hero'
 import IngredientsScroll  from '../components/sections/IngredientsScroll'
 import CertBanner         from '../components/sections/CertBanner'
 import LifestyleGrid      from '../components/sections/LifestyleGrid'
-import ReviewsHome        from '../components/sections/ReviewsHome'
+import ReviewsSection     from '../components/ReviewsSection'
 import AsSeenIn           from '../components/sections/AsSeenIn'
 import FaqHome            from '../components/sections/FaqHome'
 import Footer             from '../components/sections/Footer'
@@ -193,7 +193,7 @@ export default function HomePage() {
         <CertBanner />
         <IngredientsScroll />
         <LifestyleGrid />
-        <ReviewsHome />
+        <ReviewsSection />
         <AsSeenIn />
         <ProductCTA />
         <FaqHome />
