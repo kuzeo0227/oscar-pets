@@ -138,8 +138,8 @@ function ProductCTA() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            aspectRatio: '16 / 9',
-            borderRadius: 0,
+            aspectRatio: '16 / 6.75',
+            borderRadius: 16,
             padding: 'clamp(48px, 6vw, 96px) clamp(40px, 6vw, 88px)',
           }}>
           <div aria-hidden="true" className="absolute inset-0 pointer-events-none"
