@@ -430,6 +430,7 @@ function CaringForDog() {
             style={{ aspectRatio: '1 / 1', background: '#ffffff', borderRadius: 0, width: '100%' }}>
             <img src="/assets/oscar-product2.png" alt="Oscar Probiotic Chews"
               className="w-full h-full object-cover" draggable={false}
+              style={{ objectPosition: '80% center' }}
               onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/assets/jar-front.jpg' }} />
           </div>
 
