@@ -118,9 +118,9 @@ function IngredientCard({ ing, onOpen }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        width: 392,
-        minWidth: 392,
-        maxWidth: 392,
+        width: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4)',
+        minWidth: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4)',
+        maxWidth: 'calc((100vw - clamp(64px, 10vw, 192px)) / 4)',
         flexShrink: 0,
         borderRight: '1px solid var(--color-rule)',
         background: hovered ? '#f6f5f1' : '#ffffff',
@@ -139,7 +139,7 @@ function IngredientCard({ ing, onOpen }) {
         {ing.name}
       </p>
 
-      <div style={{ width: '100%', aspectRatio: '4 / 3', overflow: 'hidden' }}>
+      <div style={{ width: '100%', aspectRatio: '3 / 4', overflow: 'hidden' }}>
         <img
           src={INGREDIENT_IMAGES[ing.name] || ing.image}
           alt={ing.name}
