@@ -8,7 +8,7 @@ import { INGREDIENT_STUDIES, ingredientFallback } from '../../data/ingredient-st
    fixed-by-viewport card width, portrait 3/4 image, hairline right border,
    STUDY MORE → opens the shared IngredientStudyModal. */
 
-const CARD_WIDTH = 'calc((100vw - clamp(64px, 10vw, 192px)) / 3.2)'
+const CARD_WIDTH = 'calc((100vw - clamp(64px, 10vw, 192px)) / 3.5)'
 
 const INGREDIENT_IMAGES = {
   'Probiotic Blend':  'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600&h=450&fit=crop',
