@@ -110,8 +110,9 @@ function EditorialTwoCol() {
           <EditorialCard
             delay={0.1}
             eyebrow="FOR PET OWNERS"
-            image="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200&h=1200&fit=crop"
-            alt="Dog enjoying the outdoors"
+            image="/assets/oscar-product3.png"
+            alt="Oscar Probiotic Chews packaging stack"
+            imageStyle={{ objectPosition: 'center' }}
             fallback="/assets/hero-product.png"
             title={<>Your dog can't tell you.<br />But the gut can.</>}
             body="Loose stools, dull coat, low energy — most of what shows on the outside starts in the microbiome. Oscar addresses the root, not the symptom."

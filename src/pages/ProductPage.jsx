@@ -73,9 +73,9 @@ function SubNav() {
    2. PRODUCT HERO
    ============================================================================ */
 const THUMBS = [
-  { src: '/assets/jar-front.jpg',    style: { objectPosition: 'center 78%', transform: 'scale(1.18)' } },
+  { src: '/assets/jar-front.jpg',     style: { objectPosition: 'center 78%', transform: 'scale(1.18)' } },
   { src: '/assets/oscar-flatlay.png', style: { objectPosition: 'center',     transform: 'none'        } },
-  { src: '/assets/jar-front.jpg',    style: { objectPosition: 'center 78%', transform: 'scale(1.18)' } },
+  { src: '/assets/oscar-product3.png', style: { objectPosition: 'center',    transform: 'none'        } },
 ]
 
 const ACCORDIONS = [
