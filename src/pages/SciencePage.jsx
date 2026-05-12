@@ -132,7 +132,7 @@ function IngredientCard({ ing, onOpen }) {
       <p
         className="font-display"
         style={{
-          padding: '20px 20px 12px',
+          padding: '16px 20px 10px',
           fontSize: 14, fontWeight: 600, color: '#0a0a0a',
         }}
       >
@@ -156,19 +156,19 @@ function IngredientCard({ ing, onOpen }) {
         />
       </div>
 
-      <div style={{ padding: '16px 20px 24px' }}>
+      <div style={{ padding: '14px 20px 22px' }}>
         <p
           className="font-mono uppercase"
           style={{
             fontSize: 10, letterSpacing: '0.18em',
-            color: '#6b6b6b', marginBottom: 8,
+            color: '#6b6b6b',
           }}
         >
           {ing.metric}
         </p>
         <p
           className="font-display"
-          style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.6 }}
+          style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.6, marginTop: 8 }}
         >
           {ing.short}
         </p>

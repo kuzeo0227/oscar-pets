@@ -4,37 +4,52 @@ import HorizontalDeck from '../HorizontalDeck'
 import IngredientStudyModal from '../IngredientStudyModal'
 import { INGREDIENT_STUDIES, ingredientFallback } from '../../data/ingredient-studies'
 
-/* PDP ingredient slider — uses the shared INGREDIENT_STUDIES catalog so each
-   card can open the same Study More modal used on /science (LAB). Image sits
-   inside card padding (not edge-bleed), and a STUDY MORE → CTA opens the
-   detailed peer-reviewed breakdown. */
+/* PDP ingredient slider — visually identical to the /science (LAB) deck:
+   fixed-by-viewport card width, portrait 3/4 image, hairline right border,
+   STUDY MORE → opens the shared IngredientStudyModal. */
+
+const CARD_WIDTH = 'calc((100vw - clamp(64px, 10vw, 192px)) / 4.2)'
+
+const INGREDIENT_IMAGES = {
+  'Probiotic Blend':  'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600&h=450&fit=crop',
+  'Pumpkin Fibers':   'https://images.unsplash.com/photo-1570586437263-ab629fccc818?w=600&h=450&fit=crop',
+  'Lamb Liver':       'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=600&h=450&fit=crop',
+  'Coconut Oil':      'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&h=450&fit=crop',
+  'FOS':              'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=450&fit=crop',
+  'GOS':              'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600&h=450&fit=crop',
+  'Postbiotic Yeast': 'https://images.unsplash.com/photo-1559181567-c3190ca9d222?w=600&h=450&fit=crop',
+  'Sunflower Oil':    'https://images.unsplash.com/photo-1543257580-7269da773bf5?w=600&h=450&fit=crop',
+}
 
 function Card({ ing, onOpen }) {
+  const [hovered, setHovered] = useState(false)
   return (
     <article
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        width: 'clamp(220px, 22vw, 300px)',
+        width: CARD_WIDTH,
+        minWidth: CARD_WIDTH,
+        maxWidth: CARD_WIDTH,
         flexShrink: 0,
-        background: '#ffffff',
-        border: '1px solid var(--color-rule)',
+        background: hovered ? '#f6f5f1' : '#ffffff',
+        borderRight: '1px solid var(--color-rule)',
         borderRadius: 0,
-        padding: '20px 20px 0 20px',
-        display: 'flex',
-        flexDirection: 'column',
+        padding: 0,
+        cursor: 'default',
+        transition: 'background 200ms',
       }}
     >
-      {/* Image sits inside padding — does not bleed to card edge */}
-      <div
-        style={{
-          width: '100%',
-          aspectRatio: '1 / 1',
-          overflow: 'hidden',
-          borderRadius: 0,
-          background: '#f6f5f1',
-        }}
+      <p
+        className="font-display"
+        style={{ padding: '16px 20px 10px', fontSize: 14, fontWeight: 600, color: '#0a0a0a' }}
       >
+        {ing.name}
+      </p>
+
+      <div style={{ width: '100%', aspectRatio: '3 / 4', overflow: 'hidden' }}>
         <img
-          src={ing.image}
+          src={INGREDIENT_IMAGES[ing.name] || ing.image}
           alt={ing.name}
           loading="lazy"
           draggable={false}
@@ -44,6 +59,7 @@ function Card({ ing, onOpen }) {
             height: '100%',
             objectFit: 'cover',
             objectPosition: 'center',
+            borderRadius: 0,
             pointerEvents: 'none',
             userSelect: 'none',
           }}
@@ -51,32 +67,33 @@ function Card({ ing, onOpen }) {
         />
       </div>
 
-      {/* Content area — padding at bottom completes the inner gutter */}
-      <div style={{ padding: '16px 0 20px 0' }}>
-        <p className="font-display" style={{ fontSize: 15, fontWeight: 600, color: '#0a0a0a' }}>
-          {ing.name}
-        </p>
-        <p className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.16em', color: '#6b6b6b', marginTop: 4 }}>
+      <div style={{ padding: '14px 20px 22px' }}>
+        <p
+          className="font-mono uppercase"
+          style={{ fontSize: 10, letterSpacing: '0.18em', color: '#6b6b6b' }}
+        >
           {ing.metric}
         </p>
-        <p className="font-display" style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.6, marginTop: 8 }}>
+        <p
+          className="font-display"
+          style={{ fontSize: 13, color: '#6b6b6b', lineHeight: 1.6, marginTop: 8 }}
+        >
           {ing.short}
         </p>
-
         <button
           onClick={onOpen}
-          className="font-mono uppercase cursor-pointer"
+          className="font-mono uppercase"
           style={{
             display: 'inline-block',
-            marginTop: 16,
+            marginTop: 14,
             fontSize: 11,
             letterSpacing: '0.22em',
             color: '#0a0a0a',
             background: 'transparent',
             border: 0,
             borderBottom: '1px solid #0a0a0a',
-            paddingBottom: 2,
             padding: '0 0 2px 0',
+            cursor: 'pointer',
           }}
         >
           Study more →
@@ -91,7 +108,9 @@ function ShowMoreCard() {
     <Link
       to="/science"
       style={{
-        width: 'clamp(220px, 22vw, 300px)',
+        width: CARD_WIDTH,
+        minWidth: CARD_WIDTH,
+        maxWidth: CARD_WIDTH,
         flexShrink: 0,
         background: '#0a0a0a',
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -136,7 +155,7 @@ export default function IngredientsScroll() {
         </div>
 
         {/* Bounded deck with momentum drag */}
-        <HorizontalDeck gap={16}>
+        <HorizontalDeck gap={0}>
           {INGREDIENT_STUDIES.map(ing => (
             <Card key={ing.name} ing={ing} onOpen={() => setOpenIngredient(ing)} />
           ))}
