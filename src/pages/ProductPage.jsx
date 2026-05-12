@@ -292,37 +292,42 @@ function StudyStats() {
       <span id="vet-reviewed" />
       <section style={{ background: '#ffffff' }}>
         <div className="section-container py-20 lg:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12 gap-y-10 items-start">
-            <div className="lg:col-span-4">
-              <div className="flex items-center" style={{ gap: 10 }}>
-                <span aria-hidden="true" style={{ display: 'inline-block', width: 8, height: 8, background: '#0a0a0a', borderRadius: '50%' }} />
-                <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: '0.22em', color: '#6b6b6b' }}>STUDY</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-12 gap-y-10 items-stretch">
+            <div className="lg:col-span-4 flex flex-col" style={{ justifyContent: 'space-between' }}>
+              <div>
+                <div className="flex items-center" style={{ gap: 10 }}>
+                  <span aria-hidden="true" style={{ display: 'inline-block', width: 8, height: 8, background: '#0a0a0a', borderRadius: '50%' }} />
+                  <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: '0.22em', color: '#6b6b6b' }}>STUDY</p>
+                </div>
+                <h3 className="font-serif text-[#0a0a0a]"
+                  style={{ fontSize: 'clamp(22px, 2.2vw, 32px)', fontWeight: 400, lineHeight: 1.25, marginTop: 16 }}>
+                  In a study, users reported positive effects on energy, mood, and mental performance.
+                </h3>
               </div>
-              <h3 className="font-serif text-[#0a0a0a]"
-                style={{ fontSize: 'clamp(22px, 2.2vw, 32px)', fontWeight: 400, lineHeight: 1.25, marginTop: 16 }}>
-                In a study, users reported positive effects on energy, mood, and mental performance.
-              </h3>
+              <p className="font-display"
+                style={{ fontSize: 12, fontWeight: 400, color: '#9a9a96', lineHeight: 1.6, maxWidth: '44ch', marginTop: 48 }}>
+                <sup>a</sup>In an ongoing observational study based on customer feedback from verified purchases over 3 months of use. Results updated regularly. <sup>b</sup>Repurchase rate calculated from customer base excluding orders within 30 days. Bacillus coagulans, FOS, and GOS contribute to normal gut flora balance and digestive comfort.
+              </p>
             </div>
 
             <div className="lg:col-span-7 lg:col-start-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { src: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=750&fit=crop', stat: '86%', caption: 'of participants reported improved digestion' },
-                { src: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&h=750&fit=crop',     stat: '78%', caption: 'of dogs showed visible coat improvements after 6 weeks' },
+                { src: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=800&fit=crop', stat: '86%', caption: 'of participants reported improved digestion following 8 weeks of daily supplementation.ᵃ' },
+                { src: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&h=800&fit=crop',     stat: '78%', caption: 'of dogs showed visible coat and energy improvements after 6 weeks of consistent use.ᵇ' },
               ].map(s => (
                 <div key={s.stat} className="relative overflow-hidden"
-                  style={{ aspectRatio: '4 / 6', background: '#0a0a0a', borderRadius: 16 }}>
+                  style={{ aspectRatio: '3 / 4', background: '#0a0a0a', borderRadius: 16 }}>
                   <img src={s.src} alt="" className="absolute inset-0 w-full h-full object-cover"
                     onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/assets/jar-front.jpg' }} />
-                  <div className="absolute inset-0"
-                    style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%)' }} />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center"
-                    style={{ padding: 24 }}>
-                    <p className="font-serif"
-                      style={{ fontSize: 'clamp(56px, 7vw, 96px)', fontWeight: 400, color: '#ffffff', lineHeight: 1 }}>
+                  <div aria-hidden="true"
+                    style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '65%', background: 'linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0) 100%)', zIndex: 1, pointerEvents: 'none' }} />
+                  <div style={{ position: 'absolute', bottom: 'clamp(24px, 3vw, 36px)', left: 'clamp(24px, 3vw, 36px)', right: 'clamp(24px, 3vw, 36px)', zIndex: 2, textAlign: 'left' }}>
+                    <span className="font-serif"
+                      style={{ display: 'block', fontSize: 'clamp(64px, 8vw, 108px)', fontWeight: 400, color: '#ffffff', lineHeight: 0.9 }}>
                       {s.stat}
-                    </p>
+                    </span>
                     <p className="font-display"
-                      style={{ fontSize: 12, color: '#ffffff', maxWidth: 220, marginTop: 12, lineHeight: 1.5 }}>
+                      style={{ fontSize: 13, fontWeight: 400, color: 'rgba(255,255,255,0.85)', lineHeight: 1.5, maxWidth: '26ch', marginTop: 10 }}>
                       {s.caption}
                     </p>
                   </div>
