@@ -17,7 +17,7 @@ export default function Hero() {
       }}
     >
       <img
-        src="/assets/hero-product.png?v=2"
+        src="/assets/oscar-homepage.png"
         alt="Oscar Pets — Malaysia's 1st premium chewables"
         style={{
           width: '100%',
