@@ -8,6 +8,9 @@ import ProductPage from './pages/ProductPage'
 import CheckoutPage from './pages/CheckoutPage'
 import AboutPage from './pages/AboutPage'
 import SciencePage from './pages/SciencePage'
+import StyleguideHub from './pages/StyleguideHub'
+import StyleguideCurrent from './pages/StyleguideCurrent'
+import StyleguideNew from './pages/StyleguideNew'
 
 export default function App() {
   const location = useLocation()
@@ -22,6 +25,11 @@ export default function App() {
           <Route path="/checkout"    element={<PageTransition><CheckoutPage /></PageTransition>} />
           <Route path="/about"       element={<PageTransition><AboutPage /></PageTransition>} />
           <Route path="/science"     element={<PageTransition><SciencePage /></PageTransition>} />
+
+          {/* Styleguide — design system comparison (current vs proposed) */}
+          <Route path="/styleguide"         element={<PageTransition><StyleguideHub /></PageTransition>} />
+          <Route path="/styleguide/current" element={<PageTransition><StyleguideCurrent /></PageTransition>} />
+          <Route path="/styleguide/new"     element={<PageTransition><StyleguideNew /></PageTransition>} />
 
           {/* Redirects (legacy routes → /product) */}
           <Route path="/shop"                 element={<Navigate to="/product" replace />} />
