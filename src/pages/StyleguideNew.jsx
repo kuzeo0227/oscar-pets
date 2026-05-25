@@ -57,10 +57,39 @@ function Swatch({ name, hex, border }) {
 }
 
 function Btn({ children, variant = 'primary', arrow }) {
-  const base = { fontFamily: T.mono, fontSize: 13, fontWeight: 400, letterSpacing: '0.05em', textTransform: 'uppercase', borderRadius: 8, padding: '0 24px', height: 44, display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }
-  if (variant === 'primary') return <button style={{ ...base, background: T.ink, color: T.white, border: 0 }}>{children}{arrow && <span style={{ color: T.blue, fontWeight: 700 }}>→</span>}</button>
-  if (variant === 'secondary') return <button style={{ ...base, background: 'transparent', color: T.ink, border: `1px solid ${T.ink}` }}>{children}{arrow && <span style={{ color: T.blue, fontWeight: 700 }}>→</span>}</button>
-  return <span style={{ ...base, padding: 0, height: 'auto', background: 'transparent', color: T.ink, borderBottom: `1px solid ${T.ink}`, paddingBottom: 2 }}>{children}{arrow && <span style={{ color: T.blue, fontWeight: 700 }}>→</span>}</span>
+  const base = {
+    fontFamily: T.mono, fontSize: 13, fontWeight: 400, letterSpacing: '0.05em',
+    textTransform: 'uppercase', borderRadius: 8, padding: '0 28px', height: 44,
+    display: 'inline-flex', alignItems: 'center', gap: 10, cursor: 'pointer',
+    transition: 'background 180ms cubic-bezier(0.22,1,0.36,1), color 180ms cubic-bezier(0.22,1,0.36,1)',
+  }
+
+  // Resting palette per variant
+  const rest = {
+    primary:   { background: T.ink,        color: T.white, border: '1px solid transparent' },
+    secondary: { background: 'transparent', color: T.ink,   border: `1px solid ${T.ink}` },
+    ghost:     { background: 'transparent', color: T.ink,   border: `1px solid ${T.ink}` },
+  }[variant]
+
+  function onEnter(e) {
+    if (variant === 'primary') {
+      e.currentTarget.style.background = '#2a2a2a'      // black lifts slightly
+    } else {
+      e.currentTarget.style.background = T.ink          // white/outlined → fills black
+      e.currentTarget.style.color = T.white
+    }
+  }
+  function onLeave(e) {
+    e.currentTarget.style.background = rest.background
+    e.currentTarget.style.color = rest.color
+  }
+
+  return (
+    <button style={{ ...base, ...rest }} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+      {children}
+      {arrow && <span style={{ color: T.blue, fontWeight: 700 }}>→</span>}
+    </button>
+  )
 }
 
 export default function StyleguideNew() {
@@ -124,7 +153,7 @@ export default function StyleguideNew() {
             <Btn variant="ghost" arrow>Study more</Btn>
           </div>
           <p style={{ fontFamily: T.sans, fontSize: 16, color: T.inkMuted, lineHeight: 1.65, letterSpacing: '-0.025em', marginTop: 24, maxWidth: '64ch' }}>
-            8px radius. Space Mono uppercase with tight 0.05em tracking. Arrows are blue and shift +4px on hover. Ghost link underline slides in from the left.
+            8px radius. Space Mono uppercase with tight 0.05em tracking. Arrows stay blue. On hover, outlined buttons fill solid ink (text inverts white); the solid button lifts to #2a2a2a.
           </p>
         </Block>
 

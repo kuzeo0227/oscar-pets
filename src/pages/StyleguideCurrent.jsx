@@ -109,8 +109,16 @@ export default function StyleguideCurrent() {
         {/* BUTTONS */}
         <Block n="03" title="Buttons & links">
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
-            <button style={{ fontFamily: T.mono, fontSize: 12, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', background: T.ink, color: T.paper, border: 0, borderRadius: 0, padding: '16px 32px', cursor: 'pointer' }}>Buy now</button>
-            <button style={{ fontFamily: T.mono, fontSize: 12, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', background: 'transparent', color: T.ink, border: `1px solid ${T.ink}`, borderRadius: 0, padding: '16px 32px', cursor: 'pointer' }}>Add to cart</button>
+            <button
+              style={{ fontFamily: T.mono, fontSize: 12, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', background: T.ink, color: T.paper, border: '1px solid transparent', borderRadius: 0, padding: '16px 32px', cursor: 'pointer', transition: 'background 180ms cubic-bezier(0.22,1,0.36,1)' }}
+              onMouseEnter={e => (e.currentTarget.style.background = T.goDeep)}
+              onMouseLeave={e => (e.currentTarget.style.background = T.ink)}
+            >Buy now</button>
+            <button
+              style={{ fontFamily: T.mono, fontSize: 12, fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', background: 'transparent', color: T.ink, border: `1px solid ${T.ink}`, borderRadius: 0, padding: '16px 32px', cursor: 'pointer', transition: 'background 180ms cubic-bezier(0.22,1,0.36,1), color 180ms cubic-bezier(0.22,1,0.36,1)' }}
+              onMouseEnter={e => { e.currentTarget.style.background = T.ink; e.currentTarget.style.color = T.paper }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = T.ink }}
+            >Add to cart</button>
             <span style={{ fontFamily: T.mono, fontSize: 11, fontWeight: 400, letterSpacing: '0.22em', textTransform: 'uppercase', color: T.ink, borderBottom: `1px solid ${T.ink}`, paddingBottom: 2, cursor: 'pointer' }}>Study more →</span>
           </div>
           <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.7, marginTop: 24, maxWidth: '60ch' }}>
