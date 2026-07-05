@@ -236,4 +236,16 @@
   }
 
   window.Pages['/script-generator'] = render;
+
+  // Shared with Past Scripts (read-only brief view).
+  window.Hub.scriptBriefSections = (script) => [
+    briefSection('Hook', script.hook, notesBlock(script, 'hook')),
+    briefSection('Insight', script.insight, notesBlock(script, 'insight')),
+    briefSection('CTA', script.cta, notesBlock(script, 'cta')),
+    `<section class="brief-section"><span class="eyebrow">Caption</span>
+       <p class="brief-text">${escapeHtml(script.caption)}</p></section>`,
+    `<section class="brief-section"><span class="eyebrow">Hashtags</span>
+       <div class="hashtag-row">${script.hashtags.map((h) => `<span class="chip">${escapeHtml(h)}</span>`).join('')}</div></section>`,
+  ].join('');
+  window.Hub.downloadDocx = downloadDocx;
 })();
