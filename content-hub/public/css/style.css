@@ -548,6 +548,100 @@ select.input { appearance: none; cursor: pointer; }
 
 input[type="date"].input { color-scheme: dark; }
 
+/* ---------------- Script Generator ---------------- */
+
+.generator-input { padding: 18px; margin-bottom: 14px; }
+
+.generator-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+}
+
+.generating-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  background: var(--surface-elevated);
+}
+.generating-card .btn { margin-left: auto; }
+
+.generating-title { font-size: 13px; font-weight: 500; }
+
+.generating-sub {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.brief { padding: 24px; }
+
+.brief-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: var(--hairline) solid var(--border);
+}
+
+.brief-topic { font-size: 18px; font-weight: 600; margin-top: 6px; line-height: 1.35; }
+
+.brief-meta { display: flex; align-items: center; gap: 10px; }
+
+.brief-date { font-size: 10px; letter-spacing: 0.08em; color: var(--text-muted); }
+
+.brief-section {
+  padding: 18px 0;
+  border-bottom: var(--hairline) solid var(--border);
+}
+.brief-section:last-of-type { border-bottom: none; }
+
+.brief-text { font-size: 13.5px; color: var(--text); margin-top: 8px; max-width: 720px; }
+
+.note-blocks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+  max-width: 720px;
+}
+
+.note-block {
+  background: var(--bg);
+  border: var(--hairline) solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.note-label {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.note-list {
+  margin-top: 8px;
+  padding-left: 16px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.note-list li { margin-bottom: 4px; }
+.note-list li::marker { color: var(--text-muted); }
+
+.hashtag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+.brief-actions {
+  display: flex;
+  gap: 10px;
+  padding-top: 20px;
+}
+
 /* ---------------- Toast ---------------- */
 
 .toast {
