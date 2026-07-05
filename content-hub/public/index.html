@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oscar Pets Lab — Content Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-brand">
+      <span class="brand-name">Oscar Pets Lab</span>
+      <span class="brand-chip">CONTENT HUB</span>
+    </div>
+    <div class="topbar-week mono" id="topbar-week"></div>
+    <div class="topbar-agents" id="topbar-agents">
+      <span class="agent-indicator"><span class="dot dot-muted" id="claude-dot"></span><span class="mono">CLAUDE</span><span class="mono agent-state" id="claude-state">IDLE</span></span>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-label mono">Content</div>
+        <a class="nav-item" href="#/weekly-plan" data-route="/weekly-plan">
+          <span>Weekly Plan</span><span class="badge mono" id="badge-week"></span>
+        </a>
+        <a class="nav-item" href="#/script-generator" data-route="/script-generator"><span>Script Generator</span></a>
+        <a class="nav-item" href="#/schedule" data-route="/schedule"><span>Schedule</span></a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label mono">Research</div>
+        <a class="nav-item" href="#/link-inbox" data-route="/link-inbox">
+          <span>Link Inbox</span><span class="badge mono" id="badge-inbox" hidden></span>
+        </a>
+        <a class="nav-item" href="#/idea-sources" data-route="/idea-sources"><span>Idea Sources</span></a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label mono">AI</div>
+        <a class="nav-item" href="#/ai-activity" data-route="/ai-activity">
+          <span>AI Activity</span><span class="badge mono" id="badge-tasks" hidden></span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label mono">Archive</div>
+        <a class="nav-item" href="#/past-scripts" data-route="/past-scripts"><span>Past Scripts</span></a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn btn-primary btn-block" id="assign-task-btn">Assign AI Task</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="content" id="content"></div>
+  </main>
+
+  <!-- Assign AI Task modal -->
+  <div class="modal-overlay" id="assign-task-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="assign-task-title">
+      <div class="modal-header">
+        <h2 class="modal-title" id="assign-task-title">Assign AI Task</h2>
+        <button class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label class="field-label mono" for="task-description">Task description</label>
+        <textarea class="input textarea" id="task-description" rows="4"
+          placeholder="e.g. Process the Link Inbox and generate 4 ideas for next week"></textarea>
+        <p class="field-hint">Tasks are picked up by Claude Code, which writes results back into content.json.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal>Cancel</button>
+        <button class="btn btn-primary" id="assign-task-submit">Create Task</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast mono" id="toast" hidden></div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
