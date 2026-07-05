@@ -401,6 +401,153 @@ select.input { appearance: none; cursor: pointer; }
   padding: 0 20px 18px;
 }
 
+/* ---------------- Tabs ---------------- */
+
+.tabs { display: flex; gap: 22px; }
+
+.tab {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding-bottom: 6px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s var(--ease);
+}
+.tab:hover { color: var(--text-secondary); }
+.tab.active { color: var(--text); border-bottom-color: #FFFFFF; }
+.tab:focus-visible { outline: var(--hairline) solid #FFFFFF; outline-offset: 2px; }
+
+.page-actions { display: flex; gap: 10px; }
+
+/* ---------------- Stats row ---------------- */
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.stat-card { padding: 16px 18px; }
+
+.stat-value { font-size: 26px; font-weight: 500; line-height: 1.1; }
+
+.stat-label {
+  font-size: 9.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* ---------------- Week navigation ---------------- */
+
+.week-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.week-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  min-width: 220px;
+  text-align: center;
+}
+
+.week-chevron {
+  background: transparent;
+  border: var(--hairline) solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  width: 30px; height: 30px;
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s var(--ease), color 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+.week-chevron:hover { background: #FFFFFF; color: #000000; border-color: #FFFFFF; }
+.week-chevron:focus-visible { outline: var(--hairline) solid #FFFFFF; outline-offset: 2px; }
+.week-chevron:active { transform: translateY(1px); }
+
+/* ---------------- Idea cards ---------------- */
+
+.idea-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+.idea-card {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: opacity 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+/* Approved: subtle white left border. */
+.idea-card.approved { border-left: 2px solid #FFFFFF; }
+
+/* Rejected: fade, sorted to bottom by the renderer. */
+.idea-card.rejected { opacity: 0.4; }
+.idea-card.rejected:hover { opacity: 0.75; }
+
+.idea-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.idea-status-chip { color: var(--text-muted); }
+
+.idea-title { font-size: 15px; font-weight: 600; line-height: 1.35; }
+
+.idea-angle { font-size: 12.5px; color: var(--text-secondary); }
+
+.idea-meta {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.idea-hook {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--text-muted);
+  border-left: var(--hairline) solid var(--border);
+  padding-left: 10px;
+}
+
+.idea-links { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.chip-link { transition: border-color 0.15s var(--ease), color 0.15s var(--ease); }
+.chip-link:hover { border-color: #FFFFFF; color: #FFFFFF; }
+.chip-link:focus-visible { outline: var(--hairline) solid #FFFFFF; outline-offset: 1px; }
+.chip-ext { font-size: 9px; }
+
+.idea-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.btn[disabled] { opacity: 0.35; pointer-events: none; }
+
+/* ---------------- Form grid (modals) ---------------- */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.optional { color: var(--text-muted); text-transform: none; letter-spacing: 0; }
+
+input[type="date"].input { color-scheme: dark; }
+
 /* ---------------- Toast ---------------- */
 
 .toast {
